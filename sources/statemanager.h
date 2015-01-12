@@ -7,6 +7,7 @@ class StateManager
 {
 public:
 	StateManager();
+
 }
 
 #endif // __STATEMANAGER_H_INCLUDED__
