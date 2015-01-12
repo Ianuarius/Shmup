@@ -1,7 +1,6 @@
 #ifndef __LTIMER_H_INCLUDED__
 #define __LTIMER_H_INCLUDED__
 
-#include "sdl.h"
 
 class Timer
 {
@@ -32,6 +31,6 @@ private:
 	// The timer status
 	bool mPaused;
 	bool mStarted;
-}
+};
 
 #endif // __LTIMER_H_INCLUDED__

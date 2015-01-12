@@ -4,7 +4,7 @@ bool SDL::init()
 {
 	bool success = true;
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0 
+	if (SDL_Init(SDL_INIT_VIDEO) < 0 )
 	{
 		printf ("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		success = false;

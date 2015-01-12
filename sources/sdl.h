@@ -15,6 +15,6 @@ namespace SDL
 
 	// Destroys SDL2, must be called when program closes
 	void exit();
-}
+};
 
 #endif // __SDL_H_INCLUDED__

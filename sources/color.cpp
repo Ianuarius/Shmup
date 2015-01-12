@@ -119,8 +119,3 @@ void Color::invert(bool R, bool G, bool B)
 	if (G) this->green = (255 - this->green);
 	if (B) this->blue  = (255 - this->blue);
 }
-
-SDL_Color Color::getSDLColor() {
-	SDL_Color color = {this->r, this->g, this->b};
-	return color;
-}
