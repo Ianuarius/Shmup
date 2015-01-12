@@ -1,0 +1,5 @@
+<stdio>
+
+int main() {
+
+}
