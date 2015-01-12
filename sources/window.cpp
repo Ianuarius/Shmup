@@ -16,8 +16,9 @@ Window::Window(int width, int height, std::string title):
 	//Tallennetaan se ikkuna-muuttujaan
 	resize(width, height, title);
 
+	NOTE(juha): Kannattaisiko onnistuneet tarkistukset laittaa iffeihin ja errorloggaukset elseihin?
 	if (!this->window || !this->renderer) {
-		printf("Ei pysty, ikkunaa tai renderˆij‰‰ ei nyt voi luoda!");
+		printf("Ei pysty, ikkunaa tai render√∂ij√§√§ ei nyt voi luoda!");
 	}
 
 	frameTicks.start();
@@ -47,7 +48,7 @@ void Window::resize(int width, int height, std:.string title) {
 	SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
 
 	if (!window || !renderer) {
-		printf("Ei pysty, ikkunaa tai renderˆij‰‰ ei nyt voi luoda, stna!");
+		printf("Ei pysty, ikkunaa tai render√∂ij√§√§ ei nyt voi luoda, stna!");
 		return;
 	}
 
