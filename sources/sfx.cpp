@@ -1,5 +1,5 @@
-#include "SFX.hpp"
-#include "Log.hpp"
+#include "SFX.h"
+#include "SDL_mixer.h"
 
 std::vector<SFX*> SFX::all;
 
@@ -13,13 +13,10 @@ SFX::SFX(std::string filepath):
 	this->sfx = Mix_LoadWAV(this->filepath.c_str());
 	if (!this->sfx)
 	{
-		Log::error("Mix_LoadWAV: Couldn't load SFX on '" +
-		           this->filepath +
-		           "':" +
-		           Mix_GetError());
+		printf("Mix_LoadWAV: Couldn't load SFX");
 	}
 	else
-		Log::debug("SFX::load '" + this->filepath + "'");
+		("SFX::load '" + this->filepath + "'");
 }
 SFX::~SFX()
 {
@@ -42,10 +39,7 @@ bool SFX::play(int times)
 	int chan = Mix_PlayChannel(-1, this->sfx, times);
 	if (chan == -1)
 	{
-		Log::error("Mix_PlayChannel: Couldn't play SFX on '" +
-		           this->filepath +
-		           "':" +
-		           Mix_GetError());
+		printf("Mix_PlayChannel: Couldn't play SFX");
 		return false;
 	}
 	this->channel = chan;

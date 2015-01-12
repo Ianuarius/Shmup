@@ -2,7 +2,7 @@
 #define SFX_H_DEFINED
 
 #include <vector>
-#include "SDL.hpp"
+#include "SDL.h"
 
 /// Sound effects for the win!
 ///
