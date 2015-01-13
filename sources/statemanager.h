@@ -15,7 +15,7 @@ private:
 	Window *window;
 	State *currentState;
 
-	//TODO(juha): jos halutaan siirt‰‰ tietoja statejen v‰lill‰, niin siihen jotain (esim. pausesta paluu).
+	// TODO(juha): jos halutaan siirt√§√§ tietoja statejen v√§lill√§, niin siihen jotain (esim. pausesta paluu).
 };
 
 #endif // __STATEMANAGER_H_INCLUDED__
