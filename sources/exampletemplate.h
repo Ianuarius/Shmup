@@ -1,22 +1,25 @@
 /**
+ * NOTE(juha): T√§m√§ tulevaisuudessa
+ * Tiedostojen nimet isolla alkukirjaimella.
+ * 
  * <tiedoston_nimi>.h
  * 
- * Lyhyt kuvaus luokasta. Mit‰ sill‰ tehd‰‰n? 1-2 lausetta riitt‰nee.
- * T‰ss‰ tiedostossa esitell‰‰n projetkin ohjelmointik‰yt‰ntˆ.
- * Pyrit‰‰n pit‰m‰‰n rivien pituus max 80 merkiss‰!
+ * Lyhyt kuvaus luokasta. Mit√§ sill√§ tehd√§√§n? 1-2 lausetta riitt√§nee.
+ * T√§ss√§ tiedostossa esitell√§√§n projetkin ohjelmointik√§yt√§nt√∂.
+ * Pyrit√§√§n pit√§m√§√§n rivien pituus max 80 merkiss√§!
  * 
  * Esimerkki:
  *		Esimerkki esimerkki = new Esimerkki("argumentti");
  *		esimerkki->metodi();
  *		...
- * Muutama esimerkki tavallisesta k‰ytˆst‰.
+ * Muutama esimerkki tavallisesta k√§yt√∂st√§.
  * 
  * TODO(<oma_nimi>)
  *		- Lista..
  *			Puutteista
  *			Bugeista
  * Listan tulee olla HEADER tiedostossa, jotta nopealla vilkaisulla saadaan
- * k‰sitys mit‰ tulee viel‰ tehd‰. 
+ * k√§sitys mit√§ tulee viel√§ tehd√§. 
  */
 
 // Header guardit
@@ -37,13 +40,13 @@ class Esimerkki {
 	public:
 		/* 
 		Ennen metodeja ja muuttujia kerrotaan hyvin lyhyesti mihin funktiota 
-		k‰ytet‰‰n.
+		k√§ytet√§√§n.
 
-		Luokan esittelyss‰ esitell‰‰n ensin funktiot ja sitten muuttujat.
+		Luokan esittelyss√§ esitell√§√§n ensin funktiot ja sitten muuttujat.
 
-		Nime‰misk‰yt‰ntˆ;
+		Nime√§misk√§yt√§nt√∂;
 			* Funktioiden nimet camelCasella
-			* muuttujan_nimi on pienell‰ ja sanat erotetaan alaviivalla 
+			* muuttujan_nimi on pienell√§ ja sanat erotetaan alaviivalla 
 		*/
 
 		// Konstruktori. Alustaa luokan.
@@ -52,11 +55,11 @@ class Esimerkki {
 		// Esimerkki toisesta metodista.
 		void metodi();
 
-		// Muuttuja. T‰m‰ on esimerkki.
+		// Muuttuja. T√§m√§ on esimerkki.
 		int public_muuttuja;
 
 	private:
-		// Tekee sit‰ sun t‰t‰, enemm‰n sit‰.
+		// Tekee sit√§ sun t√§t√§, enemm√§n sit√§.
 		void privateMetodi();
 
 		// Private muuttuja.
@@ -64,5 +67,5 @@ class Esimerkki {
 
 }; // <-- Muista ; !!!
 
-// Suljetaan header guardit, huomaa kommentti #endif j‰lkeen
+// Suljetaan header guardit, huomaa kommentti #endif j√§lkeen
 #endif // __<luokka>_H_DEFINED__
