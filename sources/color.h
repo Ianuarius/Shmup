@@ -1,3 +1,11 @@
+/**
+ * Color.h
+ *
+ * TODO(jouni):
+ *   - Kommentit muun ohjelmointikäytännön mukaiseksi
+ *   - TESTAUS!!!
+ */
+
 #ifndef COLOR_H_DEFINED
 #define COLOR_H_DEFINED
 
