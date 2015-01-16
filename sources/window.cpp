@@ -16,73 +16,99 @@ Window::Window(int width, int height, std::string title):
 	//Tallennetaan se ikkuna-muuttujaan
 	resize(width, height, title);
 
-	NOTE(juha): Kannattaisiko onnistuneet tarkistukset laittaa iffeihin ja errorloggaukset elseihin?
-	if (!this->window || !this->renderer) {
+	if (!this->window || !this->renderer)
+	{
 		printf("Ei pysty, ikkunaa tai renderöijää ei nyt voi luoda!");
 	}
-
+	/*
 	frameTicks.start();
 	framerateTimer.start();
-
+	*/
 	clear();
 	refresh();
 
 	SDL_Delay(10);
 }
 
-Window::~Window() {
-	if (renderer) {
+Window::~Window()
+{
+	if(renderer)
+	{
 		SDL_DestroyRenderer(renderer);
 		renderer = nullptr;
 	}
 
-	if (window) {
+	if(window)
+	{
 		SDL_DestroyWindow(window);
 		window = nullptr;
 	}
 }
 
-void Window::resize(int width, int height, std:.string title) {
+void Window::destroy()
+{
+	if (this->renderer)
+	{
+		SDL_DestroyRenderer(this->renderer);
+		this->renderer = nullptr;
+	}
+
+	if (this->window)
+	{
+		SDL_DestroyWindow(this->window);
+		this->window = nullptr;
+	}
+}
+
+void Window::resize(int width, int height, std::string title)
+{
 	destroy();
 
 	SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
 
-	if (!window || !renderer) {
+	if(!window || !renderer) {
 		printf("Ei pysty, ikkunaa tai renderöijää ei nyt voi luoda, stna!");
 		return;
 	}
 
 	//Nearest neighbour rendering
-	SDL_SetHInt(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(this->renderer, 256, 240);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	SDL_RenderSetLogicalSize(renderer, 256, 240);
 
 	surface = SDL_GetWindowSurface(window);
 
-	if(!surface) {
+	if(!surface)
+	{
 		printf("Surfacea ei saatu!");
 		return;
 	}
 
 	//Aseta nimi
-	setTitle(title);
+	// setTitle(title);
 
 	this->width = width;
 	this->height = height;
 }
 
-int Window::getWidth() {
+int Window::getWidth()
+{
 	return width;
 }
 
-int Window::getHeight() {
+int Window::getHeight()
+{
 	return height;
 }
 
-void Window::setTitle(std::string title) {
-	if (window) {
+/*
+void Window::setTitle(std::string title)
+{
+	if(window)
+	{
 		SDL_SetWindowTitle(this->window, title.c_str());
 	}
 }
+*/
 
 void Window::refresh()
 {
@@ -90,82 +116,100 @@ void Window::refresh()
 	++frameCount;
 }
 
-void Window::clear() {
+void Window::clear()
+{
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(renderer);
 }
 
-bool Window::toggleFullscreen() {
+bool Window::toggleFullscreen()
+{
 	// WIP
 	return true;
 }
-
-int Window::getFramerate() {
+/* 
+int Window::getFramerate()
+{
 	int framerate = frameCount / (framerateTimer.getTicks() / 1000);
 
-	if (framerate > 2000000) {
+	if(framerate > 2000000)
+	{
 		return 0;
 	}
 
 	return framerate;
 }
 
-void Window::capFramerate(Uint32 framerate) {
+void Window::capFramerate(Uint32 framerate)
+{
 	Uint32 ticks = frameTicks.getTicks();
 
-	if (ticks < (1000 / framerate)) {
+	if(ticks < (1000 / framerate))
+	{
 		SDL_Delay((1000 / framerate) - ticks);
 	}
 
 	frameTicks.start();
 }
 
-int Window::getDelta() {
+int Window::getDelta()
+{
 	return frameTicks.getTicks();
 }
-
-void Window::drawRect(int X, int Y, int W, int H, Color color) {
+*/
+void Window::drawRect(int X, int Y, int W, int H, Color color)
+{
 	SDL_Rect fillRect = { X, Y, W, H };
 	SDL_SetRenderDrawColor(renderer, color.r(), color.g(), color.b(), color.a());
 	SDL_RenderFillRect(renderer, &fillRect );
 }
 
-Texture* Window::loadTexture(std::string path) {
-	//sourceTexture->setRenderer(renderer);
-	//sourceTexture->loadFromFile(path);
-	
-	// The final texture
-	SDL_Texture *newTexture = NULL;
-	Texture *finalTexture = NULL;
+SDL_Texture *Window::loadFromFile(std::string path)
+{
+	SDL_Texture *texture = IMG_LoadTexture(this->renderer, path.c_str());
 
-	// Load image at specified path
-	SDL_Surface *loadedSurface = IMG_Load(path.c_str());
+    if(!texture)
+    {
+	    // loggausta
+    }
+    return texture;
 
-	if (!loadedSurface) {
-		printf("Unable to load image %s! SDL_image error: %s\n", path.c_str(), IMG_GetError());
-	} else {
-		// Color key image
-		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0, 0xFF));
-
-		// Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-
-		if (!newTexture) {
-			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		} else {
-			finalTexture->mWidth = loadedSurface->w;
-			finalTexture->mHeight = loadedSurface->h;
-		}
-
-		SDL_FreeSurface(loadedSurface);
+	/*if(!loadedSurface)
+	{
+		return false;
 	}
 
-	finalTexture->mTexture = newTexture;
+	SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0, 0xFF));
 
-	return finalTexture;
+	newTexture = SDL_CreateTextureFromSurface()*/
 }
 
-void Window::render(Texture *sourceTexture, SDL_Rect *destRect, int x, int y) {
-	sourceTexture->setRenderer(renderer);
-	sourceTexture->render(x, y, destRect, 0, NULL, SDL_FLIP_NONE);
+void Window::renderImage(SDL_Texture *sourceTexture, SDL_Rect *sourceRect, SDL_Rect *destRect, int x, int y)
+{
+	if (!sourceTexture || !sourceRect || !destRect)
+	{
+		// Ei pysty!
+		return;
+	}
+
+	SDL_Rect sdl_source =
+	{
+		(int)sourceRect->x,
+		(int)sourceRect->y,
+		sourceRect->w,
+		sourceRect->h
+	};
+
+	SDL_Rect sdl_destination =
+	{
+		(int)destRect->x,
+		(int)destRect->y,
+		destRect->w,
+		destRect->h
+	};
+
+    SDL_RenderCopy(this->renderer,
+                   sourceTexture,
+                   &sdl_source,
+                   &sdl_destination);
 }

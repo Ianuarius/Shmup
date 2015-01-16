@@ -5,40 +5,33 @@
 #include "SDL.h"
 #include "Timer.h"
 #include "Color.h"
-#include "Texture.h"
 
 class Window {
 	public:
 		Window (int width, int height, std::string title="");
 
 		virtual ~Window();
-
-		//Tuhoaa ikkunan ja sen sisällön
 		void destroy();
 
 		//Tuhoaa ohjelman ikkunan ja luo sen uudelleen uusilla ominaisuuksilla (leveys, korkeus, nimi)
 		void resize(int width, int height, std::string title="");
 
-		//Palauttaa leveyden
 		int getWidth();
-
-		//Palauttaa korkeuden
 		int getHeight();
-
-		//Päivittää ruudun
 		void refresh();
 
 		//Tyhjentää ikkunan, jättäen taustavärin
 		void clear();
-
-		//Aktivoi kokoruutu-moodin
-		bool toggleFullScreen();
-
-		//Laittaa ikkunalle titlen
+		
+		bool toggleFullscreen();
+		/*
 		void setTitle(std::string title);
-
-		//Palauttaa frameraten keskimäärän
 		int getFramerate();
+		*/
+		SDL_Texture *loadFromFile(std::string path);
+		void freeImage(SDL_Texture* image);
+		void freeImage(SDL_Surface* image);
+		void renderImage(SDL_Texture *texture, SDL_Rect *source, SDL_Rect *destination, int X, int Y);
 
 		//Asettaa frameratelle rajan
 		void capFramerate(Uint32 framerate);
@@ -46,30 +39,21 @@ class Window {
 		//Palauttaa montako millisekuntia on kulunut edellisestä ja nykyisestä framesta
 		int getDelta();
 
-		//SDL:n sisäinen datarakenne joka edustaa ikkunaa
 		SDL_Window* window;
-
-		SDL_Renderer* renderer:
-
+		SDL_Renderer* renderer;
 		SDL_Surface* surface;
 
-		bool isFullscreen:
+		bool isFullscreen;
 
 		//Piirtää tilapäisgrafiikaksi palikan
-		void drawRect(int X, int Y, intW, int H, Color color);
-
-		//Lataa tekstuurin tiedostosta
-		Texture *loadTexture(std::string path);
-
-		//Tekstuurin renderöinti
-		void render(Texture *sourceTexture, SDL_Rect *destRect, int X, int Y);
+		void drawRect(int X, int Y, int W, int H, Color color);
 
 	private:
 		//Ikkunan nimi
 		std::string title;
 
 		//Frameraten timeri
-		Timer framerateTimer, frameTicks;
+		// Timer framerateTimer, frameTicks;
 
 		//Framerateen liittyvät muuttujat
 		int framerateCap, frameCount;

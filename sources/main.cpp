@@ -5,10 +5,10 @@
 int main(int argc,  char* argv[])
 {
 	SDL::init();
-	Window window;
-	StateManager stateManager(&window);
+	Window window(640, 480, "Escape From Earth");
+	// StateManager stateManager(&window);
 
-	stateManager.run();
+	// stateManager.run();
 
 	SDL::exit();
 	return 0;
