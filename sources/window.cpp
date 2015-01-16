@@ -184,7 +184,7 @@ SDL_Texture *Window::loadFromFile(std::string path)
 	newTexture = SDL_CreateTextureFromSurface()*/
 }
 
-void Window::renderImage(SDL_Texture *sourceTexture, SDL_Rect *sourceRect, SDL_Rect *destRect, int x, int y)
+void Window::renderImage(SDL_Texture *sourceTexture, SDL_Rect *sourceRect, SDL_Rect *destRect)
 {
 	if (!sourceTexture || !sourceRect || !destRect)
 	{

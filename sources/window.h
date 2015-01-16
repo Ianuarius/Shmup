@@ -31,7 +31,7 @@ class Window {
 		SDL_Texture *loadFromFile(std::string path);
 		void freeImage(SDL_Texture* image);
 		void freeImage(SDL_Surface* image);
-		void renderImage(SDL_Texture *texture, SDL_Rect *source, SDL_Rect *destination, int X, int Y);
+		void renderImage(SDL_Texture *texture, SDL_Rect *source, SDL_Rect *destination);
 
 		//Asettaa frameratelle rajan
 		void capFramerate(Uint32 framerate);
