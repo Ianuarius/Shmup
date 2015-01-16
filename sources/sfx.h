@@ -1,3 +1,11 @@
+/**
+ * SFX.h
+ *
+ * TODO(jouni):
+ *   - Kommentit ym. ohjelmointikäytännön mukaisesti
+ *   - TESTAUS
+ */
+
 #ifndef SFX_H_DEFINED
 #define SFX_H_DEFINED
 

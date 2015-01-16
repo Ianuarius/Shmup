@@ -1,3 +1,12 @@
+/**
+ * Music.h
+ * 
+ * TODO(jouni):
+ *   - Kommentit muun ohjelmointikäytnnön mukaisiksi
+ *   - TESTAUS
+ *
+ */
+
 #ifndef MUSIC_H_DEFINED
 #define MUSIC_H_DEFINED
 
