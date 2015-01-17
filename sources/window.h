@@ -14,7 +14,7 @@ class Window {
 		void destroy();
 
 		//Tuhoaa ohjelman ikkunan ja luo sen uudelleen uusilla ominaisuuksilla (leveys, korkeus, nimi)
-		void resize(int width, int height, std::string title="");
+		void resize(int width, int height, std::string title="", bool fullscreen);
 
 		int getWidth();
 		int getHeight();

@@ -14,7 +14,8 @@ Window::Window(int width, int height, std::string title):
 {
 	//Resizen ekalla kerralla kutsu luo ikkunan
 	//Tallennetaan se ikkuna-muuttujaan
-	resize(width, height, title);
+	bool fullscreen = true;
+	resize(width, height, title, fullscreen);
 
 	if (!this->window || !this->renderer)
 	{
@@ -45,6 +46,7 @@ Window::~Window()
 	}
 }
 
+// NOTE(juha): Pitää vielä katella, että miksi tämä oli taas tässä.
 void Window::destroy()
 {
 	if (this->renderer)
@@ -60,9 +62,13 @@ void Window::destroy()
 	}
 }
 
-void Window::resize(int width, int height, std::string title)
+void Window::resize(int width, int height, std::string title, bool fullscreen)
 {
+	// NOTE(juha): Tuhotaan ikkuna ennen kuin se luodaan uudestaan
 	destroy();
+	
+	// NOTE(juha): Nearest neighbour renderöinti, eli skaalatut pikselit terävinä
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
 	SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
 
@@ -71,9 +77,15 @@ void Window::resize(int width, int height, std::string title)
 		return;
 	}
 
-	//Nearest neighbour rendering
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, 256, 240);
+	//Initialize PNG loading
+	int imgFlags = IMG_INIT_PNG;
+	if(((IMG_Init(imgFlags) & imgFlags) == NULL))
+	{
+		printf("SDL_image ei lähteny pyöriin! SDL_image Error: %s\n", IMG_GetError());
+	}
+
+	// NOTE(juha): Pelin resoluutio 256x240
+	SDL_RenderSetLogicalSize(renderer, this->width, this->height);
 
 	surface = SDL_GetWindowSurface(window);
 
@@ -127,7 +139,7 @@ bool Window::toggleFullscreen()
 	// WIP
 	return true;
 }
-/* 
+/* NOTE(juha): Kommentoidaan tässä vaiheessa pois, että saadaan renderöinti eka pelittään.
 int Window::getFramerate()
 {
 	int framerate = frameCount / (framerateTimer.getTicks() / 1000);
@@ -166,13 +178,15 @@ void Window::drawRect(int X, int Y, int W, int H, Color color)
 
 SDL_Texture *Window::loadFromFile(std::string path)
 {
-	SDL_Texture *texture = IMG_LoadTexture(this->renderer, path.c_str());
+	SDL_Texture *newTexture = IMG_LoadTexture(this->renderer, path.c_str());
 
-    if(!texture)
+    if(newTexture = NULL)
     {
+		printf("Ei voinu ladata tekstuuria!");
 	    // loggausta
     }
-    return texture;
+
+    return newTexture;
 
 	/*if(!loadedSurface)
 	{
@@ -184,22 +198,14 @@ SDL_Texture *Window::loadFromFile(std::string path)
 	newTexture = SDL_CreateTextureFromSurface()*/
 }
 
-void Window::renderImage(SDL_Texture *sourceTexture, SDL_Rect *sourceRect, SDL_Rect *destRect)
+void Window::renderImage(SDL_Texture *sourceTexture, SDL_Rect *destRect)
 {
-	if (!sourceTexture || !sourceRect || !destRect)
+	if (!sourceTexture || !destRect)
 	{
 		// Ei pysty!
 		return;
 	}
-
-	SDL_Rect sdl_source =
-	{
-		(int)sourceRect->x,
-		(int)sourceRect->y,
-		sourceRect->w,
-		sourceRect->h
-	};
-
+	
 	SDL_Rect sdl_destination =
 	{
 		(int)destRect->x,

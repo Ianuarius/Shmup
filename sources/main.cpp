@@ -4,8 +4,11 @@
 
 int main(int argc,  char* argv[])
 {
+	const int SCREEN_WIDTH = 640;
+	const int SCREEN_HEIGHT = 480;
+
 	SDL::init();
-	Window window(640, 480, "Escape From Earth");
+	Window window(SCREEN_WIDTH, SCREEN_HEIGHT, "Escape From Earth");
 	// StateManager stateManager(&window);
 
 	// stateManager.run();
@@ -18,8 +21,10 @@ int main(int argc,  char* argv[])
 	gameArea->h = window.getHeight();
 
 
-	SDL_Texture *testikuva = window.loadFromFile("..//..//graphics//example_image.png");
-	window.renderImage(testikuva, , gameArea);
+	SDL_Texture *testikuva = window.loadFromFile("..//..//graphics//testpic.png");
+	window.renderImage(testikuva, gameArea);
+	window.clear();
+	window.refresh();
 
 	SDL_Delay(4000);
 	SDL::exit();
