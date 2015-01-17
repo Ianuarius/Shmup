@@ -1,32 +1,19 @@
-#include "statemanager.h"
-#include "window.h"
 #include "sdl.h"
+#include <stdio.h>
+#include <string>
+#include "window.h"
+#include "statemanager.h"
 
-int main(int argc,  char* argv[])
+int main( int argc, char* args[] )
 {
-	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 480;
+	int width = 256;
+	int height = 240;
+	Window window(width, height, "Escape From Earth");
 
-	SDL::init();
-	Window window(SCREEN_WIDTH, SCREEN_HEIGHT, "Escape From Earth");
-	// StateManager stateManager(&window);
+	StateManager manager(&window);
 
-	// stateManager.run();
+	manager.run();
 
-	SDL_Rect *gameArea;
-
-	gameArea->x = 0;
-	gameArea->y = 0;
-	gameArea->w = window.getWidth();
-	gameArea->h = window.getHeight();
-
-
-	SDL_Texture *testikuva = window.loadFromFile("..//..//graphics//testpic.png");
-	window.renderImage(testikuva, gameArea);
-	window.clear();
-	window.refresh();
-
-	SDL_Delay(4000);
 	SDL::exit();
 	return 0;
 }

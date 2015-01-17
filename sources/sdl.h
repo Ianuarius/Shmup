@@ -8,6 +8,9 @@
 
 // High level wrapper for SDL2 calls
 
+// Shuts up the compiler about unused parameters.
+#define UNUSED(x) ((void)(x))
+
 namespace SDL
 {
 	// Initializes SDL2, must be called before everything else

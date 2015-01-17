@@ -9,13 +9,14 @@ class StateManager
 {
 public:
 	StateManager(Window *window);
+	~StateManager();
+
 	void run();
 
 private:
 	Window *window;
 	State *currentState;
-
-	// TODO(juha): jos halutaan siirtää tietoja statejen välillä, niin siihen jotain (esim. pausesta paluu).
+	int sharedInfo;
 };
 
 #endif // __STATEMANAGER_H_INCLUDED__
