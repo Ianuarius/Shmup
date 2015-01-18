@@ -4,15 +4,16 @@ Window::Window(int width, int height, std::string title):
 	window(nullptr),
 	surface(nullptr),
 	renderer(nullptr),
+	texture(nullptr),
 	width(width),
 	height(height),
 	originalWidth(width),
 	originalHeight(height)
 {
-	resize("Escape From Earth", width, height);
+	// NOTE(juha): Tehdään ikkunasta 3x pelialueen kokoinen.
+	resize("Escape From Earth", width*3, height*3);
 	clear();
     refresh();
-	SDL_Delay(500);
 }
 
 Window::~Window()
@@ -41,7 +42,10 @@ void Window::resize(std::string title, int width, int height)
 
 	SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN, &window, &renderer);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, width, height);
+
+	// NOTE(juha): Määritellään että skaalataan pikseleitä 3x
+	// Tälle voi luultavasti keksiä järkevämmän menetelmän.
+	SDL_RenderSetLogicalSize(renderer, width/3, height/3);
 }
 
 void Window::clear()
@@ -65,16 +69,22 @@ void Window::refresh()
 	SDL_RenderPresent(renderer);
 }
 
-void Window::renderImage(SDL_Texture *texture, SDL_Rect *source, SDL_Rect *destination)
+void Window::loadImage(std::string filename)
 {
-	SDL_RenderCopy(renderer, texture, source, destination);
+	SDL_Texture *newTexture = IMG_LoadTexture(renderer, filename.c_str());
+	int w, h;
+	SDL_QueryTexture(newTexture, nullptr, nullptr, &w, &h);
+	texture = newTexture;
 }
 
-SDL_Texture *Window::loadImage(std::string filename)
+void Window::renderImage(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
-	SDL_Texture *texture = IMG_LoadTexture(renderer, filename.c_str());
-
-	return texture;
+	SDL_Rect renderQuad = {x, y, 256, 240};
+	clip->x = 0;
+	clip->y = 0;
+	clip->w = 256;
+	clip->h = 240;
+	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
 }
 
 void Window::freeImage(SDL_Texture *image)

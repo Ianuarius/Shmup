@@ -35,5 +35,7 @@ void StateManager::run()
 		window->clear();
 		currentState->render();
 		window->refresh();
+		SDL_Delay(2000);
+		quit = true;
 	}
 }

@@ -12,9 +12,10 @@ public:
 	virtual ~Window();
 	void destroy();
 
-	void renderImage(SDL_Texture *texture, SDL_Rect *source, SDL_Rect *destination);
+	void renderImage(int x, int y, SDL_Rect* clip, double angle = 0.0, 
+		SDL_Point* center = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-	SDL_Texture *loadImage(std::string filename);
+	void loadImage(std::string filename);
 	void clear();
 	void fill(Color color);
 	void refresh();
@@ -27,6 +28,9 @@ public:
 	unsigned int height; 
 	unsigned int originalWidth;
 	unsigned int originalHeight;
+	
+	//The actual hardware texture
+	SDL_Texture* texture;
 
 private:
 	SDL_Window *window;

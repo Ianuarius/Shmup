@@ -18,8 +18,8 @@ void SplashState::load(int stack)
 
 	gameArea.x = 0;
 	gameArea.y = 0;
-	gameArea.w = window->width;
-	gameArea.h = window->height;
+	gameArea.w = 256;
+	gameArea.h = 240;
 }
 
 int SplashState::unload()
@@ -29,5 +29,11 @@ int SplashState::unload()
 
 void SplashState::render()
 {
-	window->drawRect(0, 0, 50, 50, 0xFF00FF);
+	// NOTE(juha): Täällä määritellään, mitä halutaan Staten piirtävän.
+	// window->drawRect(0, 0, 50, 50, 0xFF00FF); // Piirtää pinkin neliön
+	SDL_Point center;
+	center.x = 50;
+	center.y = 50;
+	window->loadImage("testpic.png");
+	window->renderImage(0, 0, &gameArea, 0, &center, SDL_FLIP_NONE);
 }

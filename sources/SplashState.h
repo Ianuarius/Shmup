@@ -19,7 +19,7 @@ public:
 
 private:
 	Window *window;
-	SDL_Rect *gameArea;
+	SDL_Rect gameArea;
 
 };
 

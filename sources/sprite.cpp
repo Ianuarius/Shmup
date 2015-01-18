@@ -7,7 +7,7 @@ Sprite::Sprite(Window *window, std::string filename):
 	width(0),
 	height(0)
 {
-	image = window->loadImage(filename);
+	// image = window->loadImage(filename);
 
 	int w, h;
 	SDL_QueryTexture(image, nullptr, nullptr, &w, &h);
