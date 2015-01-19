@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(int width, int height, std::string title):
+Window::Window(int width, int height, std::string title, bool fullscreen):
 	window(nullptr),
 	surface(nullptr),
 	renderer(nullptr),
@@ -11,9 +11,14 @@ Window::Window(int width, int height, std::string title):
 	originalHeight(height)
 {
 	// NOTE(juha): Tehdään ikkunasta 3x pelialueen kokoinen.
-	resize("Escape From Earth", width*3, height*3);
+	// NOTE(jouni): Eiku tehhää ihan vaa sen kokonen mitä käsketään
+	resize(title, width, height, fullscreen);
+
 	clear();
-    refresh();
+	refresh();
+
+	// NOTE(jouni): Odotellaan hetki, ettei frameraten laskeminen mene rikki
+	SDL_Delay(500);
 }
 
 Window::~Window()
@@ -36,30 +41,59 @@ void Window::destroy()
 	}
 }
 
-void Window::resize(std::string title, int width, int height)
+void Window::resize(std::string title, int width, int height, bool fullscreen)
 {
 	destroy();
 
-	SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN, &window, &renderer);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	Uint32 window_flag; 
 
-	// NOTE(juha): Määritellään että skaalataan pikseleitä 3x
-	// Tälle voi luultavasti keksiä järkevämmän menetelmän.
-	SDL_RenderSetLogicalSize(renderer, width/3, height/3);
+	if (fullscreen)
+	{
+		window_flag = SDL_WINDOW_FULLSCREEN;
+	} else {
+		window_flag = SDL_WINDOW_SHOWN;
+	}
+
+	SDL_CreateWindowAndRenderer(width, height, window_flag, &window, &renderer);
+	
+	// NOTE(jouni): Perus virhetarkistusta; jos window tai renderer ei ssaa arvoa,
+	// ei anneta ohjelman vaan raa'asti kaatua vaan ilmotetaan siitä käyttäjälle.
+	if (!window || !renderer)
+	{
+		printf("SDL_Window tai SDL_Renderer ei pelaa!");
+		return;
+	}
+	
+	// Nearest-neighbour resize
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	SDL_RenderSetLogicalSize(renderer, width, height);
+
+	// Asetetaan title
+	setTitle(title);
+
+	surface = SDL_GetWindowSurface(window);
+	if (!surface)
+	{
+		printf("SDL_GetWindowSurface failas!");
+		return;
+	}
+
+	this->width = width;
+	this->height = height;
 }
 
 void Window::clear()
 {
-	fill(0x000000);
+	fill(Color("black"));
 }
 
 void Window::fill(Color color)
 {
 	SDL_SetRenderDrawColor(renderer,
-							color.r(),
-							color.g(),
-							color.b(),
-							color.a());
+						   color.r(),
+						   color.g(),
+						   color.b(),
+						   color.a());
 
 	SDL_RenderClear(renderer);
 }
@@ -69,22 +103,35 @@ void Window::refresh()
 	SDL_RenderPresent(renderer);
 }
 
-void Window::loadImage(std::string filename)
+SDL_Texture* Window::loadImage(std::string filename)
 {
 	SDL_Texture *newTexture = IMG_LoadTexture(renderer, filename.c_str());
-	int w, h;
-	SDL_QueryTexture(newTexture, nullptr, nullptr, &w, &h);
-	texture = newTexture;
+
+	if (!newTexture)
+	{
+		printf("Tekstuurin lataaminen ei onnistunut");
+		printf("IMG_LoadTexture: %s", IMG_GetError());
+	}
+
+	return newTexture;
 }
 
-void Window::renderImage(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+// source = kuvasta leikatun alueen sijainti ja koko
+void Window::renderImage(SDL_Texture* texture, int x, int y, SDL_Rect* source)
 {
-	SDL_Rect renderQuad = {x, y, 256, 240};
-	clip->x = 0;
-	clip->y = 0;
-	clip->w = 256;
-	clip->h = 240;
-	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
+	// NOTE(jouni): Jos source on tyhjä käytetään kuvan alkup. kokoa
+	if (!source)
+	{
+		int width, height;
+		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+
+		SDL_Rect clip = {0, 0, width, height};
+		source = &clip;
+	}
+
+	SDL_Rect destination = {x, y, source->w, source->h};
+
+	SDL_RenderCopy(renderer, texture, source, &destination);
 }
 
 void Window::freeImage(SDL_Texture *image)
@@ -102,8 +149,38 @@ void Window::freeImage(SDL_Surface *image)
 	}
 }
 
-void Window::drawRect(int X, int Y, int W, int H, Color color) {
+void Window::drawRect(int X, int Y, int W, int H, Color color)
+{
 	SDL_Rect fillRect = { X, Y, W, H };
 	SDL_SetRenderDrawColor(renderer, color.r(), color.g(), color.b(), color.a());
 	SDL_RenderFillRect(renderer, &fillRect );
+}
+
+void Window::setTitle(std::string title)
+{
+	if (window)
+	{
+		SDL_SetWindowTitle(window, title.c_str());
+	}
+}
+
+void Window::minimize() 
+{
+	if (window)
+	{
+		SDL_MinimizeWindow(window);
+	}
+}
+
+void Window::maximize()
+{
+	if (window)
+	{
+		SDL_MaximizeWindow(window);
+	}
+}
+
+void Window::restore()
+{
+	SDL_RestoreWindow(this->window);
 }

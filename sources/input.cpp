@@ -25,8 +25,6 @@ void Input::update() {
 
 					int scancode = event.key.keysym.scancode;
 					key[scancode] = true;
-
-					printf("KEYDOWN> %d\n", scancode);
 				}
 				break;
 
@@ -35,8 +33,6 @@ void Input::update() {
 
 					int scancode = event.key.keysym.scancode;
 					key[scancode] = false;
-
-					printf("KEYUP> %d\n", scancode);
 				}
 				break;
 

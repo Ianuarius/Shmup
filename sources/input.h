@@ -4,7 +4,10 @@
  * Input manager.
  * 
  * Esimerkki:
+ * // Jossain kohtaa koodia:
+ * Input::update();
  *
+ * Input::keyState(SDL_SCANCODE_A); // Palauttaa true jos 'A' on alhaalla
  * 
  * TODO(jouni):
  *	- Muunnetaan luokka staattisesta oikeaan oliopohjaiseen
