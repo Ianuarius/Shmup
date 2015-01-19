@@ -8,10 +8,6 @@ Font::Font(std::string fontName, int fontSize) {
 	loadFromFile(fontName, fontSize);
 }
 
-Font::~Font() {
-	TTF_CloseFont(font);
-}
-
 bool Font::loadFromFile(std::string fontName, int fontSize) {
 	font = TTF_OpenFont(fontName.c_str(), fontSize);
 

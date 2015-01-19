@@ -20,8 +20,6 @@ class Font {
 		Font();
 		Font(std::string fontName, int fontSize);
 
-		~Font();
-
 		bool loadFromFile(std::string fontName, int fontSize);
 		TTF_Font *getFont();
 

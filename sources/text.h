@@ -19,13 +19,16 @@
 class Text {
 	public:
 		Text();
+		~Text();
 
 		void setFont(Font *font);
-		void setColor(Color color);
+		void setColor(Color font_color);
 		void print(Window *window, std::string text);
 
 	private:
-
+		SDL_Texture *texture;
+		Font *font;
+		Color color;
 };
 
 #endif // __TEXT_H_DEFINED__
