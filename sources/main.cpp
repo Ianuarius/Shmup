@@ -1,19 +1,64 @@
-#include "sdl.h"
+/*
+	SDL Template
+
+	This should compile.
+*/
+
+//Using SDL and standard IO
 #include <stdio.h>
-#include <string>
+#include "SDL.h"
+#include "Input.h"
+#include "Font.h"
 #include "window.h"
-#include "statemanager.h"
 
-int main( int argc, char* args[] )
+//Screen dimension constants
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
+int main(int argc, char* args[])
 {
-	int width = 256;
-	int height = 240;
-	Window window(width, height, "Escape From Earth");
+	SDL::init();
+	
+	bool inGame = true;
 
-	StateManager manager(&window);
+	//The window we'll be rendering to
+	Window window(800, 600, "Testi!", false);
 
-	manager.run();
+	SDL_Texture* tekstuuri = NULL;
+	tekstuuri = window.loadImage("testpic.png");
 
+	SDL_Rect nelio = {64, 64, 50, 50};
+
+	while(inGame) {
+		Input::update();
+
+		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
+			inGame = false;
+		}
+
+		if (Input::keyState(SDL_SCANCODE_M)) {
+			window.minimize();
+		}
+
+		if (Input::keyState(SDL_SCANCODE_N)) {
+			window.maximize();
+		}
+
+		window.clear();
+
+		window.renderImage(tekstuuri, 200, 200, &nelio);
+
+		window.refresh();
+	}
+
+	window.freeImage(tekstuuri);
+
+	//Destroy window
+	window.destroy();
+	
+
+	//Quit SDL subsystems
 	SDL::exit();
+
 	return 0;
 }
