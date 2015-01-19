@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="6">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="../../../Tiled/examples/tmw_desert_spacing.png" width="265" height="199"/>
+  <terraintypes>
+   <terrain name="Sand" tile="29"/>
+   <terrain name="Cobblestone" tile="9"/>
+   <terrain name="Rubble" tile="33"/>
+   <terrain name="Dirt" tile="14"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,1"/>
+  <tile id="1" terrain="0,0,1,1"/>
+  <tile id="2" terrain="0,0,1,0"/>
+  <tile id="3" terrain="3,3,3,0"/>
+  <tile id="4" terrain="3,3,0,3"/>
+  <tile id="5" terrain="0,0,0,3"/>
+  <tile id="6" terrain="0,0,3,3"/>
+  <tile id="7" terrain="0,0,3,0"/>
+  <tile id="8" terrain="0,1,0,1"/>
+  <tile id="9" terrain="1,1,1,1"/>
+  <tile id="10" terrain="1,0,1,0"/>
+  <tile id="11" terrain="3,0,3,3"/>
+  <tile id="12" terrain="0,3,3,3"/>
+  <tile id="13" terrain="0,3,0,3"/>
+  <tile id="14" terrain="3,3,3,3"/>
+  <tile id="15" terrain="3,0,3,0"/>
+  <tile id="16" terrain="0,1,0,0"/>
+  <tile id="17" terrain="1,1,0,0"/>
+  <tile id="18" terrain="1,0,0,0"/>
+  <tile id="19" terrain="1,1,1,0"/>
+  <tile id="20" terrain="1,1,0,1"/>
+  <tile id="21" terrain="0,3,0,0"/>
+  <tile id="22" terrain="3,3,0,0"/>
+  <tile id="23" terrain="3,0,0,0"/>
+  <tile id="24" terrain="0,0,0,2"/>
+  <tile id="25" terrain="0,0,2,2"/>
+  <tile id="26" terrain="0,0,2,0"/>
+  <tile id="27" terrain="1,0,1,1"/>
+  <tile id="28" terrain="0,1,1,1"/>
+  <tile id="29" terrain="0,0,0,0"/>
+  <tile id="32" terrain="0,2,0,2"/>
+  <tile id="33" terrain="2,2,2,2"/>
+  <tile id="34" terrain="2,0,2,0"/>
+  <tile id="35" terrain="2,2,2,0"/>
+  <tile id="36" terrain="2,2,0,2"/>
+  <tile id="40" terrain="0,2,0,0"/>
+  <tile id="41" terrain="2,2,0,0"/>
+  <tile id="42" terrain="2,0,0,0"/>
+  <tile id="43" terrain="2,0,2,2"/>
+  <tile id="44" terrain="0,2,2,2"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1tlOwkAUgOGqcTcuuOAWokJI3N7/9ZwmbULGwhSBMsh38d2VtMOfc9pBURQDAAAAAABgrXaC3YS9DJ5zWxwHJwnPmnTmKrht0eQ0g2fdFm1mpO7xEDxGnjI4w38yz856Dd4iX5p03qOekaYepWEG58jdQXAYOWq4rs075Ca41mMh58FF5GxGk14lblO3KN8d33ostUfdZNqsxG16LVrosViP1Kw0fUPNaqFHO3fB/h+aTHtHxEbBR+Uzg/NugtSMlC6D8Zw9RhqstMfkb1I96hYvGZxv05Q7q1+ZtrtSPSb3kt203DZNTeLvrXf//9qbNM0J3TXpF7/3mB55qPvcJ64br+j+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACb5Af9LIlW
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1AEJADAMA8GoqX+Jg2kYLNA7BYGHJAAAAAAAAAAAALDP/B7ApUOXiSZtJro00gRo45MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN47nFEBfQ==
+  </data>
+ </layer>
+ <objectgroup name="player">
+  <object id="1" name="playerStart" type="startPoint" x="639" y="970" width="20" height="20"/>
+  <object id="5" name="spawnEnemies" type="spawner" x="280" y="539" width="237" height="147"/>
+ </objectgroup>
+</map>
