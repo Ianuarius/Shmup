@@ -117,7 +117,7 @@ SDL_Texture* Window::loadImage(std::string filename)
 }
 
 // source = kuvasta leikatun alueen sijainti ja koko
-void Window::render(SDL_Texture* texture, int x, int y, SDL_Rect* source)
+void Window::renderImage(SDL_Texture* texture, int x, int y, SDL_Rect* source)
 {
 	// NOTE(jouni): Jos source on tyhj‰ k‰ytet‰‰n kuvan alkup. kokoa
 	if (!source)
