@@ -29,11 +29,14 @@ void Level::loadLevel()
 	
 	for (pugi::xml_node_iterator iterator = node.begin(); iterator != node.end(); ++iterator) 
 	{
-		for (int i = 0;i <levelHeight;++i)
+		
+		printf(" %s", iterator->attribute("gid").value());
+		
+		// NOTE(juha): Koodattu suoraan hubiin, testaa
+		if (iterator % levelHeight == 0)
 		{
-			printf(" %s", iterator->attribute("gid").value());
+			printf("\n");
 		}
-		printf("\n");
 	}
 	
 	/*
