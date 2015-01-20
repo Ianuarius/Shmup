@@ -5,18 +5,21 @@
 #include <iostream>
 #include "SDL.h"
 #include "PugiXML.h"
+#include "Window.h"
 
 class Level
 {
 public:
-	Level();
+	Level(Window *window);
 	~Level();
 	void loadLevel();
 
 private:
 	pugi::xml_document levelDocument;
 	pugi::xml_parse_result result;
-	int levelHeight;
+	int levelWidth;
+	Window *window;
+	int tileSize;
 };
 
 #endif //__LEVEL_H_DEFINED__

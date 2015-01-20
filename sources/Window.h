@@ -28,7 +28,7 @@ public:
 	SDL_Texture* loadImage(std::string filename);
 
 	// source = Alkuperäisestä kuvasta leikatun alueen sijanti ja koko
-	void renderImage(SDL_Texture* texture, int x, int y, SDL_Rect* source = NULL);
+	void render(SDL_Texture* texture, int x, int y, SDL_Rect* source = NULL);
 	void freeImage(SDL_Texture *image);
 	void freeImage(SDL_Surface *image);
 
