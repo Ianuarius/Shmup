@@ -1,9 +1,14 @@
 #ifndef __SPRITE_H_INCLUDED__
 #define __SPRITE_H_INCLUDED__
 
+#include <vector>
 #include "sdl.h"
 #include "color.h"
 #include "window.h"
+
+/*
+TODO(jouni): Tämä luokka ettii vielä perimmäistä tarkoitustaan
+*/
 
 class Sprite
 {
@@ -14,6 +19,8 @@ public:
 	void crop(SDL_Rect rect);
 
 	virtual void render(int x, int y);
+
+	void create(int w, int h);
 
 protected:
 	Window *window;
