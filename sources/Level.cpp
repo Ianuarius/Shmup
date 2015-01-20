@@ -49,3 +49,6 @@ void Level::loadLevel()
 	}
 */
 }
+
+// TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää
+// TODO(juha): taulukko kaikista eri gid:eistä, jotka sitten yhdistetään eri spriteihin
