@@ -13,23 +13,18 @@ TODO(jouni): Tämä luokka ettii vielä perimmäistä tarkoitustaan
 class Sprite
 {
 public:
-	Sprite(Window *window, std::string filename);
+	Sprite(Window *window, std::string filename, int width, int height);
 	virtual ~Sprite();
 
 	void crop(SDL_Rect rect);
-
-	virtual void render(int x, int y);
-
-	void create(int w, int h);
+	virtual void render(int index, int x, int y);
 
 protected:
 	Window *window;
 	std::string filename;
 	SDL_Texture *image;
 	SDL_Rect clipRect;
-
-	int width;
-	int height;
+	std::vector<SDL_Rect> spriteSheet;
 };
 
 #endif // __SPRITE_H_INCLUDED__

@@ -35,7 +35,7 @@ void Level::loadLevel()
 		levelDocument.child("map").child("layer").child("data");
 
 	
-	Sprite testi(window, "tmw_desert_spacing16.png");
+	Sprite testi(window, "tmw_desert_spacing16.png", tileSize, tileSize);
 	SDL_Rect testiCrop;
 	int tileNro = 3;
 
@@ -48,28 +48,8 @@ void Level::loadLevel()
 		
 		iteratorCount++;
 
-		switch(atoi(iterator->attribute("gid").value()))
-		{
-		case 30:
-			testiCrop.h = 16;
-			testiCrop.w = 16;
-			testiCrop.x = 0;
-			testiCrop.y = 0;
-
-			testi.crop(testiCrop);
-
-			testi.render(X*tileSize, Y*tileSize);
-			// window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("green"));
-			break;
-		case 7:
-			window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("red"));
-			break;
-		case 10:
-			window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("magenta"));
-			break;
-		default:
-			window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("white"));
-		}
+		int gid = atoi(iterator->attribute("gid").value());
+		testi.render(gid, X*tileSize, Y*tileSize);
 		
 		X++;
 		// printf(" %s", iterator->attribute("gid").value());

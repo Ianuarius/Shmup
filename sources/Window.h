@@ -26,6 +26,7 @@ public:
 	void restore();
 
 	SDL_Texture* loadImage(std::string filename);
+	SDL_Renderer* getRenderer();
 
 	// source = Alkuperäisestä kuvasta leikatun alueen sijanti ja koko
 	void render(SDL_Texture* texture, int x, int y, SDL_Rect* source = NULL);

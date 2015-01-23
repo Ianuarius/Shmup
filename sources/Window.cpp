@@ -184,3 +184,8 @@ void Window::restore()
 {
 	SDL_RestoreWindow(this->window);
 }
+
+SDL_Renderer* Window::getRenderer() 
+{
+	return renderer;
+}

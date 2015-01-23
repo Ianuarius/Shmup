@@ -10,6 +10,8 @@
 #include "Input.h"
 #include "Font.h"
 #include "window.h"
+#include "Sprite.h"
+#include "Level.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -24,13 +26,18 @@ int main(int argc, char* args[])
 	//The window we'll be rendering to
 	Window window(800, 600, "Testi!", false);
 
-	SDL_Texture* tekstuuri = NULL;
-	tekstuuri = window.loadImage("testpic.png");
+	//SDL_Texture* tekstuuri = NULL;
+	//tekstuuri = window.loadImage("testpic.png");
+	Sprite sprite(&window, "tmw_desert_spacing16.png", 16, 16);
 
-	SDL_Rect nelio = {64, 64, 50, 50};
+	int integerofdoom = 0;
+
+	//SDL_Rect nelio = {64, 64, 50, 50};
 
 	while(inGame) {
 		Input::update();
+		integerofdoom++;
+		printf("index: %d\n", integerofdoom);
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
 			inGame = false;
@@ -46,12 +53,16 @@ int main(int argc, char* args[])
 
 		window.clear();
 
-		window.renderImage(tekstuuri, 200, 200, &nelio);
+		//window.render(tekstuuri, 200, 200, &nelio);
+		sprite.render(integerofdoom, 40, 40);
+
+		// SÄÄSTELLÄÄN VÄHÄN RESURSSEJAJA
+		SDL_Delay(500);
 
 		window.refresh();
 	}
 
-	window.freeImage(tekstuuri);
+	//window.freeImage(tekstuuri);
 
 	//Destroy window
 	window.destroy();
