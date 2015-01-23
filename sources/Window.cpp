@@ -10,8 +10,6 @@ Window::Window(int width, int height, std::string title, bool fullscreen):
 	originalWidth(width),
 	originalHeight(height)
 {
-	// NOTE(juha): Tehd‰‰n ikkunasta 3x pelialueen kokoinen.
-	// NOTE(jouni): Eiku tehh‰‰ ihan vaa sen kokonen mit‰ k‰sket‰‰n
 	resize(title, width, height, fullscreen);
 
 	clear();
@@ -66,7 +64,7 @@ void Window::resize(std::string title, int width, int height, bool fullscreen)
 	
 	// Nearest-neighbour resize
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, width, height);
+	SDL_RenderSetLogicalSize(renderer, width/3, height/3);
 
 	// Asetetaan title
 	setTitle(title);

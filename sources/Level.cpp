@@ -21,9 +21,6 @@ void Level::loadLevel()
 	if(!result)
 	{
 		// NOTE(juha): Log the shit out of things.
-
-		// std::cout << "Load result: " << result.description() << ", mesh name: " << 
-		//	levelDocument.child("mesh").attribute("name").value() << std::endl;
 	}
 
 	int iteratorCount = 0;
@@ -31,41 +28,34 @@ void Level::loadLevel()
 	int Y = 0;
 
 	levelWidth = atoi(levelDocument.child("map").attribute("width").value());
-	pugi::xml_node tileNode = 
-		levelDocument.child("map").child("layer").child("data");
+	pugi::xml_node
+		tileNode = levelDocument.child("map").child("layer").child("data");
 
 	
 	Sprite testi(window, "tmw_desert_spacing16.png", tileSize, tileSize);
-	SDL_Rect testiCrop;
-	int tileNro = 3;
+	// SDL_Rect testiCrop;
+	// int tileNro = 3;
 
-	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi. Vaihdetaan riviä joka
-	// kerta kun tilejä on tulostettu kentän leveyden verran.
+	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
 		++iterator) 
 	{
-		
 		iteratorCount++;
 
 		int gid = atoi(iterator->attribute("gid").value());
 		testi.render(gid, X*tileSize, Y*tileSize);
 		
 		X++;
-		// printf(" %s", iterator->attribute("gid").value());
 		
+		// NOTE(juha): Kun päästään kentän loppuun, vaihdetaan riviä.
 		if (iteratorCount % levelWidth == 0)
 		{
-			// printf("[%d]asd\n", iteratorCount);
 			Y++;
 			X = 0;
 		}
 	}
-	
-
-
 }
-
 
 // TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää
 // TODO(juha): taulukko kaikista eri gid:eistä, jotka sitten yhdistetään eri spriteihin

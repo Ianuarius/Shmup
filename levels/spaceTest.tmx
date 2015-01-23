@@ -53,35 +53,6 @@
   <data>
    <tile gid="30"/>
    <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
    <tile gid="6"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -2301,12 +2272,41 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
   </data>
  </layer>
  <objectgroup name="Gemini">
-  <object id="1" name="playerStart" type="startPosition" x="398.5" y="122.5" width="17.5" height="17.5">
+  <object id="1" name="playerStart" type="startPosition" x="15.5" y="117.5" width="17.5" height="17.5">
    <ellipse/>
   </object>
-  <object id="2" name="enemySpawn" type="spawnPoint" x="818.5" y="66" width="61" height="88"/>
+  <object id="2" name="enemySpawn" type="spawnPoint" x="442.5" y="75" width="61" height="88"/>
  </objectgroup>
 </map>

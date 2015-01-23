@@ -10,7 +10,6 @@
 #include "Input.h"
 #include "Font.h"
 #include "window.h"
-#include "Sprite.h"
 #include "Level.h"
 
 //Screen dimension constants
@@ -24,20 +23,18 @@ int main(int argc, char* args[])
 	bool inGame = true;
 
 	//The window we'll be rendering to
-	Window window(800, 600, "Testi!", false);
+	Window window(1280, 720, "Escape From Earth", false);
 
-	//SDL_Texture* tekstuuri = NULL;
-	//tekstuuri = window.loadImage("testpic.png");
-	Sprite sprite(&window, "tmw_desert_spacing16.png", 16, 16);
+	// SDL_Texture* tekstuuri = NULL;
+	// tekstuuri = window.loadImage("testpic.png");
 
-	int integerofdoom = 0;
+	SDL_Rect nelio = {64, 64, 50, 50};
 
-	//SDL_Rect nelio = {64, 64, 50, 50};
+	Level level(&window);
+	level.loadLevel();
 
 	while(inGame) {
 		Input::update();
-		integerofdoom++;
-		printf("index: %d\n", integerofdoom);
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
 			inGame = false;
@@ -51,18 +48,14 @@ int main(int argc, char* args[])
 			window.maximize();
 		}
 
-		window.clear();
+		// window.clear();
 
-		//window.render(tekstuuri, 200, 200, &nelio);
-		sprite.render(integerofdoom, 40, 40);
-
-		// SÄÄSTELLÄÄN VÄHÄN RESURSSEJAJA
-		SDL_Delay(500);
+		// window.render(tekstuuri, 200, 200, &nelio);
 
 		window.refresh();
 	}
 
-	//window.freeImage(tekstuuri);
+	// window.freeImage(tekstuuri);
 
 	//Destroy window
 	window.destroy();

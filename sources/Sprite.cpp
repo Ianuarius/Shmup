@@ -20,7 +20,7 @@ Sprite::Sprite(Window *window, std::string filename, int spriteWidth, int sprite
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			SDL_Rect rect = {i*spriteWidth, j*spriteHeight, spriteWidth, spriteHeight};
+			SDL_Rect rect = {j*spriteWidth, i*spriteHeight, spriteWidth, spriteHeight};
 			spriteSheet.push_back(rect);
 		}
 	}
@@ -46,6 +46,6 @@ void Sprite::crop(SDL_Rect rect)
 // NOTE(jouni): index = mikä spriten "alkio" piirretään
 void Sprite::render(int index, int x, int y)
 {
-	crop(spriteSheet[index]);
+	crop(spriteSheet[index-1]);
 	window->render(image, x, y, &clipRect);
 }
