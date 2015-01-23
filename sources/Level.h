@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "PugiXML.h"
 #include "Window.h"
+#include "Sprite.h"
 
 class Level
 {

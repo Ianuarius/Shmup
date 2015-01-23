@@ -44,7 +44,7 @@ void Sprite::crop(SDL_Rect rect)
 
 void Sprite::render(int x, int y)
 {
-	window->renderImage(image, x, y, &clipRect);
+	window->render(image, x, y, &clipRect);
 }
 
 // TODO(jouni): T‰m‰ vois returnaa jotaki j‰rkev‰‰..

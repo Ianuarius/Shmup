@@ -34,6 +34,11 @@ void Level::loadLevel()
 	pugi::xml_node tileNode = 
 		levelDocument.child("map").child("layer").child("data");
 
+	
+	Sprite testi(window, "tmw_desert_spacing16.png");
+	SDL_Rect testiCrop;
+	int tileNro = 3;
+
 	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi. Vaihdetaan riviä joka
 	// kerta kun tilejä on tulostettu kentän leveyden verran.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
@@ -46,7 +51,15 @@ void Level::loadLevel()
 		switch(atoi(iterator->attribute("gid").value()))
 		{
 		case 30:
-			window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("green"));
+			testiCrop.h = 16;
+			testiCrop.w = 16;
+			testiCrop.x = 0;
+			testiCrop.y = 0;
+
+			testi.crop(testiCrop);
+
+			testi.render(X*tileSize, Y*tileSize);
+			// window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("green"));
 			break;
 		case 7:
 			window->drawRect(X*tileSize, Y*tileSize, tileSize, tileSize, Color("red"));
@@ -68,6 +81,9 @@ void Level::loadLevel()
 			X = 0;
 		}
 	}
+	
+
+
 }
 
 
