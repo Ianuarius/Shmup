@@ -11,6 +11,7 @@
 #include "Font.h"
 #include "window.h"
 #include "Level.h"
+#include "Animation.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -27,11 +28,11 @@ int main(int argc, char* args[])
 
 	// SDL_Texture* tekstuuri = NULL;
 	// tekstuuri = window.loadImage("testpic.png");
-
-	SDL_Rect nelio = {64, 64, 50, 50};
+	Sprite sprite(&window, "zospritesheet.png", 34, 34);
+	Animation hahmo(&window, &sprite, 0, 48, 0);
 
 	Level level(&window);
-	level.loadLevel();
+	level.loadLevel("spaceTest.tmx");
 
 	while(inGame) {
 		Input::update();
@@ -48,7 +49,10 @@ int main(int argc, char* args[])
 			window.maximize();
 		}
 
-		// window.clear();
+		window.clear();
+
+		hahmo.render(100, 100);
+		SDL_Delay(50);
 
 		// window.render(tekstuuri, 200, 200, &nelio);
 
@@ -60,6 +64,7 @@ int main(int argc, char* args[])
 	//Destroy window
 	window.destroy();
 	
+
 
 	//Quit SDL subsystems
 	SDL::exit();

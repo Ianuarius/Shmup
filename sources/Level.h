@@ -13,7 +13,7 @@ class Level
 public:
 	Level(Window *window);
 	~Level();
-	void loadLevel();
+	void loadLevel(std::string level_name);
 
 private:
 	pugi::xml_document levelDocument;

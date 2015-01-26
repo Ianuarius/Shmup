@@ -58,7 +58,7 @@ void Window::resize(std::string title, int width, int height, bool fullscreen)
 	// ei anneta ohjelman vaan raa'asti kaatua vaan ilmotetaan siitä käyttäjälle.
 	if (!window || !renderer)
 	{
-		printf("SDL_Window tai SDL_Renderer ei pelaa!");
+		printf("SDL_Window tai SDL_Renderer ei pelaa!\n");
 		return;
 	}
 	
@@ -72,7 +72,7 @@ void Window::resize(std::string title, int width, int height, bool fullscreen)
 	surface = SDL_GetWindowSurface(window);
 	if (!surface)
 	{
-		printf("SDL_GetWindowSurface failas!");
+		printf("SDL_GetWindowSurface failas!\n");
 		return;
 	}
 
@@ -107,8 +107,8 @@ SDL_Texture* Window::loadImage(std::string filename)
 
 	if (!newTexture)
 	{
-		printf("Tekstuurin lataaminen ei onnistunut");
-		printf("IMG_LoadTexture: %s", IMG_GetError());
+		printf("Tekstuurin lataaminen ei onnistunut\n");
+		printf("IMG_LoadTexture: %s\n", IMG_GetError());
 	}
 
 	return newTexture;

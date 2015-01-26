@@ -6,25 +6,23 @@
 #include "color.h"
 #include "window.h"
 
-/*
-TODO(jouni): Tämä luokka ettii vielä perimmäistä tarkoitustaan
-*/
-
 class Sprite
 {
-public:
-	Sprite(Window *window, std::string filename, int width, int height);
-	virtual ~Sprite();
+	public:
+		Sprite(Window *window, std::string filename, int width, int height);
+		virtual ~Sprite();
 
-	void crop(SDL_Rect rect);
-	virtual void render(int index, int x, int y);
+		void crop(SDL_Rect rect);
+		virtual void render(int index, int x, int y);
 
-protected:
-	Window *window;
-	std::string filename;
-	SDL_Texture *image;
-	SDL_Rect clipRect;
-	std::vector<SDL_Rect> spriteSheet;
+	private:
+		Window *window;
+		std::string filename;
+
+		SDL_Texture *image;
+		SDL_Rect clipRect;
+
+		std::vector<SDL_Rect> spriteSheet;
 };
 
 #endif // __SPRITE_H_INCLUDED__

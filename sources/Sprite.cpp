@@ -8,20 +8,24 @@ Sprite::Sprite(Window *window, std::string filename, int spriteWidth, int sprite
 {
 	image = window->loadImage(filename);
 
-	// NOTE(jouni): Koko kuvan korkeus ja leveys
-	int imageWidth, imageHeight;
-	SDL_QueryTexture(image, NULL, NULL, &imageWidth, &imageHeight);
+	if (!image) {
+		printf("Kuvan lataaminen epäonnistui. Spriteä ei voitu luoda\n");
+	} else {
+		// NOTE(jouni): Koko kuvan korkeus ja leveys
+		int imageWidth, imageHeight;
+		SDL_QueryTexture(image, NULL, NULL, &imageWidth, &imageHeight);
 
-	int spriteItems = 0;
-	int columns = imageWidth / spriteWidth;
-	int rows = imageHeight / spriteHeight;
+		int spriteItems = 0;
+		int columns = imageWidth / spriteWidth;
+		int rows = imageHeight / spriteHeight;
 	
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
+		for (int i = 0; i < rows; ++i)
 		{
-			SDL_Rect rect = {j*spriteWidth, i*spriteHeight, spriteWidth, spriteHeight};
-			spriteSheet.push_back(rect);
+			for (int j = 0; j < columns; ++j)
+			{
+				SDL_Rect rect = {j*spriteWidth, i*spriteHeight, spriteWidth, spriteHeight};
+				spriteSheet.push_back(rect);
+			}
 		}
 	}
 }

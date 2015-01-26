@@ -12,9 +12,14 @@ Level::~Level()
 	
 }
 
-void Level::loadLevel()
+void Level::loadLevel(std::string level_name)
 {
-	result = levelDocument.load_file("spaceTest.tmx");
+	result = levelDocument.load_file(level_name.c_str());
+
+	if (!result) {
+		printf("Levelin %s lataaminen epäonnistui.", level_name);
+		return;
+	}
 
 	tileSize = atoi(levelDocument.child("map").attribute("tilewidth").value());
 
