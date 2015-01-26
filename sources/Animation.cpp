@@ -35,9 +35,9 @@ int Animation::getFramerate() {
 
 void Animation::render(int x, int y) {
 	printf("frame: %d/%d\n", current_frame, frames.size());
-	animated->render(frames[current_frame + 1], x, y);
+	animated->render(frames[current_frame], x, y);
 
-	if (current_frame >= frames.size()-2) {
+	if (current_frame >= (int)frames.size()) {
 		current_frame = 0;
 	} else {
 		current_frame++;

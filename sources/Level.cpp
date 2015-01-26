@@ -49,7 +49,7 @@ void Level::loadLevel(std::string level_name)
 		iteratorCount++;
 
 		int gid = atoi(iterator->attribute("gid").value());
-		testi.render(gid, X*tileSize, Y*tileSize);
+		testi.render(gid-1, X*tileSize, Y*tileSize);
 		
 		X++;
 		

@@ -50,6 +50,6 @@ void Sprite::crop(SDL_Rect rect)
 // NOTE(jouni): index = mikä spriten "alkio" piirretään
 void Sprite::render(int index, int x, int y)
 {
-	crop(spriteSheet[index-1]);
+	crop(spriteSheet[index]);
 	window->render(image, x, y, &clipRect);
 }
