@@ -1,4 +1,4 @@
-#include "window.h"
+#include "Window.h"
 
 Window::Window(int width, int height, std::string title, bool fullscreen):
 	window(nullptr),
@@ -12,11 +12,13 @@ Window::Window(int width, int height, std::string title, bool fullscreen):
 {
 	resize(title, width, height, fullscreen);
 
+	frametimeTimer.start();
+	fpsTimer.start();
+
+	current_delta = frametimeTimer.getTicks();
+
 	clear();
 	refresh();
-
-	// NOTE(jouni): Odotellaan hetki, ettei frameraten laskeminen mene rikki
-	SDL_Delay(500);
 }
 
 Window::~Window()
@@ -99,6 +101,17 @@ void Window::fill(Color color)
 void Window::refresh()
 {
 	SDL_RenderPresent(renderer);
+
+	fps_current++;
+	
+	int ticks = frametimeTimer.getTicks();
+
+	if (ticks < (1000 / FRAMERATE)) {
+		SDL_Delay((1000 / FRAMERATE) - ticks);
+	}
+
+	current_delta = frametimeTimer.getTicks();
+	frametimeTimer.start();
 }
 
 SDL_Texture* Window::loadImage(std::string filename)
@@ -186,4 +199,20 @@ void Window::restore()
 SDL_Renderer* Window::getRenderer() 
 {
 	return renderer;
+}
+
+Uint32 Window::getDelta()
+{
+	return current_delta;
+}
+
+int Window::getFramerate()
+{
+	if (fpsTimer.getTicks() >= FPS_INTERVAL) {
+		fps = fps_current;
+		fps_current = 0;
+		fpsTimer.start();
+	}
+
+	return fps;
 }

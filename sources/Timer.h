@@ -1,6 +1,7 @@
 #ifndef __LTIMER_H_INCLUDED__
 #define __LTIMER_H_INCLUDED__
 
+#include "SDL.h"
 
 class Timer
 {

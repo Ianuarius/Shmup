@@ -33,7 +33,7 @@ void Timer::pause()
 	{
 		mPaused = true;
 
-		mPausedticks = SDL_GetTicks() - mStartTicks;
+		mPausedTicks = SDL_GetTicks() - mStartTicks;
 		mStartTicks = 0;
 	}
 }
@@ -65,6 +65,8 @@ Uint32 Timer::getTicks()
 			time = SDL_GetTicks() - mStartTicks;
 		}
 	}
+
+	return time;
 }
 
 bool Timer::isStarted()

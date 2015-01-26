@@ -20,12 +20,16 @@ class Animation
 
 		void render(int x, int y);
 
+		void start();
+		void pause();
+
 	private:
 		Window *window;
 		Sprite *animated;
 
 		std::vector<int> frames;
-		int framerate, current_frame;
+		int framerate, current_frame, current_frame_time;
+		bool running;
 };
 
 #endif // __ANIMATION_H_INCLUDED__

@@ -4,6 +4,10 @@
 #include <string>
 #include "SDL.h"
 #include "color.h"
+#include "Timer.h"
+
+#define FRAMERATE 60
+#define FPS_INTERVAL 1000	// Milliseconds
 
 class Window
 {
@@ -24,6 +28,9 @@ public:
 	void minimize();
 	void maximize();
 	void restore();
+
+	Uint32 getDelta();
+	int getFramerate();
 
 	SDL_Texture* loadImage(std::string filename);
 	SDL_Renderer* getRenderer();
@@ -48,6 +55,10 @@ private:
 	SDL_Window *window;
 	SDL_Surface *surface;
 	SDL_Renderer *renderer;
+	
+	Timer frametimeTimer, fpsTimer;
+	Uint32 framerate, frame_delay, current_delta;
+	int fps_current, fps;
 	
 };
 

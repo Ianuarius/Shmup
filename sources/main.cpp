@@ -29,7 +29,7 @@ int main(int argc, char* args[])
 	// SDL_Texture* tekstuuri = NULL;
 	// tekstuuri = window.loadImage("testpic.png");
 	Sprite sprite(&window, "zospritesheet.png", 34, 34);
-	Animation hahmo(&window, &sprite, 0, 48, 0);
+	Animation hahmo(&window, &sprite, 0, 48, 5);
 
 	Level level(&window);
 	level.loadLevel("spaceTest.tmx");
@@ -52,19 +52,13 @@ int main(int argc, char* args[])
 		window.clear();
 
 		hahmo.render(100, 100);
-		SDL_Delay(50);
-
-		// window.render(tekstuuri, 200, 200, &nelio);
+		printf("FPS: %d\n", window.getFramerate());
 
 		window.refresh();
 	}
 
-	// window.freeImage(tekstuuri);
-
 	//Destroy window
 	window.destroy();
-	
-
 
 	//Quit SDL subsystems
 	SDL::exit();
