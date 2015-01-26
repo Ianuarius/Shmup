@@ -14,9 +14,10 @@
 #include "SDL.h"
 #include "Window.h"
 #include "Sprite.h"
-#include "Entity.h"
+#include "DamageableEntity.h"
+#include "MovingEntity.h"
 
-class Player : public Entity
+class Player : public DamageableEntity, public MovingEntity
 {
 public:
 	Player();
