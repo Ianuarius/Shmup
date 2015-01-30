@@ -4,7 +4,6 @@ Level::Level(Window *window):
 	window(window)
 {
 
-
 }
 
 Level::~Level()
@@ -28,20 +27,25 @@ void Level::loadLevel(std::string level_name)
 		// NOTE(juha): Log the shit out of things.
 	}
 
-	int iteratorCount = 0;
-	int X = 0;
-	int Y = 0;
 
 	levelWidth = atoi(levelDocument.child("map").attribute("width").value());
-	pugi::xml_node
-		tileNode = levelDocument.child("map").child("layer").child("data");
+	tileNode = levelDocument.child("map").child("layer").child("data");
 
 	
-	Sprite testi(window, "pengsheet.png", tileSize, tileSize);
 	// SDL_Rect testiCrop;
 	// int tileNro = 3;
 
-	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
+	// renderLevel(null);
+}
+
+void Level::renderLevel(SDL_Rect *camera)
+{
+	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
+	
+	int iteratorCount = 0;
+	int X = 0;
+	int Y = 0;
+		// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
 		++iterator) 
@@ -49,7 +53,7 @@ void Level::loadLevel(std::string level_name)
 		iteratorCount++;
 
 		int gid = atoi(iterator->attribute("gid").value());
-		testi.render(gid-1, X*tileSize, Y*tileSize);
+		levelTileSheet.render(gid-1, X*tileSize - camera->x, Y*tileSize);
 		
 		X++;
 		
@@ -60,6 +64,11 @@ void Level::loadLevel(std::string level_name)
 			X = 0;
 		}
 	}
+}
+
+int Level::getLevelWidth()
+{
+	return levelWidth*tileSize;
 }
 
 // TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää

@@ -14,8 +14,8 @@
 #include "Animation.h"
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 256;
+const int SCREEN_HEIGHT = 240;
 
 int main(int argc, char* args[])
 {
@@ -28,17 +28,41 @@ int main(int argc, char* args[])
 
 	// SDL_Texture* tekstuuri = NULL;
 	// tekstuuri = window.loadImage("testpic.png");
-	Sprite sprite(&window, "zospritesheet.png", 34, 34);
-	Animation hahmo(&window, &sprite, 0, 48, 5);
+	Sprite sprite(&window, "pengsheet.png", 16, 16);
+	// Animation hahmo(&window, &sprite, 0, 48, 0);
+
+	SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
 	Level level(&window);
-	level.loadLevel("spaceTest.tmx");
-
+	level.loadLevel("level00.tmx");
+	
 	while(inGame) {
 		Input::update();
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
 			inGame = false;
+		}
+
+		if (Input::keyState(SDL_SCANCODE_LEFT))
+		{
+			// Move camera left
+			camera.x = camera.x - 10;
+
+			if (camera.x < 0)
+			{
+				camera.x = 0;
+			}
+		}
+		
+		if (Input::keyState(SDL_SCANCODE_RIGHT))
+		{
+			// Move camera right
+			camera.x = camera.x + 10;
+
+			if (camera.x > level.getLevelWidth())
+			{
+				camera.x = level.getLevelWidth();
+			}
 		}
 
 		if (Input::keyState(SDL_SCANCODE_M)) {
@@ -49,16 +73,23 @@ int main(int argc, char* args[])
 			window.maximize();
 		}
 
-		window.clear();
+		// window.clear();
 
-		hahmo.render(100, 100);
-		printf("FPS: %d\n", window.getFramerate());
+		// hahmo.render(100, 100);
+		SDL_Delay(50);
+
+		// window.render(tekstuuri, 200, 200, &nelio);
+		level.renderLevel(&camera);
 
 		window.refresh();
 	}
 
+	// window.freeImage(tekstuuri);
+
 	//Destroy window
 	window.destroy();
+	
+
 
 	//Quit SDL subsystems
 	SDL::exit();
