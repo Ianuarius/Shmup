@@ -23,6 +23,9 @@ public:
 	~Entity();
 
 private:
+	int x;
+	int y;
+
 	
 };
 
