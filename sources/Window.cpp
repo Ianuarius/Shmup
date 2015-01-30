@@ -66,7 +66,7 @@ void Window::resize(std::string title, int width, int height, bool fullscreen)
 	
 	// Nearest-neighbour resize
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, width/3, height/3);
+	SDL_RenderSetLogicalSize(renderer, width/2, height/2);
 
 	// Asetetaan title
 	setTitle(title);

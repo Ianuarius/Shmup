@@ -37,7 +37,7 @@ void Level::loadLevel(std::string level_name)
 		tileNode = levelDocument.child("map").child("layer").child("data");
 
 	
-	Sprite testi(window, "tmw_desert_spacing16.png", tileSize, tileSize);
+	Sprite testi(window, "pengsheet.png", tileSize, tileSize);
 	// SDL_Rect testiCrop;
 	// int tileNro = 3;
 
