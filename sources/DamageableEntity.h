@@ -6,7 +6,7 @@
  * 
  * Esimerkki:
  *		DamageableEntity damageableEntity = new DamageableEntity();
- *		damageableEntity->metodi();
+ *		damageableEntity->damage(100);
  */
 
 #ifndef DAMAGEABLEENTITY_H_DEFINED
@@ -20,11 +20,22 @@
 class DamageableEntity : public Entity
 {
 public:
-	DamageableEntity();
+	DamageableEntity(int initialHitPoints);
 	~DamageableEntity();
 
+	// Parantaa entity‰ jonkin m‰‰r‰n
+	void heal(int amount);
+
+	// Aiheuttaa vahinkoa entityyn tietyn m‰‰r‰n
+	void damage(int amount);
+
+	bool isDead();
+
+	int getHitpoints();
+
 private:
-	
+	bool isAlive;
+	int hitpoints;
 };
 
 #endif //__DAMAGEABLEENTITY_H_DEFINED__
