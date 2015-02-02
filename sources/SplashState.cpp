@@ -31,9 +31,9 @@ void SplashState::render()
 {
 	// NOTE(juha): Täällä määritellään, mitä halutaan Staten piirtävän.
 	// window->drawRect(0, 0, 50, 50, 0xFF00FF); // Piirtää pinkin neliön
-	SDL_Point center;
-	center.x = 50;
-	center.y = 50;
-	window->loadImage("testpic.png");
-	window->renderImage(0, 0, &gameArea, 0, &center, SDL_FLIP_NONE);
+	//SDL_Point center;
+	//center.x = 50;
+	//center.y = 50;
+	//window->loadImage("testpic.png");
+	//window->render(0, 0, &gameArea, 0, &center, SDL_FLIP_NONE);
 }

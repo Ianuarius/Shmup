@@ -55,7 +55,7 @@ void Text::print(Window *window, std::string text)
 		SDL_Renderer* renderer = window->getRenderer();
 		texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 
-		window->renderImage(texture, 10, 10);
+		window->render(texture, 10, 10);
 	} else {
 		printf("Ei voitu tulostaa tekstiä! SDL_Error: %s\n", SDL_GetError());
 	}

@@ -2,10 +2,12 @@
 
 Tile::Tile()
 {
+
 }
 
 Tile::~Tile()
 {
+
 }
 
 void Tile::loadTMX()

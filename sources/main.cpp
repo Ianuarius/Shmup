@@ -46,7 +46,7 @@ int main(int argc, char* args[])
 		if (Input::keyState(SDL_SCANCODE_LEFT))
 		{
 			// Move camera left
-			camera.x = camera.x - 10;
+			camera.x = camera.x - 2;
 
 			if (camera.x < 0)
 			{
@@ -57,7 +57,7 @@ int main(int argc, char* args[])
 		if (Input::keyState(SDL_SCANCODE_RIGHT))
 		{
 			// Move camera right
-			camera.x = camera.x + 10;
+			camera.x = camera.x + 2;
 
 			if (camera.x > level.getLevelWidth())
 			{
@@ -65,18 +65,19 @@ int main(int argc, char* args[])
 			}
 		}
 
-		if (Input::keyState(SDL_SCANCODE_M)) {
+		if (Input::keyState(SDL_SCANCODE_M))
+		{
 			window.minimize();
 		}
 
-		if (Input::keyState(SDL_SCANCODE_N)) {
+		if (Input::keyState(SDL_SCANCODE_N))
+		{
 			window.maximize();
 		}
 
-		// window.clear();
+		window.clear();
 
 		// hahmo.render(100, 100);
-		SDL_Delay(50);
 
 		// window.render(tekstuuri, 200, 200, &nelio);
 		level.renderLevel(&camera);
@@ -88,8 +89,6 @@ int main(int argc, char* args[])
 
 	//Destroy window
 	window.destroy();
-	
-
 
 	//Quit SDL subsystems
 	SDL::exit();

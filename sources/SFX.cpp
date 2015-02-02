@@ -16,7 +16,7 @@ SFX::SFX(std::string filepath):
 		printf("Mix_LoadWAV: Couldn't load SFX");
 	}
 	else
-		("SFX::load '" + this->filepath + "'");
+		printf("SFX::load '%s'", this->filepath);
 }
 SFX::~SFX()
 {

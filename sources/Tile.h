@@ -13,7 +13,7 @@ public:
 
 private:
 	
-}
+};
 
 
 #endif //__TILE_H_INCLUDED__

@@ -38,6 +38,7 @@ void Level::loadLevel(std::string level_name)
 	// renderLevel(null);
 }
 
+// TODO(jouni): Muuttujaksi kameran X
 void Level::renderLevel(SDL_Rect *camera)
 {
 	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
@@ -45,7 +46,8 @@ void Level::renderLevel(SDL_Rect *camera)
 	int iteratorCount = 0;
 	int X = 0;
 	int Y = 0;
-		// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
+
+	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
 		++iterator) 
