@@ -20,7 +20,7 @@
 class DamageableEntity : public Entity
 {
 public:
-	DamageableEntity(int initialHitPoints);
+	DamageableEntity(Sprite *sprite, SDL_Rect hitbox, int initialHitPoints);
 	~DamageableEntity();
 
 	// Parantaa entity‰ jonkin m‰‰r‰n
@@ -34,7 +34,7 @@ public:
 	int getHitpoints();
 
 private:
-	bool isAlive;
+	bool alive;
 	int hitpoints;
 };
 

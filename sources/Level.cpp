@@ -82,13 +82,15 @@ int Level::getLevelWidth()
 
 int Level::getTile(int x, int y)
 {
-	//TODO(Kalle): KORJAAN TÄMÄN VIRHEENTAKRASTUKSEN ENSIKEERRALLAA
-	if (x >= 0 && y >= 0 && x <levelData[0].size()*tileSize && y <= levelData.size()*tileSize) {
+	if (y >= 0 &&
+		x >= 0 &&
+		y < levelData.size()*tileSize &&
+		x < levelData[0].size()*tileSize)
+	{
 		return (levelData[y/tileSize][x/tileSize]);
-	} else {
-		return 0;
 	}
 
+	return 0;
 }
 
 // TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää

@@ -66,7 +66,7 @@ void Window::resize(std::string title, int width, int height, bool fullscreen)
 	
 	// Nearest-neighbour resize
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, width/2, height/2);
+	SDL_RenderSetLogicalSize(renderer, 256, 240);
 
 	// Asetetaan title
 	setTitle(title);
@@ -116,13 +116,25 @@ void Window::refresh()
 
 SDL_Texture* Window::loadImage(std::string filename)
 {
-	SDL_Texture *newTexture = IMG_LoadTexture(renderer, filename.c_str());
+	SDL_Surface* surface = IMG_Load(filename.c_str());
 
-	if (!newTexture)
-	{
+	if (!surface) {
 		printf("Tekstuurin lataaminen ei onnistunut\n");
 		printf("IMG_LoadTexture: %s\n", IMG_GetError());
+		return false;
 	}
+
+	SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,
+												  0xFF, 0, 0xFF));
+
+	SDL_Texture *newTexture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	if (!newTexture) {
+		printf("Unable to create texture from %s!\nSDL Error: %s\n", filename.c_str(), SDL_GetError());
+		return false;
+	}
+
+	SDL_FreeSurface(surface);
 
 	return newTexture;
 }

@@ -19,20 +19,16 @@
 class Entity
 {
 public:
-	Entity(Sprite *sprite, SDL_Rect hitbox);
+	Entity(Sprite *sprite, SDL_Rect hitbox, int x = 0, int y = 0);
 	~Entity();
 
 	void render();
-	void update(int x, int y);
-	SDL_bool collides(Entity *other);
-	SDL_bool collides(Level *level);
-
-	SDL_Rect hitbox;
 
 	int getX();
 	int getY();
+	SDL_Rect hitbox;
 
-private:
+protected:
 	int x, y;
 	Sprite *sprite;
 };

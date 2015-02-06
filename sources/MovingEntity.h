@@ -20,11 +20,14 @@
 class MovingEntity : public Entity
 {
 public:
-	MovingEntity();
+	MovingEntity(Sprite *sprite, SDL_Rect hitbox);
 	~MovingEntity();
 
+	void move(int x, int y);
+	SDL_bool collides(Entity *other);
+	SDL_bool collides(Level *level);
+
 private:
-	
 };
 
 #endif //__MOVINGENTITY_H_DEFINED__

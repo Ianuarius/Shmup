@@ -5,8 +5,9 @@
 
 #include "DamageableEntity.h"
 
-DamageableEntity::DamageableEntity(int initialHitPoints):
-	isAlive(true),
+DamageableEntity::DamageableEntity(Sprite *sprite, SDL_Rect hitbox, int initialHitPoints):
+	Entity(sprite, hitbox, 100, 100),
+	alive(true),
 	hitpoints(initialHitPoints)
 {
 }
@@ -27,20 +28,18 @@ void DamageableEntity::damage(int amount)
 	if (hitpoints <= 0)
 	{
 		hitpoints = 0;
-		isAlive = false;
+		alive = false;
 	}
 }
 
 bool DamageableEntity::isDead()
 {
-	if (isAlive == true)
+	if (alive == true)
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
+
+	return true;
 }
 
 int DamageableEntity::getHitpoints()

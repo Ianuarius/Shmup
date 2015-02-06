@@ -15,16 +15,19 @@
 #include "SDL.h"
 #include "Window.h"
 #include "Sprite.h"
-#include "Entity.h"
+#include "MovingEntity.h"
 
-class Projectile : public Entity
+class Projectile : public MovingEntity
 {
 public:
-	Projectile();
+	Projectile(Sprite *sprite, SDL_Rect hitbox, int speed, int angle);
 	~Projectile();
+	
+	void render();
 
 private:
-	
+	int speed;
+	int angle;
 };
 
 #endif //__PROJECTILE_H_DEFINED__
