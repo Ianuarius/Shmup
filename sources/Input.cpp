@@ -11,11 +11,7 @@ bool Input::isLocked = false;
 
 const Uint8* Input::keyboard = NULL;
 
-void Input::update() {
-	for(int i = 0; i < KEYBOARD_SIZE; i++) {
-		key[i] = false;
-	}
-	
+void Input::update() {	
 	SDL_Event event;
 
 	while(SDL_PollEvent(&event)) {
