@@ -12,6 +12,7 @@
 #include "window.h"
 #include "Level.h"
 #include "Animation.h"
+#include "Entity.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 256;
@@ -29,6 +30,11 @@ int main(int argc, char* args[])
 	// SDL_Texture* tekstuuri = NULL;
 	// tekstuuri = window.loadImage("testpic.png");
 	Sprite sprite(&window, "pengsheet.png", 16, 16);
+	Sprite alus(&window, "alus.png", 50, 50);
+	
+	SDL_Rect hitbox = {0, 0, 10, 10};
+	Entity pelaaja(&alus, hitbox);
+	Entity vihollinen(&alus, hitbox);
 	// Animation hahmo(&window, &sprite, 0, 48, 0);
 
 	SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -36,15 +42,26 @@ int main(int argc, char* args[])
 	Level level(&window);
 	level.loadLevel("level00.tmx");
 	
+	vihollinen.update(100, 100);
+	
+	// Liikkumisnopeus
+	int mSpeed = 4;
+
+
 	while(inGame) {
 		Input::update();
+
+		printf("%d\n", level.getTile(pelaaja.getX(),pelaaja.getY()));
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
 			inGame = false;
 		}
 
+		
+
 		if (Input::keyState(SDL_SCANCODE_LEFT))
 		{
+			/*
 			// Move camera left
 			camera.x = camera.x - 2;
 
@@ -52,10 +69,13 @@ int main(int argc, char* args[])
 			{
 				camera.x = 0;
 			}
+			*/
+			pelaaja.update(-mSpeed, 0);
 		}
 		
 		if (Input::keyState(SDL_SCANCODE_RIGHT))
 		{
+			/*
 			// Move camera right
 			camera.x = camera.x + 2;
 
@@ -63,16 +83,18 @@ int main(int argc, char* args[])
 			{
 				camera.x = level.getLevelWidth();
 			}
+			*/
+			pelaaja.update(mSpeed, 0);
 		}
 
-		if (Input::keyState(SDL_SCANCODE_M))
+		if (Input::keyState(SDL_SCANCODE_UP))
 		{
-			window.minimize();
+			pelaaja.update(0, -mSpeed);
 		}
 
-		if (Input::keyState(SDL_SCANCODE_N))
+		if (Input::keyState(SDL_SCANCODE_DOWN))
 		{
-			window.maximize();
+			pelaaja.update(0, mSpeed);
 		}
 
 		window.clear();
@@ -81,6 +103,12 @@ int main(int argc, char* args[])
 
 		// window.render(tekstuuri, 200, 200, &nelio);
 		level.renderLevel(&camera);
+		pelaaja.render();
+		vihollinen.render();
+
+		if (pelaaja.collides(&level) == SDL_TRUE) {
+			printf("BOOM!");
+		}
 
 		window.refresh();
 	}

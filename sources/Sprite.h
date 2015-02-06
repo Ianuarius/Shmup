@@ -15,12 +15,13 @@ class Sprite
 		void crop(SDL_Rect rect);
 		virtual void render(int index, int x, int y);
 
+		SDL_Rect clipRect;
+
 	private:
 		Window *window;
 		std::string filename;
 
 		SDL_Texture *image;
-		SDL_Rect clipRect;
 
 		std::vector<SDL_Rect> spriteSheet;
 };

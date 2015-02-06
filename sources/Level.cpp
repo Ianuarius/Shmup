@@ -27,25 +27,11 @@ void Level::loadLevel(std::string level_name)
 		// NOTE(juha): Log the shit out of things.
 	}
 
-
 	levelWidth = atoi(levelDocument.child("map").attribute("width").value());
 	tileNode = levelDocument.child("map").child("layer").child("data");
 
-	
-	// SDL_Rect testiCrop;
-	// int tileNro = 3;
-
-	// renderLevel(null);
-}
-
-// TODO(jouni): Muuttujaksi kameran X
-void Level::renderLevel(SDL_Rect *camera)
-{
-	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
-	
 	int iteratorCount = 0;
-	int X = 0;
-	int Y = 0;
+	std::vector<int> levelRow;
 
 	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
@@ -55,15 +41,36 @@ void Level::renderLevel(SDL_Rect *camera)
 		iteratorCount++;
 
 		int gid = atoi(iterator->attribute("gid").value());
-		levelTileSheet.render(gid-1, X*tileSize - camera->x, Y*tileSize);
 		
-		X++;
+		levelRow.push_back(gid);
 		
 		// NOTE(juha): Kun päästään kentän loppuun, vaihdetaan riviä.
 		if (iteratorCount % levelWidth == 0)
 		{
-			Y++;
-			X = 0;
+			levelData.push_back(levelRow);
+			levelRow.clear();
+		}
+	}
+	// SDL_Rect testiCrop;
+	// int tileNro = 3;
+
+	// renderLevel(null);
+}
+
+// TODO(jouni): Muuttujaksi kameran X
+void Level::renderLevel(SDL_Rect *camera)
+{
+	// IMPORTANT(juha): Harjoitus tekee ninjoja
+	// SEMI-IMPORTANT (Karlos): sekä samuraita. Joskus.
+	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
+	std::vector<std::vector<int>>::iterator row;
+	std::vector<int>::iterator col;
+
+	for(row = levelData.begin(); row != levelData.end(); ++row) {
+		for(col = row->begin(); col != row->end(); ++col) {
+			int X = col - row->begin();
+			int Y = row - levelData.begin();
+			levelTileSheet.render(*col-1, X*tileSize - camera->x, Y*tileSize);
 		}
 	}
 }
@@ -71,6 +78,17 @@ void Level::renderLevel(SDL_Rect *camera)
 int Level::getLevelWidth()
 {
 	return levelWidth*tileSize;
+}
+
+int Level::getTile(int x, int y)
+{
+	//TODO(Kalle): KORJAAN TÄMÄN VIRHEENTAKRASTUKSEN ENSIKEERRALLAA
+	if (x >= 0 && y >= 0 && x <levelData[0].size()*tileSize && y <= levelData.size()*tileSize) {
+		return (levelData[y/tileSize][x/tileSize]);
+	} else {
+		return 0;
+	}
+
 }
 
 // TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää

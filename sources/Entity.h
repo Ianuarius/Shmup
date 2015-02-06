@@ -13,20 +13,28 @@
 #define ENTITY_H_DEFINED
 
 #include "SDL.h"
-#include "Window.h"
 #include "Sprite.h"
+#include "Level.h"
 
 class Entity
 {
 public:
-	Entity();
+	Entity(Sprite *sprite, SDL_Rect hitbox);
 	~Entity();
 
-private:
-	int x;
-	int y;
+	void render();
+	void update(int x, int y);
+	SDL_bool collides(Entity *other);
+	SDL_bool collides(Level *level);
 
-	
+	SDL_Rect hitbox;
+
+	int getX();
+	int getY();
+
+private:
+	int x, y;
+	Sprite *sprite;
 };
 
 #endif //__ENTITY_H_DEFINED__
