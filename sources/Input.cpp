@@ -3,7 +3,6 @@
  *
  */
 
-// Includetaan vain luokan header-tiedosto
 #include "input.h"
 
 bool Input::key[KEYBOARD_SIZE] = {0};

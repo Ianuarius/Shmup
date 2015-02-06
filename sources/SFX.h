@@ -49,7 +49,7 @@ public:
 	bool isPlaying();
 
 	/// Tells if this sound effect is currently paused.
-	bool isPaused();
+	int isPaused();
 
 	/// Returns the current volume of this sound effect.
 	int getVolume();

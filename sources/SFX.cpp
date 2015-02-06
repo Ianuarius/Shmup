@@ -13,10 +13,10 @@ SFX::SFX(std::string filepath):
 	this->sfx = Mix_LoadWAV(this->filepath.c_str());
 	if (!this->sfx)
 	{
-		printf("Mix_LoadWAV: Couldn't load SFX");
+		printf("Mix_LoadWAV: Couldn't load SFX\nMixer error: %s\n", Mix_GetError());
 	}
 	else
-		printf("SFX::load '%s'", this->filepath);
+		printf("SFX::load '%s'\n", this->filepath.c_str());
 }
 SFX::~SFX()
 {
@@ -25,11 +25,10 @@ SFX::~SFX()
 }
 bool SFX::play(int times)
 {
-	if (!this->sfx)
+	if (!this->sfx) {
+		printf("Couldnt find Mix_Chunk\n");
 		return false;
-
-	if (this->isPlaying())
-		return false;
+	}
 
 	// If we send 0 to `Mix_PlayChannel` it plays once.
 	// If we send 1 it plays twice and so on...
@@ -39,7 +38,7 @@ bool SFX::play(int times)
 	int chan = Mix_PlayChannel(-1, this->sfx, times);
 	if (chan == -1)
 	{
-		printf("Mix_PlayChannel: Couldn't play SFX");
+		printf("Mix_PlayChannel: Couldn't play SFX\nMixer error: %s\n", Mix_GetError());
 		return false;
 	}
 	this->channel = chan;
@@ -72,7 +71,7 @@ bool SFX::isPlaying()
 {
 	return Mix_Playing(this->channel) && !isPaused();
 }
-bool SFX::isPaused()
+int SFX::isPaused()
 {
 	return Mix_Paused(this->channel);
 }
