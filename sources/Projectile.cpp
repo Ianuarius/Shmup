@@ -5,7 +5,7 @@
 
 #include "Projectile.h"
 
-Projectile::Projectile(Sprite *sprite, SDL_Rect hitbox, int speed, int angle, int x, int y) :
+Projectile::Projectile(Sprite *sprite, SDL_Rect hitbox, int speed, int angle):
 	MovingEntity(sprite, hitbox),
 	speed(speed),
 	angle(angle)

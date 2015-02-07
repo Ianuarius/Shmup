@@ -25,6 +25,7 @@ int main(int argc, char* args[])
 	SDL::init();
 	
 	bool love = true;
+	bool moveCamera = true;
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
@@ -109,6 +110,10 @@ int main(int argc, char* args[])
 
 		if (pelaaja.collides(&level) == SDL_TRUE) {
 			printf("BOOM!");
+		}
+		
+		if (moveCamera == true)	{
+			camera.x += 2;	
 		}
 
 		window.refresh();
