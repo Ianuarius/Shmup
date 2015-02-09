@@ -60,8 +60,11 @@ void Level::loadLevel(std::string level_name)
 // TODO(jouni): Muuttujaksi kameran X
 void Level::renderLevel(Camera *camera)
 {
-	// NOTE(jounijakarlos): Liikuttaa kameraa nopeuden verran!
-	camera->update();
+	// NOTE(jouni&&karlos): Liikuttaa kameraa jos kenttä ei oo vielä loppunu
+	if (camera->getX() < levelWidth*tileSize)
+	{
+		camera->update();
+	}
 
 	// IMPORTANT(juha): Harjoitus tekee ninjoja
 	// SEMI-IMPORTANT (Karlos): sekä samuraita. Joskus.
