@@ -7,6 +7,7 @@
 #include "PugiXML.h"
 #include "Window.h"
 #include "Sprite.h"
+#include "Camera.h"
 #include <vector>
 
 class Level
@@ -14,11 +15,12 @@ class Level
 public:
 	Level(Window *window);
 	~Level();
-	void loadLevel(std::string level_name);
-	int getLevelWidth();
-	void renderLevel(SDL_Rect *camera);
-	int getTile(int x, int y);
 
+	void loadLevel(std::string level_name);
+	void renderLevel(Camera *camera);
+	
+	int getTile(int x, int y);
+	int getLevelWidth();
 
 private:
 	pugi::xml_document levelDocument;

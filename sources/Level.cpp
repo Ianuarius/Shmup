@@ -36,7 +36,7 @@ void Level::loadLevel(std::string level_name)
 	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
-		++iterator) 
+		++iterator)
 	{
 		iteratorCount++;
 
@@ -58,8 +58,11 @@ void Level::loadLevel(std::string level_name)
 }
 
 // TODO(jouni): Muuttujaksi kameran X
-void Level::renderLevel(SDL_Rect *camera)
+void Level::renderLevel(Camera *camera)
 {
+	// NOTE(jounijakarlos): Liikuttaa kameraa nopeuden verran!
+	camera->update();
+
 	// IMPORTANT(juha): Harjoitus tekee ninjoja
 	// SEMI-IMPORTANT (Karlos): sekä samuraita. Joskus.
 	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
@@ -70,7 +73,7 @@ void Level::renderLevel(SDL_Rect *camera)
 		for(col = row->begin(); col != row->end(); ++col) {
 			int X = col - row->begin();
 			int Y = row - levelData.begin();
-			levelTileSheet.render(*col-1, X*tileSize - camera->x, Y*tileSize);
+			levelTileSheet.render(*col-1, X*tileSize - camera->getX(), Y*tileSize);
 		}
 	}
 }

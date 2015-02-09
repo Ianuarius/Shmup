@@ -15,6 +15,7 @@
 #include "MovingEntity.h"
 #include "DamageableEntity.h"
 #include "Projectile.h"
+#include "Camera.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 256;
@@ -47,7 +48,8 @@ int main(int argc, char* args[])
 	DamageableEntity vihollinen(&alus, hitbox, 100);
 	Projectile proj(&ammus, ammus_hb, 2, 0);
 
-	SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+	Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT);
+	camera.setSpeed(2);
 
 	Level level(&window);
 	level.loadLevel("level00.tmx");
@@ -64,29 +66,11 @@ int main(int argc, char* args[])
 
 		if (Input::keyState(SDL_SCANCODE_LEFT))
 		{
-			/*
-			// Move camera left
-			camera.x = camera.x - 2;
-
-			if (camera.x < 0)
-			{
-				camera.x = 0;
-			}
-			*/
 			pelaaja.move(-mSpeed, 0);
 		}
 		
 		if (Input::keyState(SDL_SCANCODE_RIGHT))
 		{
-			/*
-			// Move camera right
-			camera.x = camera.x + 2;
-
-			if (camera.x > level.getLevelWidth())
-			{
-				camera.x = level.getLevelWidth();
-			}
-			*/
 			pelaaja.move(mSpeed, 0);
 		}
 
@@ -122,10 +106,6 @@ int main(int argc, char* args[])
 
 		if (pelaaja.collides(&level) == SDL_TRUE) {
 			printf("BOOM!");
-		}
-		
-		if (moveCamera == true)	{
-			camera.x += 2;	
 		}
 
 		window.refresh();
