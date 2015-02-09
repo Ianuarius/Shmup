@@ -1,9 +1,10 @@
 #include "Level.h"
 
 Level::Level(Window *window):
-	window(window)
+	window(window),
+	bgScrollingOffset(0)
 {
-
+	background = window->loadImage("kaupunki_tausta.png");
 }
 
 Level::~Level()
@@ -62,7 +63,19 @@ void Level::renderLevel(Camera *camera)
 {
 	// NOTE(jounijakarlos): Liikuttaa kameraa nopeuden verran!
 	camera->update();
+	
+	//Scroll background
+	--bgScrollingOffset;
+	if(bgScrollingOffset < camera->getX()-756)
+	{
+		bgScrollingOffset = camera->getX();
+	}
 
+	printf("%d\n", bgScrollingOffset);
+	// TODO(jouni): TEE TÄMÄ KUNTOON
+	window->render(background, (camera->getX() / 2)*(-1), 0);
+	window->render(background, (bgScrollingOffset + 500)-(camera->getX() / 2), 0);
+	
 	// IMPORTANT(juha): Harjoitus tekee ninjoja
 	// SEMI-IMPORTANT (Karlos): sekä samuraita. Joskus.
 	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
