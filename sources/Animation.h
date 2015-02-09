@@ -18,15 +18,16 @@ class Animation
 		int getFramerate();
 		int getCurrentFrame();
 
-		void render(int x, int y);
+		int getFrame();
 
 		void start();
 		void pause();
 
-	private:
-		Window *window;
 		Sprite *animated;
 
+	private:
+		Window *window;
+		
 		std::vector<int> frames;
 		int framerate, current_frame, current_frame_time;
 		bool running;

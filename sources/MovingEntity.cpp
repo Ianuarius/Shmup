@@ -10,6 +10,11 @@ MovingEntity::MovingEntity(Sprite *sprite, SDL_Rect hitbox) :
 {
 }
 
+MovingEntity::MovingEntity(Animation *sprite, SDL_Rect hitbox) :
+	Entity(sprite, hitbox)
+{
+}
+
 MovingEntity::~MovingEntity()
 {
 }

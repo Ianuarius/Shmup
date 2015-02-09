@@ -13,6 +13,7 @@ class Sprite
 		virtual ~Sprite();
 
 		void crop(SDL_Rect rect);
+		void crop(int index);
 		virtual void render(int index, int x, int y);
 
 		SDL_Rect clipRect;

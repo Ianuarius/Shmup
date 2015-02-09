@@ -15,11 +15,13 @@
 #include "SDL.h"
 #include "Sprite.h"
 #include "Level.h"
+#include "Animation.h"
 
 class Entity
 {
 public:
 	Entity(Sprite *sprite, SDL_Rect hitbox, int x = 0, int y = 0);
+	Entity(Animation *sprite, SDL_Rect hitbox, int x = 0, int y = 0);
 	~Entity();
 
 	void render();
@@ -29,8 +31,10 @@ public:
 	SDL_Rect hitbox;
 
 protected:
-	int x, y;
+	int x, y, frame;
 	Sprite *sprite;
+	Animation *anime;
+
 };
 
 #endif //__ENTITY_H_DEFINED__

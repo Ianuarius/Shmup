@@ -39,10 +39,13 @@ int main(int argc, char* args[])
 	
 	SDL_Rect hitbox = {0, 0, 10, 10};
 	SDL_Rect ammus_hb = {0, 0, 5, 5};
-	MovingEntity pelaaja(&alus, hitbox);
+
+	int hfr = 2;
+	Animation hahmo(&window, &sprite, 0, 16, hfr);
+	MovingEntity pelaaja(&hahmo, hitbox);
+
 	DamageableEntity vihollinen(&alus, hitbox, 100);
 	Projectile proj(&ammus, ammus_hb, 2, 0);
-	// Animation hahmo(&window, &sprite, 0, 48, 0);
 
 	SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
@@ -97,6 +100,17 @@ int main(int argc, char* args[])
 			pelaaja.move(0, mSpeed);
 		}
 
+		if (Input::keyState(SDL_SCANCODE_A))
+		{
+			hahmo.setFramerate(hfr++);
+		}
+
+		if (Input::keyState(SDL_SCANCODE_S))
+		{
+			if (hfr <= 0) hfr = 0;
+			hahmo.setFramerate(hfr--);
+		}
+
 		window.clear();
 
 		// hahmo.render(100, 100);
@@ -105,8 +119,6 @@ int main(int argc, char* args[])
 		window.render(background, 0, 0);
 		level.renderLevel(&camera);
 		pelaaja.render();
-		vihollinen.render();
-		proj.render();
 
 		if (pelaaja.collides(&level) == SDL_TRUE) {
 			printf("BOOM!");

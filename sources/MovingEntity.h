@@ -16,11 +16,13 @@
 #include "Window.h"
 #include "Sprite.h"
 #include "Entity.h"
+#include "Animation.h"
 
 class MovingEntity : public Entity
 {
 public:
 	MovingEntity(Sprite *sprite, SDL_Rect hitbox);
+	MovingEntity(Animation *sprite, SDL_Rect hitbox);
 	~MovingEntity();
 
 	void move(int x, int y);
