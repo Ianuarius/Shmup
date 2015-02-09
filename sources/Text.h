@@ -23,9 +23,11 @@ class Text {
 
 		void setFont(Font *font);
 		void setColor(Color font_color);
-		void print(Window *window, std::string text);
+		void print(Window *window, std::string text, int x, int y);
 
 	private:
+
+		int x, y;
 		SDL_Texture *texture;
 		Font *font;
 		Color color;

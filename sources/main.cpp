@@ -16,6 +16,7 @@
 #include "DamageableEntity.h"
 #include "Projectile.h"
 #include "Camera.h"
+#include "HUD.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 256;
@@ -50,6 +51,8 @@ int main(int argc, char* args[])
 
 	Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	camera.setSpeed(2);
+
+	HUD hud(&window);
 
 	Level level(&window);
 	level.loadLevel("level00.tmx");
@@ -103,6 +106,7 @@ int main(int argc, char* args[])
 		window.render(background, 0, 0);
 		level.renderLevel(&camera);
 		pelaaja.render();
+		hud.render();
 
 		if (pelaaja.collides(&level) == SDL_TRUE) {
 			printf("BOOM!");

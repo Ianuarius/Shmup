@@ -30,7 +30,7 @@ void Text::setColor(Color color)
 	this->color = color;
 }
 
-void Text::print(Window *window, std::string text)
+void Text::print(Window *window, std::string text, int x, int y)
 {
 	// Get rid of pre-existing texture
 	if (texture)
@@ -55,7 +55,7 @@ void Text::print(Window *window, std::string text)
 		SDL_Renderer* renderer = window->getRenderer();
 		texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 
-		window->render(texture, 10, 10);
+		window->render(texture, x, y);
 	} else {
 		printf("Ei voitu tulostaa tekstiä! SDL_Error: %s\n", SDL_GetError());
 	}

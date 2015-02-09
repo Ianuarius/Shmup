@@ -23,6 +23,7 @@ public:
 	Projectile(Sprite *sprite, SDL_Rect hitbox, int speed, int angle);
 	~Projectile();
 	
+	void update();
 	void render();
 
 private:
