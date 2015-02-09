@@ -101,7 +101,7 @@ int main(int argc, char* args[])
 		// hahmo.render(100, 100);
 
 		// window.render(tekstuuri, 200, 200, &nelio);
-		window.render(background, 0, 0);
+		window.render(background, 0-(camera.getX() / 2), 0);
 		level.renderLevel(&camera);
 		pelaaja.render();
 
