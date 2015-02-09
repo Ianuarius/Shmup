@@ -16,6 +16,7 @@
 #include "DamageableEntity.h"
 #include "Projectile.h"
 #include "Camera.h"
+#include "Player.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 256;
@@ -43,7 +44,7 @@ int main(int argc, char* args[])
 
 	int hfr = 2;
 	Animation hahmo(&window, &sprite, 0, 16, hfr);
-	MovingEntity pelaaja(&hahmo, hitbox);
+	Player pelaaja(&hahmo, hitbox, 100);
 
 	DamageableEntity vihollinen(&alus, hitbox, 100);
 	Projectile proj(&ammus, ammus_hb, 2, 0);
@@ -105,7 +106,7 @@ int main(int argc, char* args[])
 		pelaaja.render();
 
 		if (pelaaja.collides(&level) == SDL_TRUE) {
-			printf("BOOM!");
+			pelaaja.damage(100);
 		}
 
 		window.refresh();
