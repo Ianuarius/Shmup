@@ -11,54 +11,50 @@
 
 class Window
 {
-public:
-	// Constructor
-	Window(int width, int height, std::string title, bool fullscreen);
+	public:
+		// Constructor
+		Window(int width, int height, std::string title, bool fullscreen);
 	
-	// Destructor & destroy()
-	virtual ~Window();
-	void destroy();
+		// Destructor & destroy()
+		virtual ~Window();
+		void destroy();
 
-	void resize(std::string title, int width, int height, bool fullscreen = false);
-	void refresh();
-	void clear();
+		void resize(std::string title, int width, int height, bool fullscreen = false);
+		void refresh();
+		void clear();
 
-	void setTitle(std::string title);
+		void setTitle(std::string title);
 
-	void minimize();
-	void maximize();
-	void restore();
+		void minimize();
+		void maximize();
+		void restore();
 
-	Uint32 getDelta();
-	int getFramerate();
+		Uint32 getDelta();
+		int getFramerate();
 
-	SDL_Texture* loadImage(std::string filename);
-	SDL_Renderer* getRenderer();
+		SDL_Renderer* getRenderer();
 
-	// source = Alkuperäisestä kuvasta leikatun alueen sijanti ja koko
-	void render(SDL_Texture* texture, int x, int y, SDL_Rect* source = NULL);
-	void freeImage(SDL_Texture *image);
-	void freeImage(SDL_Surface *image);
+		// source = Alkuperäisestä kuvasta leikatun alueen sijanti ja koko
 
-	void drawRect(int X, int Y, int W, int H, Color color);
-	void fill(Color color);
+		void drawRect(int X, int Y, int W, int H, Color color);
+		void fill(Color color);
 
-	unsigned int width; 
-	unsigned int height; 
-	unsigned int originalWidth;
-	unsigned int originalHeight;
+		unsigned int width; 
+		unsigned int height; 
+		unsigned int originalWidth;
+		unsigned int originalHeight;
 	
-	//The actual hardware texture
-	SDL_Texture* texture;
+		//The actual hardware texture
+		// SDL_Texture* texture;
 
-private:
-	SDL_Window *window;
-	SDL_Surface *surface;
-	SDL_Renderer *renderer;
+	private:
+		SDL_Window *window;
+		SDL_Surface *surface;
+		SDL_Renderer *renderer;
 	
-	Timer frametimeTimer, fpsTimer;
-	Uint32 framerate, frame_delay, current_delta;
-	int fps_current, fps;
+		Timer frametimeTimer, fpsTimer;
+		Uint32 framerate, frame_delay, current_delta;
+		int fps_current, fps;
 	
 };
 
