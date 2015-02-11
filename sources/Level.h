@@ -30,6 +30,9 @@ private:
 	int levelWidth;
 	int tileSize;
 
+	SDL_Texture *background;
+	int bgScrollingOffset;
+
 	Window *window;
 	std::vector<std::vector<int>> levelData;
 };
