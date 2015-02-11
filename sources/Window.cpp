@@ -4,7 +4,6 @@ Window::Window(int width, int height, std::string title, bool fullscreen):
 	window(nullptr),
 	surface(nullptr),
 	renderer(nullptr),
-	texture(nullptr),
 	width(width),
 	height(height),
 	originalWidth(width),
@@ -112,64 +111,6 @@ void Window::refresh()
 
 	current_delta = frametimeTimer.getTicks();
 	frametimeTimer.start();
-}
-
-Texture* Window::loadImage(std::string filename)
-{
-	SDL_Surface* surface = IMG_Load(filename.c_str());
-
-	if (!surface) {
-		printf("Tekstuurin lataaminen ei onnistunut\n");
-		printf("IMG_LoadTexture: %s\n", IMG_GetError());
-		return false;
-	}
-
-	SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,
-												  0xFF, 0, 0xFF));
-
-	SDL_Texture *newTexture = SDL_CreateTextureFromSurface(renderer, surface);
-
-	if (!newTexture) {
-		printf("Unable to create texture from %s!\nSDL Error: %s\n", filename.c_str(), SDL_GetError());
-		return false;
-	}
-
-	SDL_FreeSurface(surface);
-
-	return newTexture;
-}
-
-// source = kuvasta leikatun alueen sijainti ja koko
-void Window::render(SDL_Texture* texture, int x, int y, SDL_Rect* source)
-{
-	// NOTE(jouni): Jos source on tyhjä käytetään kuvan alkup. kokoa
-	if (!source)
-	{
-		int width, height;
-		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-
-		SDL_Rect clip = {0, 0, width, height};
-		source = &clip;
-	}
-
-	SDL_Rect destination = {x, y, source->w, source->h};
-
-	SDL_RenderCopy(renderer, texture, source, &destination);
-}
-
-void Window::freeImage(SDL_Texture *image)
-{
-	if(image)
-	{
-		SDL_DestroyTexture(image);
-	}
-}
-void Window::freeImage(SDL_Surface *image)
-{
-	if(image)
-	{
-		SDL_FreeSurface(image);
-	}
 }
 
 void Window::drawRect(int X, int Y, int W, int H, Color color)

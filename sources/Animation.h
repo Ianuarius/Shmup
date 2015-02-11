@@ -2,12 +2,15 @@
 #define __ANIMATION_H_INCLUDED__
 
 #include <vector>
+#include "SDL.h"
 #include "Sprite.h"
 
-class Animation
+#define INFINITE_LOOP -1
+
+class Animation : public Sprite
 {
 	public:
-		Animation(Window *window, Sprite *sprite, int start_frame,
+		Animation(Window *window, std::string filename, int start_frame,
 				  int frame_count, int framerate);
 		virtual ~Animation();
 
@@ -15,13 +18,13 @@ class Animation
 		void setFramerate(int framerate);
 
 		int getFramecount();
-		int getFramerate();
 		int getCurrentFrame();
 
 		int getFrame();
 
-		void start();
+		void play(int times);
 		void pause();
+		void render(int x, int y);
 
 		Sprite *animated;
 
@@ -29,7 +32,7 @@ class Animation
 		Window *window;
 		
 		std::vector<int> frames;
-		int framerate, current_frame, current_frame_time;
+		int play_count, frametime, current_frame, current_frametime;
 		bool running;
 };
 

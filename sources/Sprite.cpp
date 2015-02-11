@@ -1,12 +1,15 @@
-#include "sprite.h"
+#include "Sprite.h"
 
 // NOTE(jouni): spriteWidth & spriteHeight = yhen spriten koko
-Sprite::Sprite(Window *window, std::string filename, int spriteWidth, int spriteHeight):
-	Texture(window, filename)
+Sprite::Sprite(Window *window,
+			   std::string filename,
+			   int spriteWidth,
+			   int spriteHeight):
+	texture(window, filename)
 {
 	int spriteItems = 0;
-	int columns = getWidth() / spriteWidth;
-	int rows = getHeight() / spriteHeight;
+	int columns = texture.getWidth() / spriteWidth;
+	int rows = texture.getHeight() / spriteHeight;
 	
 	for (int i = 0; i < rows; ++i)
 	{
@@ -25,6 +28,6 @@ Sprite::~Sprite()
 // NOTE(jouni): index = mikä spriten "alkio" piirretään
 void Sprite::render(int index, int x, int y)
 {
-	crop(spriteSheet[index]);
-	Texture::render(x, y);
+	texture.crop(spriteSheet[index]);
+	texture.render(x, y);
 }

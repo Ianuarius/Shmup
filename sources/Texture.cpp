@@ -5,16 +5,14 @@ Texture::Texture(Window *window, std::string filename):
 {
 	renderer = window->getRenderer();
 	texture = loadImage(filename);
-	//Initialize
-	/*mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;*/
+	
+	// Set width and height
+	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 }
 
 Texture::~Texture()
 {
-	//Deallocate
-	//free();
+
 }
 
 SDL_Texture *Texture::loadImage(std::string filename)

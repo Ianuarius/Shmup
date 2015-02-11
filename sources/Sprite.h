@@ -2,12 +2,12 @@
 #define __SPRITE_H_INCLUDED__
 
 #include <vector>
-#include "sdl.h"
-#include "color.h"
-#include "window.h"
-#include  "Texture.h"
+#include "SDL.h"
+#include "Color.h"
+#include "Window.h"
+#include "Texture.h"
 
-class Sprite : public Texture
+class Sprite
 {
 	public:
 		Sprite(Window *window, std::string filename, int width, int height);
@@ -15,10 +15,9 @@ class Sprite : public Texture
 
 		void render(int index, int x, int y);
 
-
 	private:
 		Window *window;
-		//Texture texture;
+		Texture texture;
 
 		int width;
 		int height;
