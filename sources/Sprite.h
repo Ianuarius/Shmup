@@ -7,24 +7,21 @@
 #include "window.h"
 #include  "Texture.h"
 
-class Sprite
+class Sprite : public Texture
 {
 	public:
 		Sprite(Window *window, std::string filename, int width, int height);
 		virtual ~Sprite();
 
-		virtual void render(int index, int x, int y);
+		void render(int index, int x, int y);
 
-		SDL_Rect clipRect;
 
 	private:
 		Window *window;
-		std::string filename;
-		Texture texture;
+		//Texture texture;
+
 		int width;
 		int height;
-
-		SDL_Texture *image;
 
 		std::vector<SDL_Rect> spriteSheet;
 };
