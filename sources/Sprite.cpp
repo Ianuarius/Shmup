@@ -38,19 +38,6 @@ Sprite::~Sprite()
 	}
 }
 
-void Sprite::crop(SDL_Rect rect)
-{
-	clipRect.x = rect.x;
-	clipRect.y = rect.y;
-	clipRect.w = rect.w;
-	clipRect.h = rect.h;
-}
-
-void Sprite::crop(int index)
-{
-	crop(spriteSheet[index]);
-}
-
 // NOTE(jouni): index = mik‰ spriten "alkio" piirret‰‰n
 void Sprite::render(int index, int x, int y)
 {

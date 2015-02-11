@@ -8,13 +8,18 @@
 
 class Texture
 {
-public:
-	//Initializes variables
-	Texture();
+	public:
+		//Initializes variables
+		Texture(Window *window, std::string filename, int width, int height);
 
-	//Deallocates memory
-	~Texture();
-
+		//Deallocates memory
+		~Texture();
+		
+		int getWidth();
+		int getHeight();
+		void crop(SDL_Rect rect);
+		void crop(int index);
+		virtual void render(int x, int y);
 };
 
 #endif // __LTEXTURE_H_INCLUDED__

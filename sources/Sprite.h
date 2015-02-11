@@ -5,6 +5,7 @@
 #include "sdl.h"
 #include "color.h"
 #include "window.h"
+#include  "Texture.h"
 
 class Sprite
 {
@@ -12,8 +13,6 @@ class Sprite
 		Sprite(Window *window, std::string filename, int width, int height);
 		virtual ~Sprite();
 
-		void crop(SDL_Rect rect);
-		void crop(int index);
 		virtual void render(int index, int x, int y);
 
 		SDL_Rect clipRect;
@@ -21,6 +20,9 @@ class Sprite
 	private:
 		Window *window;
 		std::string filename;
+		Texture texture;
+		int width;
+		int height;
 
 		SDL_Texture *image;
 
