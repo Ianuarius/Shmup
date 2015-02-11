@@ -54,10 +54,6 @@ void Level::loadLevel(std::string level_name)
 			levelRow.clear();
 		}
 	}
-	// SDL_Rect testiCrop;
-	// int tileNro = 3;
-
-	// renderLevel(null);
 }
 
 // TODO(jouni): Muuttujaksi kameran X

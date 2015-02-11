@@ -27,7 +27,6 @@ int main(int argc, char* args[])
 	SDL::init();
 	
 	bool love = true;
-	bool moveCamera = true;
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
@@ -55,6 +54,8 @@ int main(int argc, char* args[])
 	
 	// Liikkumisnopeus
 	int mSpeed = 3;
+
+	Sprite(&window, "filename.png", 100, 100);
 
 	while(love) {
 		Input::update();

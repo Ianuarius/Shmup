@@ -1,14 +1,15 @@
-#ifndef LEVEL_H_DEFINED
-#define LEVEL_H_DEFINED
+#ifndef __LEVEL_H_DEFINED__
+#define __LEVEL_H_DEFINED__
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "SDL.h"
 #include "PugiXML.h"
 #include "Window.h"
 #include "Sprite.h"
 #include "Camera.h"
-#include <vector>
+
 
 class Level
 {

@@ -114,7 +114,7 @@ void Window::refresh()
 	frametimeTimer.start();
 }
 
-SDL_Texture* Window::loadImage(std::string filename)
+Texture* Window::loadImage(std::string filename)
 {
 	SDL_Surface* surface = IMG_Load(filename.c_str());
 
