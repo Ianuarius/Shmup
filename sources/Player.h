@@ -20,8 +20,10 @@
 class Player : public DamageableEntity, public MovingEntity
 {
 public:
-	Player();
+	Player(Animation *animation, SDL_Rect hitbox, int initialHitPoints);
 	~Player();
+
+	void render();
 
 private:
 	
