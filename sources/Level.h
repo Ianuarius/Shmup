@@ -17,7 +17,7 @@ public:
 	~Level();
 
 	void loadLevel(std::string level_name);
-	void renderLevel(Camera *camera);
+	void renderLevel();
 	
 	int getTile(int x, int y);
 	int getLevelWidth();
@@ -29,6 +29,8 @@ private:
 
 	int levelWidth;
 	int tileSize;
+
+	Camera camera;
 
 	SDL_Texture *background;
 	int bgScrollingOffset;

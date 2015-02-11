@@ -25,6 +25,7 @@ void MovingEntity::move(int x, int y)
 	this->y += y;
 	this->hitbox.x = hitbox.x+x;
 	this->hitbox.y = hitbox.y+y;
+	
 }
 
 SDL_bool MovingEntity::collides(Entity *other)
@@ -42,8 +43,11 @@ SDL_bool MovingEntity::collides(Level *level)
 	// Palauttaa hitboxin vasemman yläkulman tilen
 	hbX = hitbox.x;
 	hbY = hitbox.y;
+	printf("Hitbox %d/%d\n", hitbox.x, hitbox.y);
+	printf("GETTILE: %d\n", level->getTile(hbX, hbY));
 
-	if(level->getTile(hbX, hbY) != 1){
+	if(level->getTile(hbX, hbY) != 1)
+	{
 		return SDL_TRUE;
 	}
 

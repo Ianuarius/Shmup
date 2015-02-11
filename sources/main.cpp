@@ -31,26 +31,22 @@ int main(int argc, char* args[])
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
-	SDL_Texture *background = window.loadImage("kaupunki_tausta.png");
 
 	// SDL_Texture* tekstuuri = NULL;
 	// tekstuuri = window.loadImage("testpic.png");
 	Sprite sprite(&window, "pengsheet.png", 16, 16);
-	Sprite alus(&window, "alus.png", 50, 50);
+	Sprite alus(&window, "player_spritesheet.png", 32, 32);
 	Sprite ammus(&window, "ammus.png", 5, 5);
 	
-	SDL_Rect hitbox = {0, 0, 10, 10};
+	SDL_Rect hitbox = {2, 2, 28, 28};
 	SDL_Rect ammus_hb = {0, 0, 5, 5};
 
 	int hfr = 2;
-	Animation hahmo(&window, &sprite, 0, 16, hfr);
+	Animation hahmo(&window, &alus, 0, 4, hfr);
 	MovingEntity pelaaja(&hahmo, hitbox);
 
 	DamageableEntity vihollinen(&alus, hitbox, 100);
 	Projectile proj(&ammus, ammus_hb, 2, 0);
-
-	Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-	camera.setSpeed(2);
 
 	HUD hud(&window);
 
@@ -62,6 +58,10 @@ int main(int argc, char* args[])
 
 	while(love) {
 		Input::update();
+
+		if (pelaaja.collides(&level) == SDL_TRUE) {
+			printf("BOOM!");
+		}
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
 			love = false;
@@ -103,14 +103,9 @@ int main(int argc, char* args[])
 		// hahmo.render(100, 100);
 
 		// window.render(tekstuuri, 200, 200, &nelio);
-		window.render(background, 0, 0);
-		level.renderLevel(&camera);
+		level.renderLevel();
 		pelaaja.render();
 		hud.render();
-
-		if (pelaaja.collides(&level) == SDL_TRUE) {
-			printf("BOOM!");
-		}
 
 		window.refresh();
 	}

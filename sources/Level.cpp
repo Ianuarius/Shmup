@@ -2,9 +2,11 @@
 
 Level::Level(Window *window):
 	window(window),
-	bgScrollingOffset(0)
+	bgScrollingOffset(0),
+	camera(256, 240)
 {
 	background = window->loadImage("kaupunki_tausta.png");
+	camera.setSpeed(2);
 }
 
 Level::~Level()
@@ -59,28 +61,27 @@ void Level::loadLevel(std::string level_name)
 }
 
 // TODO(jouni): Muuttujaksi kameran X
-void Level::renderLevel(Camera *camera)
+void Level::renderLevel()
 {
 	// NOTE(jouni&&karlos): Liikuttaa kameraa jos kenttä ei oo vielä loppunu
-	if (camera->getX() < levelWidth*tileSize)
+	if (camera.getX() < levelWidth*tileSize)
 	{
-		camera->update();
+		camera.update();
 	}
+
+	int background_width;
+	SDL_QueryTexture(background, NULL, NULL, &background_width, NULL);
 	
 	//Scroll background
 	--bgScrollingOffset;
-	if(bgScrollingOffset < camera->getX()-756)
+	if(bgScrollingOffset < -background_width)
 	{
-		bgScrollingOffset = camera->getX();
+		bgScrollingOffset = 0;
 	}
 
-	printf("%d\n", bgScrollingOffset);
-	// TODO(jouni): TEE TÄMÄ KUNTOON
-	window->render(background, (camera->getX() / 2)*(-1), 0);
-	window->render(background, (bgScrollingOffset + 500)-(camera->getX() / 2), 0);
+	window->render(background, bgScrollingOffset, 0);
+	window->render(background, bgScrollingOffset + background_width, 0);
 	
-	// IMPORTANT(juha): Harjoitus tekee ninjoja
-	// SEMI-IMPORTANT (Karlos): sekä samuraita. Joskus.
 	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
 	std::vector<std::vector<int>>::iterator row;
 	std::vector<int>::iterator col;
@@ -89,7 +90,7 @@ void Level::renderLevel(Camera *camera)
 		for(col = row->begin(); col != row->end(); ++col) {
 			int X = col - row->begin();
 			int Y = row - levelData.begin();
-			levelTileSheet.render(*col-1, X*tileSize - camera->getX(), Y*tileSize);
+			levelTileSheet.render(*col-1, X*tileSize - camera.getX(), Y*tileSize);
 		}
 	}
 }
@@ -106,11 +107,8 @@ int Level::getTile(int x, int y)
 		y < levelData.size()*tileSize &&
 		x < levelData[0].size()*tileSize)
 	{
-		return (levelData[y/tileSize][x/tileSize]);
+		return (levelData[y/tileSize][(camera.getX()+x)/tileSize]);
 	}
 
 	return 0;
 }
-
-// TODO(juha): render(), joka kutsuu jokaisen levelin palikan kohdalla windowin renderöijää
-// TODO(juha): taulukko kaikista eri gid:eistä, jotka sitten yhdistetään eri spriteihin
