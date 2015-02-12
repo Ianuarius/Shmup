@@ -8,23 +8,26 @@
 class Texture
 {
 	public:
-		//Initializes variables
 		Texture(Window *window, std::string filename);
-
-		//Deallocates memory
 		~Texture();
 		
+		// Getterit
 		int getWidth();
 		int getHeight();
-
+		
+		// Croppaa kuvasta rectin kokoisen alueen.
 		void crop(SDL_Rect rect);
+		
+		// Renderöi tekstuurin kohtaan x, y.
 		void render(int x, int y);
 
+		// Vapauttaa SDL-tyypit muistista.
 		void freeImage(SDL_Texture *image);
 		void freeImage(SDL_Surface *image);
 
 	private:
-		SDL_Texture* loadImage(std::string filename);
+		// Lataa kuvatiedoston SDL_Texture -pointteriin.
+		SDL_Texture *loadImage(std::string filename);
 		
 		int height;
 		int width;
