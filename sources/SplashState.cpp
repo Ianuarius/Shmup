@@ -1,9 +1,9 @@
 #include "SplashState.h"
 
 SplashState::SplashState(Window *window):
-	window(window)
+	window(window),
+	splash_background(window, "splashbg.png")
 {
-	printf ("SplashState.cpp this is Splash state\n");
 }
 
 SplashState::~SplashState()
@@ -13,6 +13,7 @@ SplashState::~SplashState()
 void SplashState::load(int stack)
 {
 	UNUSED(stack);
+
 
 	SDL_Rect gameArea;
 
@@ -29,11 +30,5 @@ int SplashState::unload()
 
 void SplashState::render()
 {
-	// NOTE(juha): Täällä määritellään, mitä halutaan Staten piirtävän.
-	// window->drawRect(0, 0, 50, 50, 0xFF00FF); // Piirtää pinkin neliön
-	//SDL_Point center;
-	//center.x = 50;
-	//center.y = 50;
-	//window->loadImage("testpic.png");
-	//window->render(0, 0, &gameArea, 0, &center, SDL_FLIP_NONE);
+	splash_background.render(0, 0);
 }

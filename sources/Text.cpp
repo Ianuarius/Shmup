@@ -51,14 +51,20 @@ void Text::print(Window *window, std::string text, int x, int y)
 													text.c_str(),
 													font_color);
 
-	if (text_surface) {
-		SDL_Renderer* renderer = window->getRenderer();
-		texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+		if (text_surface) {
+			SDL_Renderer* renderer = window->getRenderer();
+			texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 
-		window->render(texture, x, y);
-	} else {
-		printf("Ei voitu tulostaa tekstiä! SDL_Error: %s\n", SDL_GetError());
-	}
+			int width, height;
+			SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+
+			SDL_Rect clip = {0, 0, width, height};
+			SDL_Rect destination = {x, y, clip.w, clip.h};
+
+			SDL_RenderCopy(renderer, texture, &clip, &destination);
+		} else {
+			printf("Ei voitu tulostaa tekstiä! SDL_Error: %s\n", SDL_GetError());
+		}
 
 	SDL_FreeSurface(text_surface);
 }

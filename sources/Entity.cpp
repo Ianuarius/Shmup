@@ -22,8 +22,8 @@ Entity::Entity(Animation *animation, SDL_Rect hitbox, int x, int y):
 	hitbox(hitbox),
 	anime(animation)
 {
-	sprite = animation->animated;
-	frame = animation->getFrame();
+//	sprite = animation->animated;
+//	frame = animation->getFrame();
 }
 
 Entity::~Entity()
@@ -33,8 +33,8 @@ Entity::~Entity()
 
 void Entity::render()
 {
-	frame = anime->getFrame();
-	sprite->render(frame, x, y);
+//	frame = anime->getFrame();
+//	sprite->render(frame, x, y);
 }
 
 

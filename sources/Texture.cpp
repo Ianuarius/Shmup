@@ -58,19 +58,9 @@ void Texture::render(int x, int y)
 	SDL_RenderCopy(renderer, texture, &clipRect, &destination);
 }
 
-void Texture::freeImage(SDL_Texture *image)
+void Texture::free()
 {
-	if(image)
-	{
-		SDL_DestroyTexture(image);
-	}
-}
-void Texture::freeImage(SDL_Surface *image)
-{
-	if(image)
-	{
-		SDL_FreeSurface(image);
-	}
+	SDL_DestroyTexture(texture);
 }
 
 void Texture::crop(SDL_Rect rect)

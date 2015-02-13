@@ -9,7 +9,7 @@
 #include "Window.h"
 #include "Sprite.h"
 #include "Camera.h"
-
+#include "Texture.h"
 
 class Level
 {
@@ -33,7 +33,7 @@ private:
 
 	Camera camera;
 
-	SDL_Texture *background;
+	Texture background;
 	int bgScrollingOffset;
 
 	Window *window;

@@ -3,9 +3,9 @@
 Level::Level(Window *window):
 	window(window),
 	bgScrollingOffset(0),
-	camera(256, 240)
+	camera(256, 240),
+	background(window, "background.png")
 {
-	background = window->loadImage("kaupunki_tausta.png");
 	camera.setSpeed(2);
 }
 
@@ -66,8 +66,8 @@ void Level::renderLevel()
 	}
 
 	int background_width;
-	SDL_QueryTexture(background, NULL, NULL, &background_width, NULL);
-	
+	background_width = background.getWidth();
+
 	//Scroll background
 	--bgScrollingOffset;
 	if(bgScrollingOffset < -background_width)
@@ -75,8 +75,8 @@ void Level::renderLevel()
 		bgScrollingOffset = 0;
 	}
 
-	window->render(background, bgScrollingOffset, 0);
-	window->render(background, bgScrollingOffset + background_width, 0);
+	background.render(bgScrollingOffset, 0);
+	background.render(bgScrollingOffset + background_width, 0);
 	
 	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
 	std::vector<std::vector<int>>::iterator row;

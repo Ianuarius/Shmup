@@ -22,8 +22,8 @@ class Texture
 		void render(int x, int y);
 
 		// Vapauttaa SDL-tyypit muistista.
-		void freeImage(SDL_Texture *image);
-		void freeImage(SDL_Surface *image);
+		void free();
+
 
 	private:
 		// Lataa kuvatiedoston SDL_Texture -pointteriin.

@@ -5,7 +5,7 @@
 #include "state.h"
 #include "window.h"
 #include "sdl.h"
-#include "sprite.h"
+#include "texture.h"
 
 class SplashState: public State
 {
@@ -15,11 +15,13 @@ public:
 
 	void load(int stack);
 	int unload();
+	// NOTE(juha): T‰‰ll‰ m‰‰ritell‰‰n, mit‰ halutaan Staten piirt‰v‰n.
 	void render();
 
 private:
 	Window *window;
 	SDL_Rect gameArea;
+	Texture splash_background;
 
 };
 
