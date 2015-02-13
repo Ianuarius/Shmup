@@ -6,15 +6,6 @@ class State
 {
 public:
 
-	enum StateCode
-	{
-		QUIT,
-		INGAME,
-		SPLASH,
-		PAUSE,
-		GAME_OVER
-	};
-
 	virtual ~State() {};
 	virtual void load(int stack = 0) = 0;
 	virtual int unload() = 0;

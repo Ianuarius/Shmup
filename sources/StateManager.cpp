@@ -1,7 +1,4 @@
-#include "statemanager.h"
-#include "SplashState.h"
-#include "sdl.h"
-#include "window.h"
+#include "StateManager.h"
 
 StateManager::StateManager(Window *window):
 	window(window),
@@ -24,18 +21,21 @@ StateManager::~StateManager()
 	}
 }
 
-void StateManager::run()
+void StateManager::run(int state)
 {
-	printf("statemanager.cpp: Nyt ollaan StateManagerin runissa\n");
-
-	bool quit = false;
-
-	while(!quit)
+		SplashState splash(window);
+	switch (state)
 	{
-		window->clear();
-		currentState->render();
-		window->refresh();
-		SDL_Delay(2000);
-		quit = true;
+	case QUIT:
+		break;
+	case INGAME:
+		break;
+	case SPLASH:
+		splash.render();
+		break;
+	case SCORE:
+		break;
+	default:
+		break;
 	}
 }

@@ -30,5 +30,15 @@ int SplashState::unload()
 
 void SplashState::render()
 {
+	int waitTime = 5000;
+
+	window->clear();
 	splash_background.render(0, 0);
+	window->refresh();
+
+	do {
+		waitTime = -10;
+		SDL_Delay(10);
+	} while(Input::keyState(SDL_SCANCODE_ESCAPE) || waitTime > 0);
+
 }

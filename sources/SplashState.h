@@ -6,6 +6,7 @@
 #include "window.h"
 #include "sdl.h"
 #include "texture.h"
+#include "Input.h"
 
 class SplashState: public State
 {
