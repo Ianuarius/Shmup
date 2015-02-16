@@ -86,7 +86,8 @@ void Level::renderLevel()
 		for(col = row->begin(); col != row->end(); ++col) {
 			int X = col - row->begin();
 			int Y = row - levelData.begin();
-			levelTileSheet.render(*col-1, X*tileSize - camera.getX(), Y*tileSize);
+			levelTileSheet.setIndex(*col-1);
+			levelTileSheet.render(X*tileSize - camera.getX(), Y*tileSize);
 		}
 	}
 }

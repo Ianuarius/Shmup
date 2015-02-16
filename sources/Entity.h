@@ -13,15 +13,17 @@
 #define ENTITY_H_DEFINED
 
 #include "SDL.h"
+#include "Texture.h"
 #include "Sprite.h"
-#include "Level.h"
 #include "Animation.h"
+#include "Level.h"
 
 class Entity
 {
 public:
+	Entity(Texture *texture, SDL_Rect hitbox, int x = 0, int y = 0);
 	Entity(Sprite *sprite, SDL_Rect hitbox, int x = 0, int y = 0);
-	Entity(Animation *sprite, SDL_Rect hitbox, int x = 0, int y = 0);
+	Entity(Animation *animation, SDL_Rect hitbox, int x = 0, int y = 0);
 	~Entity();
 
 	void render();
@@ -31,10 +33,10 @@ public:
 	SDL_Rect hitbox;
 
 protected:
-	int x, y, frame;
+	int x, y, frame, index;
+	Texture *texture;
 	Sprite *sprite;
-	Animation *anime;
-
+	Animation *animation;
 };
 
 #endif //__ENTITY_H_DEFINED__

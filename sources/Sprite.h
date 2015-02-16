@@ -7,7 +7,7 @@
 #include "Window.h"
 #include "Texture.h"
 
-class Sprite
+class Sprite : public Texture
 {
 	public:
 		// Osoitin pelin ikkunaan, spriten kuvatiedoston nimi ja yhden tiedostossa olevan spriten koko.
@@ -15,14 +15,15 @@ class Sprite
 		virtual ~Sprite();
 
 		// Renderöi spriteSheet-vektorista osan, joka on määrätty 'index'-argumenttiin annetun arvon perusteella.
-		void render(int index, int x, int y);
+		void render(int x, int y);
+		void setIndex(int i);
 
 	private:
 		Window *window;
-		Texture texture;
 
 		int width;
 		int height;
+		int index;
 
 		// Vektori, johon on tallennettu spritet määrätyn kokoisina palasina.
 		std::vector<SDL_Rect> spriteSheet;

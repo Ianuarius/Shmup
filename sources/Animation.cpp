@@ -1,8 +1,10 @@
 #include "Animation.h"
 
-Animation::Animation(Window *window, std::string filename, int start_frame,
+// TODO(jouni): DO NOT HARDCODE SPRITE SIZE
+Animation::Animation(Window *window, std::string filename,
+					 int width, int height, int start_frame,
 					 int frame_count, int framerate):
-					 Sprite(window, filename, 32, 32),
+					 Sprite(window, filename, width, height),
 					 window(window),
 					 current_frame(0),
 					 current_frametime(0)
@@ -57,5 +59,6 @@ void Animation::render(int x, int y) {
 		}
 	}
 
-	Sprite::render(current_frame, x, y);
+	Sprite::setIndex(current_frame);
+	Sprite::render(x, y);
 }

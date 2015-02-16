@@ -5,13 +5,21 @@
 
 #include "MovingEntity.h"
 
+MovingEntity::MovingEntity(Texture *sprite, SDL_Rect hitbox) :
+	Entity(sprite, hitbox),
+	_speed(1)
+{
+}
+
 MovingEntity::MovingEntity(Sprite *sprite, SDL_Rect hitbox) :
-	Entity(sprite, hitbox)
+	Entity(sprite, hitbox),
+	_speed(1)
 {
 }
 
 MovingEntity::MovingEntity(Animation *sprite, SDL_Rect hitbox) :
-	Entity(sprite, hitbox)
+	Entity(sprite, hitbox),
+	_speed(1)
 {
 }
 
@@ -19,13 +27,31 @@ MovingEntity::~MovingEntity()
 {
 }
 
-void MovingEntity::move(int x, int y)
+void MovingEntity::move(int direction)
 {
-	this->x += x;
-	this->y += y;
-	this->hitbox.x = hitbox.x+x;
-	this->hitbox.y = hitbox.y+y;
-	
+	if (direction == UP) {
+		this->y -= _speed;
+		this->hitbox.y = hitbox.y+y;
+	}
+
+	if (direction == DOWN) {
+		this->y += _speed;
+		this->hitbox.y = hitbox.y+y;
+	}
+
+	if (direction == LEFT) {
+		this->x -= _speed;
+		this->hitbox.x = hitbox.x+x;
+	}
+
+	if (direction == RIGHT) {
+		this->x += _speed;
+		this->hitbox.x = hitbox.x+x;
+	}
+}
+
+void MovingEntity::speed(int speed) {
+	_speed = speed;
 }
 
 SDL_bool MovingEntity::collides(Entity *other)

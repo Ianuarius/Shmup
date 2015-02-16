@@ -5,11 +5,12 @@ Sprite::Sprite(Window *window,
 			   std::string filename,
 			   int spriteWidth,
 			   int spriteHeight):
-	texture(window, filename)
+	Texture(window, filename),
+	index(0)
 {
 	int spriteItems = 0;
-	int columns = texture.getWidth() / spriteWidth;
-	int rows = texture.getHeight() / spriteHeight;
+	int columns = getWidth() / spriteWidth;
+	int rows = getHeight() / spriteHeight;
 	
 	for (int i = 0; i < rows; ++i)
 	{
@@ -25,9 +26,13 @@ Sprite::~Sprite()
 {
 }
 
+void Sprite::setIndex(int i) {
+	index = i;
+}
+
 // NOTE(jouni): index = mikä spriten "alkio" piirretään
-void Sprite::render(int index, int x, int y)
+void Sprite::render(int x, int y)
 {
-	texture.crop(spriteSheet[index]);
-	texture.render(x, y);
+	crop(spriteSheet[index]);
+	Texture::render(x, y);
 }

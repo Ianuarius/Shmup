@@ -9,26 +9,26 @@
  *		projectile->metodi();
  */
 
-#ifndef PROJECTILE_H_DEFINED
-#define PROJECTILE_H_DEFINED
+#ifndef __PROJECTILE_H_DEFINED__
+#define __PROJECTILE_H_DEFINED__
 
 #include "SDL.h"
 #include "Window.h"
 #include "Sprite.h"
 #include "MovingEntity.h"
 
-class Projectile : public MovingEntity
+class Projectile //: public MovingEntity
 {
 public:
-	Projectile(Sprite *sprite, SDL_Rect hitbox, int speed, int angle);
+	Projectile(std::string filename, int Xspeed, int Yspeed);
 	~Projectile();
 	
 	void update();
 	void render();
 
 private:
-	int speed;
-	int angle;
+	int Xspeed, Yspeed;
+	//MovingEntity entity;
 };
 
 #endif //__PROJECTILE_H_DEFINED__

@@ -5,22 +5,37 @@
 
 #include "entity.h"
 
-Entity::Entity(Sprite *sprite, SDL_Rect hitbox, int x, int y):
-	sprite(sprite),
+Entity::Entity(Texture *texture, SDL_Rect hitbox, int x, int y):
+	texture(texture),
+	sprite(nullptr),
+	animation(nullptr),
 	x(x),
 	y(y),
 	hitbox(hitbox),
-	frame(0),
-	anime(nullptr)
+	frame(0)
+{
+
+}
+
+Entity::Entity(Sprite *sprite, SDL_Rect hitbox, int x, int y):
+	texture(nullptr),
+	sprite(sprite),
+	animation(nullptr),
+	x(x),
+	y(y),
+	hitbox(hitbox),
+	frame(0)
 {
 
 }
 
 Entity::Entity(Animation *animation, SDL_Rect hitbox, int x, int y):
+	texture(nullptr),
+	sprite(nullptr),
+	animation(animation),
 	x(x),
 	y(y),
-	hitbox(hitbox),
-	anime(animation)
+	hitbox(hitbox)
 {
 //	sprite = animation->animated;
 //	frame = animation->getFrame();
@@ -33,8 +48,17 @@ Entity::~Entity()
 
 void Entity::render()
 {
-//	frame = anime->getFrame();
-//	sprite->render(frame, x, y);
+	if (texture) {
+		texture->render(x, y);
+	}
+
+	if (sprite) {
+		sprite->render(x, y);
+	}
+
+	if (animation) {
+		animation->render(x, y);
+	}
 }
 
 

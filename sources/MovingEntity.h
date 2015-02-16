@@ -20,16 +20,27 @@
 
 class MovingEntity : public Entity
 {
-public:
-	MovingEntity(Sprite *sprite, SDL_Rect hitbox);
-	MovingEntity(Animation *sprite, SDL_Rect hitbox);
-	~MovingEntity();
+	public:
+		MovingEntity(Texture *sprite, SDL_Rect hitbox);
+		MovingEntity(Sprite *sprite, SDL_Rect hitbox);
+		MovingEntity(Animation *sprite, SDL_Rect hitbox);
+		~MovingEntity();
 
-	void move(int x, int y);
-	SDL_bool collides(Entity *other);
-	SDL_bool collides(Level *level);
+		enum DIRECTION {
+			UP,
+			DOWN,
+			LEFT,
+			RIGHT
+		};
 
-private:
+		void move(int direction);
+		void speed(int speed);
+		SDL_bool collides(Entity *other);
+		SDL_bool collides(Level *level);
+
+	private:
+		int _speed;
+
 };
 
 #endif //__MOVINGENTITY_H_DEFINED__

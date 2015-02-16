@@ -10,8 +10,8 @@
 class Animation : public Sprite
 {
 	public:
-		Animation(Window *window, std::string filename, int start_frame,
-				  int frame_count, int framerate);
+		Animation(Window *window, std::string filename, int width, int height,
+				  int start_frame, int frame_count, int framerate);
 		virtual ~Animation();
 
 		void addFrame(int frame_index);
