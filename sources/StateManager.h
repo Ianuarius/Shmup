@@ -2,11 +2,11 @@
 #define __STATEMANAGER_H_INCLUDED__
 
 #include <stdio.h>
-#include "state.h"
-#include "gamestate.h"
+#include "State.h"
+#include "GameState.h"
 #include "SplashState.h"
-#include "sdl.h"
-#include "window.h"
+#include "SDL.h"
+#include "Window.h"
 
 class StateManager
 {

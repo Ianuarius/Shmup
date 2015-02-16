@@ -11,16 +11,13 @@
 class SplashState: public State
 {
 public:
-	SplashState(Window *window);
+	SplashState(Window *window, StateManager *manager);
 	virtual ~SplashState();
 
 	void load(int stack);
 	int unload();
-	// NOTE(juha): T‰‰ll‰ m‰‰ritell‰‰n, mit‰ halutaan Staten piirt‰v‰n.
-	void render();
 
 private:
-	Window *window;
 	SDL_Rect gameArea;
 	Texture splash_background;
 

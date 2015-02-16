@@ -5,8 +5,7 @@ StateManager::StateManager(Window *window):
 	currentState(nullptr),
 	sharedInfo(0)
 {
-	currentState = new SplashState(window);
-	currentState->load();
+	SplashState splash(window, this);
 	sharedInfo = 0;
 }
 
@@ -15,15 +14,13 @@ StateManager::~StateManager()
 	if(currentState)
 	{
 		currentState->unload();
-		delete currentState;
-
 		currentState = nullptr;
 	}
 }
 
 void StateManager::run(int state)
 {
-		SplashState splash(window);
+
 	switch (state)
 	{
 	case QUIT:
@@ -31,7 +28,7 @@ void StateManager::run(int state)
 	case INGAME:
 		break;
 	case SPLASH:
-		splash.render();
+		splash.load(0);
 		break;
 	case SCORE:
 		break;

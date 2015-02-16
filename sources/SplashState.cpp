@@ -1,9 +1,9 @@
 #include "SplashState.h"
 
-SplashState::SplashState(Window *window):
-	window(window),
-	splash_background(window, "splashbg.png")
+SplashState::SplashState(Window *window, StateManager *manager):
+	State(window, manager)
 {
+
 }
 
 SplashState::~SplashState()
@@ -21,15 +21,7 @@ void SplashState::load(int stack)
 	gameArea.y = 0;
 	gameArea.w = 256;
 	gameArea.h = 240;
-}
 
-int SplashState::unload()
-{
-	return 0;
-}
-
-void SplashState::render()
-{
 	int waitTime = 5000;
 
 	window->clear();
@@ -41,4 +33,9 @@ void SplashState::render()
 		SDL_Delay(10);
 	} while(Input::keyState(SDL_SCANCODE_ESCAPE) || waitTime > 0);
 
+}
+
+int SplashState::unload()
+{
+	return 0;
 }
