@@ -71,3 +71,11 @@ int Entity::getY()
 {
 	return y;
 }
+
+void Entity::setX(int x) {
+	this->x = x;
+}
+
+void Entity::setY(int y) {
+	this->y = y;
+}

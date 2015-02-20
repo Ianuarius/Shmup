@@ -13,6 +13,7 @@
 
 #include "SDL.h"
 #include "Window.h"
+#include "Input.h"
 #include "Sprite.h"
 #include "DamageableEntity.h"
 #include "MovingEntity.h"
@@ -20,13 +21,15 @@
 class Player : public DamageableEntity, public MovingEntity
 {
 public:
-	Player(Animation *animation, SDL_Rect hitbox, int initialHitPoints);
+	Player(Window *window);
 	~Player();
 
-	void render();
+	void update();
+	virtual void render();
 
 private:
-	
+	Animation animation;
+	SDL_Rect hitbox;
 };
 
 #endif //__PLAYER_H_DEFINED__

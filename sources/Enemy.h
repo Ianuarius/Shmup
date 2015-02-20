@@ -20,8 +20,9 @@
 class Enemy : public DamageableEntity, public MovingEntity
 {
 public:
-	Enemy();
+	Enemy(Animation *animation, SDL_Rect hitbox, int initialHitPoints);
 	~Enemy();
+	virtual void render();
 
 private:
 	

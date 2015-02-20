@@ -30,6 +30,8 @@ public:
 
 	int getX();
 	int getY();
+	void setX(int x);
+	void setY(int y);
 	SDL_Rect hitbox;
 
 protected:
