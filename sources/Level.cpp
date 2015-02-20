@@ -4,7 +4,7 @@ Level::Level(Window *window):
 	window(window),
 	bgScrollingOffset(0),
 	camera(256, 240),
-	background(window, "background.png")
+	background(window, "kaupunki_tausta.png")
 {
 	camera.setSpeed(2);
 }
