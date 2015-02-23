@@ -27,6 +27,7 @@ private:
 	pugi::xml_document levelDocument;
 	pugi::xml_parse_result result;
 	pugi::xml_node tileNode;
+	pugi::xml_node enemySpawn;
 
 	int levelWidth;
 	int tileSize;

@@ -33,12 +33,34 @@ void Level::loadLevel(std::string level_name)
 	levelWidth = atoi(levelDocument.child("map").attribute("width").value());
 	tileNode = levelDocument.child("map").child("layer").child("data");
 
+	enemySpawn = levelDocument.child("map").child("objectgroup").child("object");
+
 	int iteratorCount = 0;
 	std::vector<int> levelRow;
+	std::vector<int> enemySpawnRow;
 
 	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
+		++iterator)
+	{
+		iteratorCount++;
+
+		int gid = atoi(iterator->attribute("gid").value());
+		
+		levelRow.push_back(gid);
+		
+		// NOTE(juha): Kun päästään kentän loppuun, vaihdetaan riviä.
+		if (iteratorCount % levelWidth == 0)
+		{
+			levelData.push_back(levelRow);
+			levelRow.clear();
+		}
+	}
+	
+	// TODO(juha): Tämä vielä kesken. GLHF
+	for(pugi::xml_node_iterator iterator = enemySpawn.begin();
+		iterator != enemySpawn.end();
 		++iterator)
 	{
 		iteratorCount++;
