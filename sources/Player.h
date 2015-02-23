@@ -27,6 +27,10 @@ public:
 	void update();
 	virtual void render();
 
+	virtual int getX() {return MovingEntity::getX(); };
+	virtual int getY() {return MovingEntity::getY(); };
+	
+
 private:
 	Animation animation;
 	SDL_Rect hitbox;

@@ -12,7 +12,7 @@
 #ifndef __AI_H_DEFINED__
 #define __AI_H_DEFINED__
 
-#include <array>
+#include <vector>
 #include "SDL.h"
 #include "MovingEntity.h"
 
@@ -35,9 +35,8 @@ class AI
 			RIGHT
 		};
 
-		int index, chilltime, pattern;
-		static const int linear[1];
-		static const int sine[6];
+		int index, chilltime;
+		std::vector<int> pattern;
 };
 
 #endif // __AI_H_DEFINED__

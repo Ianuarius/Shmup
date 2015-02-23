@@ -103,3 +103,8 @@ SDL_bool MovingEntity::collides(Level *level)
 	
 	return SDL_FALSE;
 }
+
+int MovingEntity::getSpeed()
+{
+	return _speed;
+}

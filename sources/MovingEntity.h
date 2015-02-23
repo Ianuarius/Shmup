@@ -35,12 +35,14 @@ class MovingEntity : public Entity
 
 		void move(int direction);
 		void speed(int speed);
+
+		int getSpeed();
+
 		SDL_bool collides(Entity *other);
 		SDL_bool collides(Level *level);
 
 	private:
 		int _speed;
-
 };
 
 #endif //__MOVINGENTITY_H_DEFINED__

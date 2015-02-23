@@ -12,23 +12,39 @@
 #ifndef __PROJECTILE_H_DEFINED__
 #define __PROJECTILE_H_DEFINED__
 
+#include <vector>
 #include "SDL.h"
 #include "Window.h"
 #include "Sprite.h"
 #include "MovingEntity.h"
 
-class Projectile //: public MovingEntity
+class Projectile
 {
 public:
-	Projectile(std::string filename, int Xspeed, int Yspeed);
+	Projectile(Window *window);
 	~Projectile();
 	
+	void spawn(int type, int x, int y, int radian);
+
+	// Iterates through container
 	void update();
+
+	// Renders all objects in container
 	void render();
 
 private:
-	int Xspeed, Yspeed;
-	//MovingEntity entity;
+	Window *window;
+	Sprite bullet_texture;
+
+	struct bullet {
+		MovingEntity entity;
+		int radian;
+		int type;
+	};
+
+
+	// All bullet instances
+	std::vector<bullet> container;
 };
 
 #endif //__PROJECTILE_H_DEFINED__

@@ -6,31 +6,34 @@
 #include "AI.h"
 
 AI::AI(MovingEntity *entity):
-	entity(entity)
+	entity(entity),
+	index(0)
 {
 
 }
 
 void AI::linearPattern()
 {
-	std::array<int,1> pattern = {LEFT}; //copy array A into array B
+	int linear[] = {LEFT};
+	pattern.assign(linear, linear+1);
 }
 
 void AI::sinePattern()
 {
-	std::array<int, 6> pattern = {UP, UP, UP, DOWN, DOWN, DOWN};
+	int sine[] = {UP, UP, UP, DOWN, DOWN, DOWN};
+	pattern.assign(sine, sine+6);
 }
 
 
 void AI::update()
 {
-	chilltime = (++chilltime % sizeof(10));
-	
+	chilltime = (++chilltime % 5);
+
 	if (chilltime == 0) {
-		index = (++index % sizeof(pattern));
-		printf("AI: %d\\%d\n", index, sizeof(pattern));
-		entity->move(index);
-		entity->move(LEFT);
+		index = (++index % pattern.size());
 	}
+
+	entity->move(pattern[index]);
+	entity->move(LEFT);
 
 }
