@@ -8,9 +8,7 @@
 AI::AI(MovingEntity *entity):
 	entity(entity),
 	index(0)
-{
-
-}
+{ }
 
 void AI::linearPattern()
 {
@@ -35,5 +33,4 @@ void AI::update()
 
 	entity->move(pattern[index]);
 	entity->move(LEFT);
-
 }

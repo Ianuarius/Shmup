@@ -27,7 +27,11 @@ Sprite::~Sprite()
 }
 
 void Sprite::setIndex(int i) {
-	index = i;
+	if (i < 0) {
+		index = 0;
+	} else {
+		index = i;
+	}
 }
 
 // NOTE(jouni): index = mikä spriten "alkio" piirretään

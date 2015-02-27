@@ -10,44 +10,39 @@ Level::Level(Window *window):
 }
 
 Level::~Level()
-{
-	
-}
+{ }
 
 void Level::loadLevel(std::string level_name)
 {
+	// Loads the level document
 	result = levelDocument.load_file(level_name.c_str());
 
 	if (!result) {
-		printf("Levelin %s lataaminen epäonnistui.", level_name);
+		printf("Failed to load level %s.\n", level_name);
 		return;
 	}
 
-	tileSize = atoi(levelDocument.child("map").attribute("tilewidth").value());
-
-	if(!result)
-	{
-		// NOTE(juha): Log the shit out of things.
-	}
-
+	// Level size stuff
+	tileSize = atoi(levelDocument.child("map").attribute("tilesize").value());
 	levelWidth = atoi(levelDocument.child("map").attribute("width").value());
-	tileNode = levelDocument.child("map").child("layer").child("data");
+	levelHeight = atoi(levelDocument.child("map").attribute("height").value());
 
-	enemySpawn = levelDocument.child("map").child("objectgroup").child("object");
+	// Get node which contains tileids
+	tileNode = levelDocument.child("map").child("layer").child("data");
 
 	int iteratorCount = 0;
 	std::vector<int> levelRow;
 	std::vector<int> enemySpawnRow;
 
-	// NOTE(juha): Käydään tmx-tiedoston tile-nodet läpi.
+	// Go through tile-nodes
 	for(pugi::xml_node_iterator iterator = tileNode.begin();
 		iterator != tileNode.end();
 		++iterator)
 	{
 		iteratorCount++;
 
+		// Add tile id to 
 		int gid = atoi(iterator->attribute("gid").value());
-		
 		levelRow.push_back(gid);
 		
 		// NOTE(juha): Kun päästään kentän loppuun, vaihdetaan riviä.
@@ -57,24 +52,43 @@ void Level::loadLevel(std::string level_name)
 			levelRow.clear();
 		}
 	}
-	
-	// TODO(juha): Tämä vielä kesken. GLHF
+
+	// Get enemy spawn regions
+	enemySpawn = levelDocument.child("map").child("objectgroup");
+	iteratorCount = 0;
+
+	// Go through enemyspawn triggers
 	for(pugi::xml_node_iterator iterator = enemySpawn.begin();
 		iterator != enemySpawn.end();
 		++iterator)
 	{
+		levelTrigger trigger;
 		iteratorCount++;
 
-		int gid = atoi(iterator->attribute("gid").value());
-		
-		levelRow.push_back(gid);
-		
-		// NOTE(juha): Kun päästään kentän loppuun, vaihdetaan riviä.
-		if (iteratorCount % levelWidth == 0)
+		// Get X-position
+		trigger.spawnTile = atoi(iterator->attribute("x").value());
+
+		// Get trigger properties
+		pugi::xml_node properties = iterator->child("properties");
+
+		for(pugi::xml_node_iterator it = properties.begin();
+			it != properties.end();
+			++it)
 		{
-			levelData.push_back(levelRow);
-			levelRow.clear();
+			if (strcmp(it->attribute("name").value(), "enemyCount") == 0) {
+				trigger.enemyCount = atoi(it->attribute("value").value());
+			}
+
+			if (strcmp(it->attribute("name").value(), "enemyType") == 0) {
+				trigger.enemyType = it->attribute("value").value();
+			}
+
+			if (strcmp(it->attribute("name").value(), "spawnHeight") == 0) {
+				trigger.spawnHeight = atoi(it->attribute("value").value());
+			}
 		}
+
+		triggers.push_back(trigger);
 	}
 }
 
@@ -84,6 +98,13 @@ void Level::renderLevel()
 	// NOTE(jouni&&karlos): Liikuttaa kameraa jos kenttä ei oo vielä loppunu
 	if (camera.getX() < levelWidth*tileSize)
 	{
+		for (std::vector<levelTrigger>::iterator it = triggers.begin();
+		it != triggers.end();
+		++it) {
+			if (camera.getX() >= it->spawnTile) {
+//				launchTrigger((*it));
+			}
+		}
 		camera.update();
 	}
 
@@ -100,12 +121,13 @@ void Level::renderLevel()
 	background.render(bgScrollingOffset, 0);
 	background.render(bgScrollingOffset + background_width, 0);
 	
-	Sprite levelTileSheet(window, "pengsheet.png", tileSize, tileSize);
+	// Hae tämä .tmx tiedostosta
+	Sprite levelTileSheet(window, "512x512_kaupunki_tileset.png", tileSize, tileSize);
 	std::vector<std::vector<int>>::iterator row;
 	std::vector<int>::iterator col;
 
-	for(row = levelData.begin(); row != levelData.end(); ++row) {
-		for(col = row->begin(); col != row->end(); ++col) {
+	for (row = levelData.begin(); row != levelData.end(); ++row) {
+		for (col = row->begin(); col != row->end(); ++col) {
 			int X = col - row->begin();
 			int Y = row - levelData.begin();
 			levelTileSheet.setIndex(*col-1);
@@ -114,6 +136,7 @@ void Level::renderLevel()
 	}
 }
 
+// In pixels
 int Level::getLevelWidth()
 {
 	return levelWidth*tileSize;

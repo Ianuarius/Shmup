@@ -9,13 +9,14 @@
  *		movingEntity->metodi();
  */
 
-#ifndef MOVINGENTITY_H_DEFINED
-#define MOVINGENTITY_H_DEFINED
+#ifndef __MOVINGENTITY_H_DEFINED__
+#define __MOVINGENTITY_H_DEFINED__
 
 #include "SDL.h"
 #include "Window.h"
 #include "Sprite.h"
 #include "Entity.h"
+#include "Level.h"
 #include "Animation.h"
 
 class MovingEntity : public Entity
@@ -45,4 +46,4 @@ class MovingEntity : public Entity
 		int _speed;
 };
 
-#endif //__MOVINGENTITY_H_DEFINED__
+#endif // __MOVINGENTITY_H_DEFINED__

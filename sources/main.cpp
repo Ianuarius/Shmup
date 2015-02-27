@@ -32,27 +32,18 @@ int main(int argc, char* args[])
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
-	Animation valas(&window, "boss_alus.png", 175, 81, 0, 1, 2);
-
-	Player pelaaja(&window); 
-	Enemy vihulainen(&valas, hb2, 10);
-	vihulainen.speed(1);
-
-	AI aivot(&vihulainen);
-	aivot.sinePattern();
-
-	Texture background(&window, "kaupunki_tausta.png");
-	Texture ammusimage(&window, "ammus.png");
 
 	Level level(&window);
-	level.loadLevel("level00.tmx");
+	level.loadLevel("level_city_vol_01.tmx");
 
+	Player pelaaja(&window); 
+
+	Texture ammusimage(&window, "ammus_sprite.png");
 	Projectile projectilebag(&window);
 
 	while (love) {
 		Input::update();
 		pelaaja.update();
-		aivot.update();
 		projectilebag.update();
 
 		if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
@@ -70,7 +61,16 @@ int main(int argc, char* args[])
 
 		// Render entities
 		pelaaja.render();
-		vihulainen.render();
+
+		// Render entity bag
+		/*
+		for (std::vector<MovingEntity>::iterator iterator = entityBag.begin();
+			 iterator != entityBag.end();
+			 ++iterator) {
+				 iterator->render();
+		}
+		*/
+
 		projectilebag.render();
 
 		window.refresh();
