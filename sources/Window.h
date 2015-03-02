@@ -1,3 +1,12 @@
+/**
+ *
+ * 
+ *
+ * @todo
+ *		- Constant framerate
+ *		- Corrected framerate calculation
+ */
+
 #ifndef WINDOW_H_DEFINED
 #define WINDOW_H_DEFINED
 
@@ -6,7 +15,7 @@
 #include "color.h"
 #include "Timer.h"
 
-#define FRAMERATE 30
+#define FRAMERATE 60
 #define FPS_INTERVAL 1000	// Milliseconds
 
 class Window

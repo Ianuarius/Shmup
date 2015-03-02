@@ -3,7 +3,7 @@
  *
  */
 
-#include "entity.h"
+#include "Entity.h"
 
 Entity::Entity(Texture *texture, SDL_Rect hitbox, int x, int y):
 	texture(texture),

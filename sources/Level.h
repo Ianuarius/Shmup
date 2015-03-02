@@ -1,28 +1,12 @@
 #ifndef __LEVEL_H_DEFINED__
 #define __LEVEL_H_DEFINED__
 
-#include <string>
 #include <vector>
-#include "SDL.h"
-#include "PugiXML.h"
 #include "Window.h"
-#include "Entity.h"
-#include "Sprite.h"
 #include "Camera.h"
+#include "PugiXML.h"
 #include "Texture.h"
-#include "Animation.h"
-#include "AI.h"
-
-struct levelTrigger {
-	// X Position where the trigger is triggered
-	int spawnTile;
-	// How many enemies to spawn
-	int enemyCount;
-	// Enemy type, currently string, may need to change to something
-	std::string enemyType;
-	// Y position where the trigger spawns enemies
-	int spawnHeight;
-};
+#include "Sprite.h"
 
 class Level
 {
@@ -35,6 +19,17 @@ class Level
 	
 		int getTile(int x, int y);
 		int getLevelWidth();
+
+		struct levelTrigger {
+			// X Position where the trigger is triggered
+			int spawnTile;
+			// How many enemies to spawn
+			int enemyCount;
+			// Enemy type, currently string, may need to change to something
+			std::string enemyType;
+			// Y position where the trigger spawns enemies
+			int spawnHeight;
+		};
 
 	private:
 		pugi::xml_document levelDocument;
@@ -51,8 +46,11 @@ class Level
 		int bgScrollingOffset;
 
 		Window *window;
+		Sprite *levelTileSheet;
 		std::vector<std::vector<int>> levelData;
 		std::vector<levelTrigger> triggers;
+
+		levelTrigger launchTrigger(levelTrigger enemyCount);
 };
 
 #endif //__LEVEL_H_DEFINED__

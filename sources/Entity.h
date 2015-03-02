@@ -9,14 +9,12 @@
  *		entity->metodi();
  */
 
-#ifndef ENTITY_H_DEFINED
-#define ENTITY_H_DEFINED
+#ifndef __ENTITY_H_DEFINED__
+#define __ENTITY_H_DEFINED__
 
-#include "SDL.h"
 #include "Texture.h"
 #include "Sprite.h"
 #include "Animation.h"
-#include "Level.h"
 
 class Entity
 {

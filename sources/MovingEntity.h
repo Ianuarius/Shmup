@@ -12,12 +12,11 @@
 #ifndef __MOVINGENTITY_H_DEFINED__
 #define __MOVINGENTITY_H_DEFINED__
 
-#include "SDL.h"
-#include "Window.h"
-#include "Sprite.h"
 #include "Entity.h"
-#include "Level.h"
+#include "Texture.h"
+#include "Sprite.h"
 #include "Animation.h"
+#include "Level.h"
 
 class MovingEntity : public Entity
 {

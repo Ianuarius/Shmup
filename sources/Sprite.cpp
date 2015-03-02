@@ -8,18 +8,24 @@ Sprite::Sprite(Window *window,
 	Texture(window, filename),
 	index(0)
 {
-	int spriteItems = 0;
-	int columns = getWidth() / spriteWidth;
-	int rows = getHeight() / spriteHeight;
+	try {
+		int spriteItems = 0;
+		int columns = getWidth() / spriteWidth;
+		int rows = getHeight() / spriteHeight;
 	
-	for (int i = 0; i < rows; ++i)
-	{
-		for (int j = 0; j < columns; ++j)
+		for (int i = 0; i < rows; ++i)
 		{
-			SDL_Rect rect = {j*spriteWidth, i*spriteHeight, spriteWidth, spriteHeight};
-			spriteSheet.push_back(rect);
+			for (int j = 0; j < columns; ++j)
+			{
+				SDL_Rect rect = {j*spriteWidth, i*spriteHeight, spriteWidth, spriteHeight};
+				spriteSheet.push_back(rect);
+			}
 		}
+	} catch(...) {
+		printf("Error creating sprite");
+		return;
 	}
+
 }
 
 Sprite::~Sprite()

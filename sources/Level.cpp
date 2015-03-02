@@ -30,6 +30,9 @@ void Level::loadLevel(std::string level_name)
 	// Get node which contains tileids
 	tileNode = levelDocument.child("map").child("layer").child("data");
 
+	// Load level background
+	levelTileSheet = new Sprite(window, "512x512_kaupunki_tileset.png", tileSize, tileSize);
+
 	int iteratorCount = 0;
 	std::vector<int> levelRow;
 	std::vector<int> enemySpawnRow;
@@ -102,7 +105,9 @@ void Level::renderLevel()
 		it != triggers.end();
 		++it) {
 			if (camera.getX() >= it->spawnTile) {
-//				launchTrigger((*it));
+				launchTrigger((*it));
+				triggers.erase(it);
+				break;
 			}
 		}
 		camera.update();
@@ -121,8 +126,6 @@ void Level::renderLevel()
 	background.render(bgScrollingOffset, 0);
 	background.render(bgScrollingOffset + background_width, 0);
 	
-	// Hae tämä .tmx tiedostosta
-	Sprite levelTileSheet(window, "512x512_kaupunki_tileset.png", tileSize, tileSize);
 	std::vector<std::vector<int>>::iterator row;
 	std::vector<int>::iterator col;
 
@@ -130,8 +133,8 @@ void Level::renderLevel()
 		for (col = row->begin(); col != row->end(); ++col) {
 			int X = col - row->begin();
 			int Y = row - levelData.begin();
-			levelTileSheet.setIndex(*col-1);
-			levelTileSheet.render(X*tileSize - camera.getX(), Y*tileSize);
+			levelTileSheet->setIndex(*col-1);
+			levelTileSheet->render(X*tileSize - camera.getX(), Y*tileSize);
 		}
 	}
 }
@@ -153,4 +156,8 @@ int Level::getTile(int x, int y)
 	}
 
 	return 0;
+}
+
+Level::levelTrigger Level::launchTrigger(levelTrigger trigger) {
+	return trigger;
 }
