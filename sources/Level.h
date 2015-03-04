@@ -7,15 +7,19 @@
 #include "PugiXML.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "EntityCollection.h"
+#include "EnemyFactory.h"
+#include "Enemy.h"
 
 class Level
 {
 	public:
-		Level(Window *window);
+		Level(Window *window, EntityCollection<Enemy> *collection, EnemyFactory *factory);
 		~Level();
 
-		void loadLevel(std::string level_name);
-		void renderLevel();
+		void load(std::string level_name);
+		void update();
+		void render();
 	
 		int getTile(int x, int y);
 		int getLevelWidth();
@@ -26,7 +30,7 @@ class Level
 			// How many enemies to spawn
 			int enemyCount;
 			// Enemy type, currently string, may need to change to something
-			std::string enemyType;
+			int enemyType;
 			// Y position where the trigger spawns enemies
 			int spawnHeight;
 		};
@@ -44,13 +48,17 @@ class Level
 
 		Texture background;
 		int bgScrollingOffset;
+		int background_width;
 
 		Window *window;
+		EntityCollection<Enemy> *collection;
+		EnemyFactory *factory;
+
 		Sprite *levelTileSheet;
 		std::vector<std::vector<int>> levelData;
 		std::vector<levelTrigger> triggers;
 
-		levelTrigger launchTrigger(levelTrigger enemyCount);
+		void launchTrigger(levelTrigger enemyCount);
 };
 
 #endif //__LEVEL_H_DEFINED__

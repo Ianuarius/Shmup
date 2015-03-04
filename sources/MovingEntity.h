@@ -16,7 +16,6 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Animation.h"
-#include "Level.h"
 
 class MovingEntity : public Entity
 {
@@ -39,7 +38,7 @@ class MovingEntity : public Entity
 		int getSpeed();
 
 		SDL_bool collides(Entity *other);
-		SDL_bool collides(Level *level);
+		//SDL_bool collides(Level *level);
 
 	private:
 		int _speed;

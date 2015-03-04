@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="300" height="15" tilewidth="16" tileheight="16" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="300" height="15" tilesize="16" nextobjectid="8">
  <tileset firstgid="1" name="512x512_kaupunki_tileset" tilewidth="16" tileheight="16">
   <image source="../graphics/512x512_kaupunki_tileset.png" trans="ff00ff" width="512" height="512"/>
  </tileset>
@@ -4510,10 +4510,34 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Triggers">
-  <object id="1" name="Spawnpoint1" type="Spawnpoint" x="512" y="0" width="16" height="240"/>
-  <object id="5" name="Spawnpoint2" type="Spawnpoint" x="815" y="0" width="16" height="240"/>
-  <object id="6" name="Spawnpoint3" type="Spawnpoint" x="1295" y="0" width="16" height="240"/>
-  <object id="7" name="Spawnpoint3" type="Spawnpoint" x="1495" y="0" width="16" height="240"/>
+ <objectgroup name="triggers">
+  <object id="1" type="Spawnpoint" x="512" y="0">
+  	<properties>
+  		<property name="enemyCount" value="8"></property>
+  		<property name="enemyType" value="1"></property>
+  		<property name="spawnHeight" value="8"></property>
+  	</properties>
+  </object>
+  <object id="2" type="Spawnpoint" x="815" y="0">
+  	<properties>
+  		<property name="enemyCount" value="2"></property>
+  		<property name="enemyType" value="1"></property>
+  		<property name="spawnHeight" value="4"></property>
+  	</properties>
+  </object>
+  <object id="3" type="Spawnpoint" x="1295" y="0">
+  	<properties>
+  		<property name="enemyCount" value="2"></property>
+  		<property name="enemyType" value="2"></property>
+  		<property name="spawnHeight" value="4"></property>
+  	</properties>
+  </object>
+  <object id="4" type="Spawnpoint" x="1495" y="0">
+  	<properties>
+  		<property name="enemyCount" value="2"></property>
+  		<property name="enemyType" value="1"></property>
+  		<property name="spawnHeight" value="4"></property>
+  	</properties>
+  </object>
  </objectgroup>
 </map>

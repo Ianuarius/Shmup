@@ -8,24 +8,33 @@
  *		enemy->metodi();
  */
 
-#ifndef ENEMY_H_DEFINED
-#define ENEMY_H_DEFINED
+#ifndef __ENEMY_H_DEFINED__
+#define __ENEMY_H_DEFINED__
 
-#include "SDL.h"
-#include "Window.h"
-#include "Sprite.h"
-#include "DamageableEntity.h"
 #include "MovingEntity.h"
+#include "Animation.h"
 
-class Enemy : public DamageableEntity, public MovingEntity
+class Enemy : public MovingEntity
 {
-public:
-	Enemy(Animation *animation, SDL_Rect hitbox, int initialHitPoints);
-	~Enemy();
-	virtual void render();
+	public:
+		Enemy(Animation* animation, SDL_Rect hitbox, int initialHitPoints);
+		~Enemy();
+		void render();
+		void update();
 
-private:
-	
+		void linearPattern();
+		void sinePattern(int index);
+
+	private:
+		enum DIRECTION {
+			UP,
+			DOWN,
+			LEFT,
+			RIGHT
+		};
+
+		int index, chilltime;
+		std::vector<int> pattern;
 };
 
 #endif //__ENEMY_H_DEFINED__

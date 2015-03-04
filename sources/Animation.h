@@ -20,8 +20,6 @@ class Animation : public Sprite
 		int getFramecount();
 		int getCurrentFrame();
 
-		int getFrame();
-
 		void play(int times);
 		void pause();
 		void render(int x, int y);

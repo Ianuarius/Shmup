@@ -1,6 +1,6 @@
 /**
  *
- * 
+ * Window.h
  *
  * @todo
  *		- Constant framerate
@@ -15,7 +15,7 @@
 #include "color.h"
 #include "Timer.h"
 
-#define FRAMERATE 60
+#define FRAMERATE 30
 #define FPS_INTERVAL 1000	// Milliseconds
 
 class Window

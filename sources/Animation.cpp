@@ -1,6 +1,5 @@
 #include "Animation.h"
 
-// TODO(jouni): DO NOT HARDCODE SPRITE SIZE
 Animation::Animation(Window *window, std::string filename,
 					 int width, int height, int start_frame,
 					 int frame_count, int framerate):
@@ -19,7 +18,7 @@ Animation::Animation(Window *window, std::string filename,
 
 Animation::~Animation() {
 
-}
+} 
 
 int Animation::getCurrentFrame() {
 	return current_frame;

@@ -1,18 +1,21 @@
 #include "Level.h"
 
-Level::Level(Window *window):
+Level::Level(Window *window, EntityCollection<Enemy> *collection, EnemyFactory *factory):
 	window(window),
+	collection(collection),
+	factory(factory),
 	bgScrollingOffset(0),
 	camera(256, 240),
 	background(window, "kaupunki_tausta.png")
 {
 	camera.setSpeed(2);
+	background_width = background.getWidth();
 }
 
 Level::~Level()
 { }
 
-void Level::loadLevel(std::string level_name)
+void Level::load(std::string level_name)
 {
 	// Loads the level document
 	result = levelDocument.load_file(level_name.c_str());
@@ -83,7 +86,7 @@ void Level::loadLevel(std::string level_name)
 			}
 
 			if (strcmp(it->attribute("name").value(), "enemyType") == 0) {
-				trigger.enemyType = it->attribute("value").value();
+				trigger.enemyType = atoi(it->attribute("value").value());
 			}
 
 			if (strcmp(it->attribute("name").value(), "spawnHeight") == 0) {
@@ -95,9 +98,7 @@ void Level::loadLevel(std::string level_name)
 	}
 }
 
-// TODO(jouni): Muuttujaksi kameran X
-void Level::renderLevel()
-{
+void Level::update() {
 	// NOTE(jouni&&karlos): Liikuttaa kameraa jos kenttä ei oo vielä loppunu
 	if (camera.getX() < levelWidth*tileSize)
 	{
@@ -113,16 +114,17 @@ void Level::renderLevel()
 		camera.update();
 	}
 
-	int background_width;
-	background_width = background.getWidth();
-
 	//Scroll background
 	--bgScrollingOffset;
 	if(bgScrollingOffset < -background_width)
 	{
 		bgScrollingOffset = 0;
 	}
+}
 
+// TODO(jouni): Muuttujaksi kameran X
+void Level::render()
+{
 	background.render(bgScrollingOffset, 0);
 	background.render(bgScrollingOffset + background_width, 0);
 	
@@ -158,6 +160,14 @@ int Level::getTile(int x, int y)
 	return 0;
 }
 
-Level::levelTrigger Level::launchTrigger(levelTrigger trigger) {
-	return trigger;
+void Level::launchTrigger(levelTrigger trigger) {
+	for (int i = 0; i < trigger.enemyCount; i++)
+	{
+		Enemy enemy = factory->spawn(trigger.enemyType, trigger.spawnHeight);
+		enemy.sinePattern(i % 2);
+		enemy.setX(levelWidth + (i *20));
+		enemy.setY(tileSize * trigger.spawnHeight);
+		enemy.speed(2);
+		collection->push(enemy);
+	}
 }

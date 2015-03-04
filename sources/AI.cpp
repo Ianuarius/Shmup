@@ -5,8 +5,8 @@
 
 #include "AI.h"
 
-AI::AI(MovingEntity *entity):
-	entity(entity),
+AI::AI(Enemy* enemy):
+	enemy(enemy),
 	index(0)
 { }
 
@@ -22,7 +22,6 @@ void AI::sinePattern()
 	pattern.assign(sine, sine+6);
 }
 
-
 void AI::update()
 {
 	chilltime = (++chilltime % 5);
@@ -31,6 +30,6 @@ void AI::update()
 		index = (++index % pattern.size());
 	}
 
-	entity->move(pattern[index]);
-	entity->move(LEFT);
+	enemy->move(pattern[index]);
+	enemy->move(LEFT);
 }

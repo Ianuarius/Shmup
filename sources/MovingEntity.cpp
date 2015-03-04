@@ -61,6 +61,7 @@ SDL_bool MovingEntity::collides(Entity *other)
 	return SDL_IntersectRect(&hitbox, &other->hitbox, &result);
 }
 
+/*
 SDL_bool MovingEntity::collides(Level *level)
 {
 	int hbX;
@@ -103,6 +104,7 @@ SDL_bool MovingEntity::collides(Level *level)
 	
 	return SDL_FALSE;
 }
+*/
 
 int MovingEntity::getSpeed()
 {

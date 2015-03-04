@@ -13,20 +13,19 @@
 #define __AI_H_DEFINED__
 
 #include <vector>
-#include "SDL.h"
-#include "MovingEntity.h"
+#include "Enemy.h"
 
 class AI
 {
 	public:
-		AI(MovingEntity *entity);
+		AI(Enemy *enemy);
 
 		void linearPattern();
 		void sinePattern();
 		void update();
 
 	private:
-		MovingEntity *entity;
+		Enemy *enemy;
 
 		enum DIRECTION {
 			UP,
