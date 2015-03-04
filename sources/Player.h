@@ -17,11 +17,12 @@
 #include "Sprite.h"
 #include "DamageableEntity.h"
 #include "MovingEntity.h"
+#include "HUD.h"
 
 class Player : public DamageableEntity, public MovingEntity
 {
 public:
-	Player(Window *window);
+	Player(Window *window, HUD *hud);
 	~Player();
 
 	void update();
@@ -34,6 +35,7 @@ public:
 private:
 	Animation animation;
 	SDL_Rect hitbox;
+	HUD *hud;
 };
 
 #endif //__PLAYER_H_DEFINED__

@@ -6,6 +6,9 @@
 
 HUD::HUD(Window *window):
 	window(window),
+	weapons(window, "hud_icons_bw.png"),
+	selected_weapon(window, "hud_icons.png", 20, 20),
+	weapon_index(0),
 	isHidden(false),
 	currentScore(0),
 	highScore(0),
@@ -25,6 +28,8 @@ HUD::HUD(Window *window):
 
 	numberHighscore.setFont(&font);
 	numberHighscore.setColor(text_color);
+
+	selected_weapon.setIndex(weapon_index);
 }
 
 HUD::~HUD()
@@ -34,7 +39,8 @@ HUD::~HUD()
 
 void HUD::setWeapon(int weapondID)
 {
-
+	weapon_index = weapondID;
+	selected_weapon.setIndex(weapon_index);
 }
 
 void HUD::setScore(int score)
@@ -53,8 +59,15 @@ void HUD::render()
 	score.print(window, "SCORE", 10, 10);
 	highscore.print(window, "HI SCORE", 150, 10);
 
-	//numberScore.print(window, currentScore, 30, 10);
-	//numberHighscore.print(window, highScore, 30, 10);
+	char buffer[64];
+	itoa(currentScore, buffer, 64);
+	numberScore.print(window, buffer, 60, 10);
+
+	itoa(highScore, buffer, 64);
+	numberHighscore.print(window, buffer, 220, 10);
+
+	weapons.render(48, 220);
+	selected_weapon.render(48 + (weapon_index * 20), 220);
 }
 
 void HUD::show()

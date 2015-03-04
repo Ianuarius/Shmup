@@ -21,6 +21,7 @@
 
 #include "Font.h"
 #include "Text.h"
+#include "Texture.h"
 #include "Sprite.h"
 #include "Window.h"
 
@@ -56,6 +57,10 @@ protected:
 	int highScore;
 
 	Window *window;
+
+	Texture weapons;
+	Sprite selected_weapon;
+	int weapon_index;
 };
 
 #endif //__HUD_H_DEFINED__

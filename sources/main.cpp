@@ -13,6 +13,8 @@
 #include "EntityCollection.h"
 #include "EnemyFactory.h"
 #include "Player.h"
+#include "Projectile.h"
+#include "HUD.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 256;
@@ -24,27 +26,33 @@ int main(int argc, char* args[])
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
-	EntityCollection<Enemy> entity_bag;
+	EntityCollection<Enemy> enemies;
+	//EntityCollection<Projectile> projectiles;
 	EnemyFactory factory(&window);
 
-	Level level(&window, &entity_bag, &factory);
+	Level level(&window, &enemies, &factory);
 	level.load("level_city_vol_01.tmx");
 
-	Player player(&window);
+	HUD hud(&window);
+
+	Player player(&window, &hud);
 	
 	while(!Input::keyState(SDL_SCANCODE_ESCAPE)) {
 		// Refresh input
 		Input::update();
 		level.update();
-		entity_bag.update();
+		enemies.update();
 		player.update();
+		//projectiles.update();
 
 		// Clear sceen
 		window.clear();
 		
 		level.render();
-		entity_bag.render();
+		enemies.render();
 		player.render();
+		hud.render();
+		//projectiles.render();
 
 		// Draw renderer contents and delay frame if needed
 		window.refresh();
