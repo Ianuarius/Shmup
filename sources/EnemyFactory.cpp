@@ -1,7 +1,8 @@
 #include "EnemyFactory.h"
 
-EnemyFactory::EnemyFactory(Window *window):
-	window(window)
+EnemyFactory::EnemyFactory(Window *window, EntityCollection<Projectile> *projectiles):
+	window(window),
+	projectiles(projectiles)
 {
 	// Drone definition
 	drone.animation = new Animation(window, "drone.png", 16, 9, 0, 1, 1);

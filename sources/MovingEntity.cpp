@@ -31,22 +31,26 @@ void MovingEntity::move(int direction)
 {
 	if (direction == UP) {
 		this->y -= _speed;
-		this->hitbox.y = hitbox.y+y;
+		this->hitbox.y = y;
+		//printf("Sprite x%d\\y%d\tHitbox x%d\\y%d\n", x, y, hitbox.x, hitbox.y);
 	}
 
 	if (direction == DOWN) {
 		this->y += _speed;
-		this->hitbox.y = hitbox.y+y;
+		this->hitbox.y = y;
+		//printf("Sprite x%d\\y%d\tHitbox x%d\\y%d\n", x, y, hitbox.x, hitbox.y);
 	}
 
 	if (direction == LEFT) {
 		this->x -= _speed;
-		this->hitbox.x = hitbox.x+x;
+		this->hitbox.x = x;
+		//printf("Sprite x%d\\y%d\tHitbox x%d\\y%d\n", x, y, hitbox.x, hitbox.y);
 	}
 
 	if (direction == RIGHT) {
 		this->x += _speed;
-		this->hitbox.x = hitbox.x+x;
+		this->hitbox.x = x;
+		//printf("Sprite x%d\\y%d\tHitbox x%d\\y%d\n", x, y, hitbox.x, hitbox.y);
 	}
 }
 

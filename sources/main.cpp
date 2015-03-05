@@ -26,24 +26,37 @@ int main(int argc, char* args[])
 
 	//The window we'll be rendering to
 	Window window(1280, 720, "Escape From Earth", false);
+
 	EntityCollection<Enemy> enemies;
-	//EntityCollection<Projectile> projectiles;
-	EnemyFactory factory(&window);
+	EntityCollection<Projectile> projectiles;
+	EnemyFactory factory(&window, &projectiles);
 
 	Level level(&window, &enemies, &factory);
 	level.load("level_city_vol_01.tmx");
 
 	HUD hud(&window);
+	Player player(&window, &hud, &projectiles);
 
-	Player player(&window, &hud);
-	
 	while(!Input::keyState(SDL_SCANCODE_ESCAPE)) {
+		if (player.isDead()) {
+			break;
+		}
+
 		// Refresh input
 		Input::update();
 		level.update();
 		enemies.update();
 		player.update();
-		//projectiles.update();
+		projectiles.update();
+
+		// Player collides to enemies?
+		for (int i = 0; i < enemies.length(); i++)
+		{
+			Enemy *tmp = enemies.get(i);
+			if (player.collides(tmp)) {
+				player.damage(1);
+			}
+		}
 
 		// Clear sceen
 		window.clear();
@@ -52,13 +65,11 @@ int main(int argc, char* args[])
 		enemies.render();
 		player.render();
 		hud.render();
-		//projectiles.render();
+		projectiles.render();
 
 		// Draw renderer contents and delay frame if needed
 		window.refresh();
-
 	}
-
 
 	//Quit SDL subsystems
 	SDL::exit();

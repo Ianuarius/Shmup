@@ -5,12 +5,17 @@
 
 #include "Projectile.h"
 
-Projectile::Projectile(Window *window, int type, int x, int y, int radian)
+SDL_Rect Projectile::hitbox = {1, 1, 2, 2};
+
+Projectile::Projectile(Texture *texture, int speed, int x, int y, int radian) :
+	MovingEntity(texture, hitbox),
+	vx(0),
+	vy(0),
+	radian(radian)
 {
-	// Initial X and Yk
-	entity.setX(x);
-	entity.setY(y);
-	entity.speed(20);
+	MovingEntity::speed(speed);
+	setX(x);
+	setY(y);
 }
 
 Projectile::~Projectile()
@@ -18,14 +23,19 @@ Projectile::~Projectile()
 
 void Projectile::update()
 {
-	int vx = entity.getSpeed() * cos(radian);
-	int vy = entity.getSpeed() * sin(radian);
+	int vx = getSpeed() * cos(radian);
+	int vy = getSpeed() * sin(radian);
 
-	entity.setX(x + vx);
-	entity.setY(y + vy);
+	//printf("velocity:\tx%d y%d\n", vx, vy);
+
+	setX(getX() + vx);
+	setY(getY() + vy);
+
+	//printf("new point:\tx%d y%d\n", getX(), getY());
+
 }
 
 void Projectile::render()
 {
-	entity.render();
+	MovingEntity::render();
 }

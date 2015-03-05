@@ -15,8 +15,8 @@ class EntityCollection {
 			Bag.clear();
 		}
 
-		T get(int index) {
-			return Bag.at(index);
+		T* get(int index) {
+			return &(Bag.at(index));
 		}
 
 		int length() {

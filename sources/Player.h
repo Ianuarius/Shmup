@@ -18,24 +18,28 @@
 #include "DamageableEntity.h"
 #include "MovingEntity.h"
 #include "HUD.h"
+#include "EntityCollection.h"
+#include "Projectile.h"
 
 class Player : public DamageableEntity, public MovingEntity
 {
 public:
-	Player(Window *window, HUD *hud);
+	Player(Window *window, HUD *hud, EntityCollection<Projectile> *projectiles);
 	~Player();
 
 	void update();
-	virtual void render();
+	void render();
 
 	virtual int getX() {return MovingEntity::getX(); };
 	virtual int getY() {return MovingEntity::getY(); };
-	
 
 private:
+	Window *window;
 	Animation animation;
-	SDL_Rect hitbox;
+	static SDL_Rect hitbox;
 	HUD *hud;
+	EntityCollection<Projectile> *projectiles;
+	Texture *ammus;
 };
 
 #endif //__PLAYER_H_DEFINED__

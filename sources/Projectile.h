@@ -15,13 +15,14 @@
 #include <vector>
 #include "SDL.h"
 #include "Window.h"
+#include "Texture.h"
 #include "Sprite.h"
 #include "MovingEntity.h"
 
-class Projectile
+class Projectile : public MovingEntity
 {
 	public:
-		Projectile(Window *window, int type, int x, int y, int radian);
+		Projectile(Texture *texture, int speed, int x, int y, int radian);
 		~Projectile();
 
 		// Iterates through container
@@ -32,7 +33,9 @@ class Projectile
 
 	private:
 		int radian, x, y, vx, vy;
-		static SDL_Rect empty = {0, 0, 0, 0};
+		static SDL_Rect hitbox;
+		Texture *texture;
+
 };
 
 #endif //__PROJECTILE_H_DEFINED__
