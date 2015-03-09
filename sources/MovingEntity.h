@@ -37,11 +37,12 @@ class MovingEntity : public Entity
 
 		int getSpeed();
 
-		SDL_bool collides(Entity *other);
+		bool collides(Entity *other);
 		//SDL_bool collides(Level *level);
 
 	private:
 		int _speed;
+		int desiredX, desiredY;
 };
 
 #endif // __MOVINGENTITY_H_DEFINED__

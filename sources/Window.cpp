@@ -7,7 +7,8 @@ Window::Window(int width, int height, std::string title, bool fullscreen):
 	width(width),
 	height(height),
 	originalWidth(width),
-	originalHeight(height)
+	originalHeight(height),
+	current_delta(0)
 {
 	resize(title, width, height, fullscreen);
 

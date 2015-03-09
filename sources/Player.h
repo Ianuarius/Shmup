@@ -29,17 +29,25 @@ public:
 
 	void update();
 	void render();
+	
+	void immunity(int length);
+	bool isImmune();
 
 	virtual int getX() {return MovingEntity::getX(); };
 	virtual int getY() {return MovingEntity::getY(); };
-
 private:
 	Window *window;
-	Animation animation;
+	Animation* currentAnimation;
+
+	/// All possible animations, ready to be selected.
+	std::vector<Animation*> animations;
+
 	static SDL_Rect hitbox;
 	HUD *hud;
 	EntityCollection<Projectile> *projectiles;
 	Texture *ammus;
+	bool immune;
+	int immunityLength;
 };
 
 #endif //__PLAYER_H_DEFINED__

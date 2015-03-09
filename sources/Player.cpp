@@ -9,14 +9,30 @@ SDL_Rect Player::hitbox = {0, 0, 32, 32};
 
 Player::Player(Window *window, HUD *hud, EntityCollection<Projectile> *projectiles):
 	window(window),
-	animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2),
-	DamageableEntity(&animation, hitbox, 10),
-	MovingEntity(&animation, hitbox),
+	//animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2),
+	currentAnimation(nullptr),
+	DamageableEntity(currentAnimation, hitbox, 1),
+	MovingEntity(currentAnimation, hitbox),
 	hud(hud),
-	projectiles(projectiles)
+	projectiles(projectiles),
+	immune(false),
+	immunityLength(0)
 {
 	MovingEntity::speed(4);
+
 	ammus = new Texture(window, "ammus.png");
+
+	Animation *tmp = nullptr;
+
+	animations.push_back(new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2));
+
+	tmp = new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2);
+	animations.push_back(tmp);
+
+	tmp = new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2);
+	animations.push_back(tmp);
+
+	currentAnimation = animations[0];
 }
 
 Player::~Player()
@@ -25,9 +41,12 @@ Player::~Player()
 
 void Player::update()
 {
+	if (isDead()) {
+		return;
+	}
+
 	if (Input::keyState(SDL_SCANCODE_W)) {
 		move(0);
-
 	}
 
 	if (Input::keyState(SDL_SCANCODE_A)) {
@@ -78,8 +97,26 @@ void Player::update()
 	if (Input::keyState(SDL_SCANCODE_8)) {
 		hud->setWeapon(7);
 	}
+
+	if (immune) {
+		if (immunityLength > 0) {
+			immunityLength -= window->getDelta();
+			printf("Immune for %dms\n", immunityLength);
+		} else {
+			immune = false;
+		}
+	}
 }
 
 void Player::render() {
 	MovingEntity::render();
+}
+
+void Player::immunity(int length) {
+	immunityLength += length;
+	immune = true;
+}
+
+bool Player::isImmune() {
+	return immune;
 }

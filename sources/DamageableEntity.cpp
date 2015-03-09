@@ -31,6 +31,7 @@ void DamageableEntity::heal(int amount)
 void DamageableEntity::damage(int amount)
 {
 	hitpoints -= amount;
+	printf("HP: %d\n", hitpoints);
 
 	if (hitpoints <= 0)
 	{

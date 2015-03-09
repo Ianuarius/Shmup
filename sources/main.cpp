@@ -39,9 +39,8 @@ int main(int argc, char* args[])
 
 	while(!Input::keyState(SDL_SCANCODE_ESCAPE)) {
 		if (player.isDead()) {
-			break;
-		}
 
+		}
 		// Refresh input
 		Input::update();
 		level.update();
@@ -54,7 +53,10 @@ int main(int argc, char* args[])
 		{
 			Enemy *tmp = enemies.get(i);
 			if (player.collides(tmp)) {
-				player.damage(1);
+				if (!player.isImmune()) {
+					player.damage(1);
+					player.immunity(1500);
+				}
 			}
 		}
 
