@@ -1,41 +1,33 @@
+/**
+ * SplashState.cpp
+ *
+ */
+
 #include "SplashState.h"
 
-SplashState::SplashState(Window *window, StateManager *manager):
-	State(window, manager)
-{
-
+SplashState::SplashState(Window *window):
+	State(),
+	splash_texture(window, "images//splashbg.png"),
+	window(window) {
 }
 
-SplashState::~SplashState()
-{
+int SplashState::update() {
+	
+	if (Input::keyState(SDL_SCANCODE_ESCAPE)) {
+		return QUIT_STATE;
+	}
+
+	Input::update();
+	
+	if (Input::keyState(SDL_SCANCODE_RETURN)) {
+		return GAME_STATE;
+	}
+
+	return SPLASH_STATE;
 }
 
-void SplashState::load(int stack)
-{
-	UNUSED(stack);
-
-
-	SDL_Rect gameArea;
-
-	gameArea.x = 0;
-	gameArea.y = 0;
-	gameArea.w = 256;
-	gameArea.h = 240;
-
-	int waitTime = 5000;
-
+void SplashState::render() {
 	window->clear();
-	splash_background.render(0, 0);
+	splash_texture.render(0, 0);
 	window->refresh();
-
-	do {
-		waitTime = -10;
-		SDL_Delay(10);
-	} while(Input::keyState(SDL_SCANCODE_ESCAPE) || waitTime > 0);
-
-}
-
-int SplashState::unload()
-{
-	return 0;
 }

@@ -1,19 +1,29 @@
-#ifndef __STATE_H_INCLUDED__
-#define __STATE_H_INCLUDED__
+/**
+ * State.h
+ *
+ * Description:
+ * Abstract base class for all the states.
+ *
+ * Example:
+ * --
+ */
 
-#include "StateManager.h"
+#ifndef __STATE_H_DEFINED__
+#define __STATE_H_DEFINED__
 
-class State
-{
+#include "Input.h"
+
+#define SPLASH_STATE 1
+#define GAME_STATE   2
+#define QUIT_STATE   3
+
+class State {
 public:
-	virtual State (Window *window, StateManager *manager) {};
-	virtual ~State() {};
-	virtual void load(int stack = 0) = 0;
-	virtual int unload() = 0;
+	State() {}
+	virtual int update() = 0;
+	virtual void render() = 0;
 
-private:
-	Window *window;
-	StateManager *manager;
+protected:
 };
 
-#endif // __STATE_H_INCLUDED__
+#endif

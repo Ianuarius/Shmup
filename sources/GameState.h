@@ -1,20 +1,30 @@
-#ifndef __GAMESTATE_H_INCLUDED__
-#define __GAMESTATE_H_INCLUDED__
+/**
+ * GameState.h
+ *
+ * Description:
+ * State where the game is happening.
+ *
+ * Example:
+ * --
+ */
 
-#include <stdio.h>
-#include "state.h"
-#include "window.h"
+#ifndef __GAMESTATE_H_DEFINED__
+#define __GAMESTATE_H_DEFINED__
 
-class GameState: public State
-{
+#include "State.h"
+#include "Player.h"
+#include "Level.h"
+
+class GameState : public State {
 public:
 	GameState(Window *window);
+	int update();
 	void render();
-	void load();
 
 private:
+	Level level;
+	Player player;
 	Window *window;
-
 };
 
-#endif // __STATE_H_INCLUDED__
+#endif

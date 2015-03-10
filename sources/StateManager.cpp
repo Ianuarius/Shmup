@@ -1,38 +1,46 @@
+/**
+ * StateManager.cpp
+ *
+ */
+
 #include "StateManager.h"
 
 StateManager::StateManager(Window *window):
 	window(window),
-	currentState(nullptr),
-	sharedInfo(0)
-{
-	SplashState splash(window, this);
-	sharedInfo = 0;
+	current_state(nullptr),
+	status(0) {
+		changeState();
 }
 
-StateManager::~StateManager()
-{
-	if(currentState)
-	{
-		currentState->unload();
-		currentState = nullptr;
+void StateManager::changeState() {
+	if (status == 0 || status == SPLASH_STATE) {
+		if (current_state) {
+			delete current_state;
+		}
+		current_state = nullptr;
+		current_state = new SplashState(window);
+	}
+	else if (status == GAME_STATE) {
+		delete current_state;
+		current_state = nullptr;
+		current_state = new GameState(window);
+	}
+	else if (status == QUIT_STATE) {
+		delete current_state;
+		current_state = nullptr;
 	}
 }
 
-void StateManager::run(int state)
-{
+void StateManager::update() {
+	status = current_state->update();
 
-	switch (state)
-	{
-	case QUIT:
-		break;
-	case INGAME:
-		break;
-	case SPLASH:
-		splash.load(0);
-		break;
-	case SCORE:
-		break;
-	default:
-		break;
-	}
+	// TODO(juha): delete GameState when the player dies.
+}
+
+void StateManager::render() {
+	current_state->render();
+}
+
+int StateManager::getState() {
+	return status;
 }

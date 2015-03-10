@@ -1,26 +1,29 @@
-#ifndef __SPLASHSTATE_H_INCLUDED__
-#define __SPLASHSTATE_H_INCLUDED__
+/**
+ * SplashState.h
+ *
+ * Description:
+ * State displaying the Splash Screen.
+ *
+ * Example:
+ * --
+ */
 
-#include <stdio.h>
-#include "state.h"
-#include "window.h"
-#include "sdl.h"
-#include "texture.h"
-#include "Input.h"
+#ifndef __SPLASHSTATE_H_DEFINED__
+#define __SPLASHSTATE_H_DEFINED__
 
-class SplashState: public State
-{
+#include "State.h"
+#include "Window.h"
+#include "Texture.h"
+
+class SplashState: public State {
 public:
-	SplashState(Window *window, StateManager *manager);
-	virtual ~SplashState();
-
-	void load(int stack);
-	int unload();
+	SplashState(Window *window);
+	int update();
+	void render();
 
 private:
-	SDL_Rect gameArea;
-	Texture splash_background;
-
+	Window *window;
+	Texture splash_texture;
 };
 
-#endif // __SPLASHSTATE_H_INCLUDED__
+#endif
