@@ -11,28 +11,24 @@ Player::Player(Window *window, HUD *hud, EntityCollection<Projectile> *projectil
 	window(window),
 	//animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2),
 	currentAnimation(nullptr),
-	DamageableEntity(currentAnimation, hitbox, 1),
+	DamageableEntity(1),
 	MovingEntity(currentAnimation, hitbox),
 	hud(hud),
 	projectiles(projectiles),
 	immune(false),
-	immunityLength(0)
+	immunityLength(0),
+	norender(false),
+	shot(false)
 {
 	MovingEntity::speed(4);
 
 	ammus = new Texture(window, "ammus.png");
 
-	Animation *tmp = nullptr;
-
 	animations.push_back(new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2));
+	animations.push_back(new Animation(window, "player_spritesheet_damage.png", 32, 32, 0, 8, 4));
+	animations.push_back(new Animation(window, "player_dead.png", 32, 32, 0, 10, 12));
 
-	tmp = new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2);
-	animations.push_back(tmp);
-
-	tmp = new Animation(window, "player_spritesheet.png", 32, 32, 0, 4, 2);
-	animations.push_back(tmp);
-
-	currentAnimation = animations[0];
+	MovingEntity::animation = animations[0];
 }
 
 Player::~Player()
@@ -42,7 +38,23 @@ Player::~Player()
 void Player::update()
 {
 	if (isDead()) {
+		MovingEntity::speed(2);
+		MovingEntity::move(LEFT);
+
+		if (MovingEntity::animation != animations[2]) {
+			MovingEntity::animation = animations[2];
+			MovingEntity::animation->play(1);
+		}
+
+		if (MovingEntity::animation->done()) {
+			norender = true;
+		}
+
 		return;
+	}
+
+	if (Input::keyState(SDL_SCANCODE_K)) {
+		DamageableEntity::damage(1);
 	}
 
 	if (Input::keyState(SDL_SCANCODE_W)) {
@@ -62,8 +74,13 @@ void Player::update()
 	}
 
 	if (Input::keyState(SDL_SCANCODE_SPACE)) {
-		Projectile projectile(ammus, 10, getX(), getY(), 0);
-		projectiles->push(projectile);
+		if (!shot) {
+			Projectile projectile(ammus, 10, getX()+28, getY()+15, 0);
+			projectiles->push(projectile);
+			shot = true;
+		}
+	} else {
+		shot = false;
 	}
 
 	if (Input::keyState(SDL_SCANCODE_1)) {
@@ -109,7 +126,9 @@ void Player::update()
 }
 
 void Player::render() {
-	MovingEntity::render();
+	if (!norender) {
+		MovingEntity::render();
+	}
 }
 
 void Player::immunity(int length) {

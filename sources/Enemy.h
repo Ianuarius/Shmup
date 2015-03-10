@@ -12,12 +12,13 @@
 #define __ENEMY_H_DEFINED__
 
 #include "MovingEntity.h"
+#include "DamageableEntity.h"
 #include "Animation.h"
 
-class Enemy : public MovingEntity
+class Enemy : public MovingEntity, public DamageableEntity
 {
 	public:
-		Enemy(Animation* animation, SDL_Rect hitbox, int initialHitPoints);
+		Enemy(Animation* animation, Animation *dyingAnimation, SDL_Rect hitbox, int initialHitPoints);
 		~Enemy();
 		void render();
 		void update();
@@ -33,7 +34,10 @@ class Enemy : public MovingEntity
 			RIGHT
 		};
 
+		Animation *dyingAnimation;
+
 		int index, chilltime;
+		bool norender;
 		std::vector<int> pattern;
 };
 

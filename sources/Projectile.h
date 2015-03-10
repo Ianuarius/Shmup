@@ -33,9 +33,8 @@ class Projectile : public MovingEntity
 
 	private:
 		int radian, x, y, vx, vy;
-		static SDL_Rect hitbox;
 		Texture *texture;
-
+		static SDL_Rect hitbox;
 };
 
 #endif //__PROJECTILE_H_DEFINED__

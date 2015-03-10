@@ -68,62 +68,17 @@ bool MovingEntity::collides(Entity *other)
 
 	if (SDL_IntersectRect(&hitbox, &other->hitbox, &result)) {
 		//printf("w%d h%d x%d y%d", result.w, result.h, result.x, result.y);
-		this->x -= result.w;
-		this->y -= result.h;
+		//this->x -= result.w;
+		//this->y -= result.h;
 
-		hitbox.x -= result.w;
-		hitbox.y -= result.h;
+		//hitbox.x -= result.w;
+		//hitbox.y -= result.h;
 
 		return true;
 	}
 
 	return false;
 }
-
-/*
-SDL_bool MovingEntity::collides(Level *level)
-{
-	int hbX;
-	int hbY;
-
-	// Palauttaa hitboxin vasemman yläkulman tilen
-	hbX = hitbox.x;
-	hbY = hitbox.y;
-	printf("Hitbox %d/%d\n", hitbox.x, hitbox.y);
-	printf("GETTILE: %d\n", level->getTile(hbX, hbY));
-
-	if(level->getTile(hbX, hbY) != 1)
-	{
-		return SDL_TRUE;
-	}
-
-	// Palauttaa hitboxin oikean yläkulman tilen
-	hbX = hitbox.x + hitbox.w;
-	hbY = hitbox.y;
-
-	if(level->getTile(hbX, hbY) != 1){
-		return SDL_TRUE;
-	}
-
-	// Palauttaa hitboxin vasemman alakulman tilen
-	hbX = hitbox.x + hitbox.w;
-	hbY = hitbox.y + hitbox.h;
-
-	if(level->getTile(hbX, hbY) != 1){
-		return SDL_TRUE;
-	}
-
-	// Palauttaa hitboxin oikean alakulman tilen
-	hbX = hitbox.x;
-	hbY = hitbox.y + hitbox.h;
-
-	if(level->getTile(hbX, hbY) != 1){
-		return SDL_TRUE;
-	}
-	
-	return SDL_FALSE;
-}
-*/
 
 int MovingEntity::getSpeed()
 {

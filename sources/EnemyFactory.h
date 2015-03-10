@@ -28,12 +28,14 @@ class EnemyFactory {
 		EntityCollection<Projectile> *projectiles;
 
 		struct enemy_definition {
-			Animation* animation;
+			Animation *animation;
+			Animation *dying;
 			SDL_Rect   hitbox;
 			int		   hitpoints;
 
 			enemy_definition() {
 				animation = nullptr;
+				dying = nullptr;
 				SDL_RectEmpty(&hitbox);
 				hitpoints = 0;
 			}

@@ -23,6 +23,7 @@ class Level
 	
 		int getTile(int x, int y);
 		int getLevelWidth();
+		bool collides(Entity *entity);
 
 		struct levelTrigger {
 			// X Position where the trigger is triggered

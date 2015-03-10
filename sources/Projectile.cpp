@@ -16,6 +16,8 @@ Projectile::Projectile(Texture *texture, int speed, int x, int y, int radian) :
 	MovingEntity::speed(speed);
 	setX(x);
 	setY(y);
+	MovingEntity::hitbox.x = x;
+	MovingEntity::hitbox.y = y;
 }
 
 Projectile::~Projectile()
@@ -30,6 +32,8 @@ void Projectile::update()
 
 	setX(getX() + vx);
 	setY(getY() + vy);
+	MovingEntity::hitbox.x = getX();
+	MovingEntity::hitbox.y = getY();
 
 	//printf("new point:\tx%d y%d\n", getX(), getY());
 

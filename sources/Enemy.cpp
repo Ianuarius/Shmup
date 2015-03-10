@@ -5,12 +5,15 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(Animation* animation, SDL_Rect hitbox, int initialHitPoints):
+Enemy::Enemy(Animation *animation, Animation *dyingAnimation, SDL_Rect hitbox, int initialHitPoints):
 	MovingEntity(animation, hitbox),
-	index(0)
+	DamageableEntity(1),
+	dyingAnimation(dyingAnimation),
+	index(0),
+	norender(false)
 {
-	setX(230);
-	setY(120);
+	MovingEntity::setX(230);
+	MovingEntity::setY(120);
 }
 
 Enemy::~Enemy()
@@ -18,7 +21,9 @@ Enemy::~Enemy()
 }
 
 void Enemy::render() {
-	MovingEntity::render();
+	if (!norender) {
+		MovingEntity::render();
+	}
 }
 
 void Enemy::linearPattern()
@@ -41,12 +46,28 @@ void Enemy::sinePattern(int index)
 
 void Enemy::update()
 {
-	chilltime = (++chilltime % 5);
+	if (isDead()) {
+		MovingEntity::speed(2);
+		MovingEntity::move(LEFT);
 
-	if (chilltime == 0) {
-		index = ((++index) % pattern.size());
+		if (MovingEntity::animation != dyingAnimation) {
+			MovingEntity::animation = dyingAnimation;
+			MovingEntity::animation->play(1);
+		}
+
+		if (MovingEntity::animation->done()) {
+			norender = true;
+		}
+
+		return;
+	} else {
+		chilltime = (++chilltime % 5);
+
+		if (chilltime == 0) {
+			index = ((++index) % pattern.size());
+		}
+
+		move(pattern[index]);
+		move(LEFT);
 	}
-
-	move(pattern[index]);
-	move(LEFT);
 }

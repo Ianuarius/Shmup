@@ -171,3 +171,46 @@ void Level::launchTrigger(levelTrigger trigger) {
 		collection->push(enemy);
 	}
 }
+
+bool Level::collides(Entity *entity)
+{
+	int hbX;
+	int hbY;
+
+	// Palauttaa hitboxin vasemman yläkulman tilen
+	hbX = entity->hitbox.x;
+	hbY = entity->hitbox.y;
+	printf("Hitbox %d/%d\n", entity->hitbox.x, entity->hitbox.y);
+	printf("GETTILE: %d\n", getTile(hbX, hbY));
+
+	if(getTile(hbX, hbY) > 0)
+	{
+		return true;
+	}
+
+	// Palauttaa hitboxin oikean yläkulman tilen
+	hbX = entity->hitbox.x + entity->hitbox.w;
+	hbY = entity->hitbox.y;
+
+	if(getTile(hbX, hbY) > 0){
+		return true;
+	}
+
+	// Palauttaa hitboxin vasemman alakulman tilen
+	hbX = entity->hitbox.x + entity->hitbox.w;
+	hbY = entity->hitbox.y + entity->hitbox.h;
+
+	if(getTile(hbX, hbY) > 0){
+		return true;
+	}
+
+	// Palauttaa hitboxin oikean alakulman tilen
+	hbX = entity->hitbox.x;
+	hbY = entity->hitbox.y + entity->hitbox.h;
+
+	if(getTile(hbX, hbY) > 0){
+		return true;
+	}
+	
+	return false;
+}

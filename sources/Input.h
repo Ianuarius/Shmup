@@ -40,7 +40,7 @@ class Input {
 		static bool alt();
 
 		// 'Lukitsee' input managerin. Näppäimiä ei päivitetä, jolloin esim.
-		// isKeyDown palauttaa false.
+		// keyState palauttaa aina false.
 		static void lock();
 
 		// Poistaa lukituksen

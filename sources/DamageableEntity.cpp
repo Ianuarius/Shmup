@@ -5,15 +5,7 @@
 
 #include "DamageableEntity.h"
 
-DamageableEntity::DamageableEntity(Sprite *sprite, SDL_Rect hitbox, int initialHitPoints):
-	Entity(sprite, hitbox, 100, 100),
-	alive(true),
-	hitpoints(initialHitPoints)
-{
-}
-
-DamageableEntity::DamageableEntity(Animation *animation, SDL_Rect hitbox, int initialHitPoints):
-	Entity(sprite, hitbox, 100, 100),
+DamageableEntity::DamageableEntity(int initialHitPoints):
 	alive(true),
 	hitpoints(initialHitPoints)
 {

@@ -17,11 +17,10 @@
 #include "Sprite.h"
 #include "Entity.h"
 
-class DamageableEntity : public Entity
+class DamageableEntity
 {
 public:
-	DamageableEntity(Sprite *sprite, SDL_Rect hitbox, int initialHitPoints);
-	DamageableEntity(Animation *animation, SDL_Rect hitbox, int initialHitPoints);
+	DamageableEntity(int initialHitPoints);
 	~DamageableEntity();
 
 	// Parantaa entity‰ jonkin m‰‰r‰n

@@ -25,6 +25,7 @@ public:
 	~Entity();
 
 	void render();
+	Animation *animation;
 
 	int getX();
 	int getY();
@@ -36,7 +37,6 @@ protected:
 	int x, y, frame, index;
 	Texture *texture;
 	Sprite *sprite;
-	Animation *animation;
 };
 
 #endif //__ENTITY_H_DEFINED__

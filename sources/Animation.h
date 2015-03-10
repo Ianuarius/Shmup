@@ -23,6 +23,7 @@ class Animation : public Sprite
 		void play(int times);
 		void pause();
 		void render(int x, int y);
+		bool done();
 
 		Sprite *animated;
 

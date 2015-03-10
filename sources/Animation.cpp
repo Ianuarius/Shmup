@@ -6,7 +6,8 @@ Animation::Animation(Window *window, std::string filename,
 					 Sprite(window, filename, width, height),
 					 window(window),
 					 current_frame(0),
-					 current_frametime(0)
+					 current_frametime(0),
+					 running(true)
 {
 	setFramerate(framerate);
 
@@ -48,8 +49,13 @@ void Animation::render(int x, int y) {
 	{
 		if (current_frametime > frametime) {
 			if (current_frame >= (int)frames.size() - 1) {
-				current_frame = 0;
 				play_count--;
+
+				if (play_count == 0) {
+					running = false;
+				}
+
+				current_frame = 0;
 			} else {
 				current_frame++;
 			}
@@ -59,5 +65,12 @@ void Animation::render(int x, int y) {
 	}
 
 	Sprite::setIndex(current_frame);
-	Sprite::render(x, y);
+
+	if (current_frame != 0 || running) {
+		Sprite::render(x, y);
+	}
+}
+
+bool Animation::done() {
+	return (running ? false : true);
 }

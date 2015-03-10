@@ -38,7 +38,6 @@ class MovingEntity : public Entity
 		int getSpeed();
 
 		bool collides(Entity *other);
-		//SDL_bool collides(Level *level);
 
 	private:
 		int _speed;

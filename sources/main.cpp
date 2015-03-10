@@ -38,9 +38,6 @@ int main(int argc, char* args[])
 	Player player(&window, &hud, &projectiles);
 
 	while(!Input::keyState(SDL_SCANCODE_ESCAPE)) {
-		if (player.isDead()) {
-
-		}
 		// Refresh input
 		Input::update();
 		level.update();
@@ -48,15 +45,46 @@ int main(int argc, char* args[])
 		player.update();
 		projectiles.update();
 
+		if (level.collides(&(player))) {
+			player.damage(10);
+		}
+
 		// Player collides to enemies?
-		for (int i = 0; i < enemies.length(); i++)
-		{
+		// TODO(jouni): Change fors to iterators
+		for (int i = 0; i < enemies.length(); i++) {
 			Enemy *tmp = enemies.get(i);
+			if (player.collides(tmp)) {
+				if (!player.isImmune() && !tmp->isDead()) {
+					player.damage(1);
+					player.immunity(1500);
+				}
+			}
+		}
+
+		// Player collides to projectiles
+		// TODO(jouni): Change fors to iterators
+		for (int i = 0; i < projectiles.length(); i++) {
+			Projectile *tmp = projectiles.get(i);
 			if (player.collides(tmp)) {
 				if (!player.isImmune()) {
 					player.damage(1);
 					player.immunity(1500);
 				}
+			}
+		}
+
+		// Enemies collide to projectiles
+		// TODO(jouni): Change fors to iterators
+		for (int i = 0; i < projectiles.length(); i++) {
+			Projectile *tmp = projectiles.get(i);
+			for (int j = 0; j < enemies.length(); j++) {
+				Enemy *enemy = enemies.get(j);
+
+				if (enemy->collides(tmp) && !enemy->isDead()) {
+					enemy->damage(1);
+					projectiles.removeAt(i);
+				}
+
 			}
 		}
 

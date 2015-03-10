@@ -46,7 +46,7 @@ private:
 	HUD *hud;
 	EntityCollection<Projectile> *projectiles;
 	Texture *ammus;
-	bool immune;
+	bool immune, norender, shot;
 	int immunityLength;
 };
 
